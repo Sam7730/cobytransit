@@ -1,0 +1,30 @@
+{
+  "retrieved": "2026-10-23",
+  "timezone": "America/New_York",
+  "feedUrl": "https://s3.amazonaws.com/datatools-511ny/public/Schoharie_County_Public_Transit.zip",
+  "sha256": "7d90990a545e4eba79d02d000cec26e047c2c35a53da4ba36202c47d47b98b97",
+  "validUntil": "2026-12-31",
+  "corrections": [
+    {
+      "trip": "SC_R2A_WDSa_07",
+      "stop": "364271",
+      "field": "pickup",
+      "value": 1,
+      "reason": "Terminal marked drop-off only on agency route page."
+    },
+    {
+      "trip": "Route 2-Loop 3",
+      "stop": "364278",
+      "field": "pickup",
+      "value": 1,
+      "reason": "Terminal marked drop-off only on agency route page."
+    },
+    {
+      "trip": "SC_R2A_WDSa_01_T06",
+      "stop": "364278",
+      "field": "pickup",
+      "value": 1,
+      "reason": "Terminal marked drop-off only on agency route page."
+    }
+  ]
+}
