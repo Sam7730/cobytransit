@@ -1,0 +1,14 @@
+node_modules/
+.DS_Store
+.env
+.env.*
+*.log
+worker/
+.qa/
+
+web/cobytransit-source.zip
+
+dist/
+.openai/
+.codex/
+.agents/
