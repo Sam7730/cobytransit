@@ -1,11 +1,11 @@
-# Security and privacy — release 1.1
+# Security and privacy — release 1.2
 
-The rider interface collects no accounts, payments, precise user locations, uploads or personal profiles. Saved stop IDs and explicitly requested offline transit schedules remain in the browser. Standard hosting request logs may still be retained by the host. Opt-in OpenStreetMap tiles disclose the requested map area and client IP to that provider.
+The rider interface collects no accounts, payments, precise user locations, uploads or personal profiles. Saved stop IDs and explicitly requested offline transit schedules remain in the browser. Standard hosting request logs may still be retained by the host. Default OpenStreetMap street tiles disclose the requested map area, referrer origin and client IP to that provider. Streets can be switched off.
 
 ## Runtime protections
 The embedded preview is allowed only from this origin and https://chatgpt.com through CSP frame-ancestors. Other parent origins remain blocked. X-Frame-Options DENY is omitted because it would also block the permitted ChatGPT preview. The Site stays owner-private.
 
-The Worker attaches CSP, HSTS, nosniff, restricted framing, Referrer-Policy, Permissions-Policy, COOP and CORP on pages, assets, JSON APIs and error responses. CSP restricts scripts, styles, connections and workers to this origin; only fixed OpenStreetMap image tiles are allowed externally. A meta CSP adds a browser-level fallback. No eval, innerHTML, document.write, arbitrary fetch URLs, remote scripts or embedded credentials are used. The app has no npm runtime dependencies.
+The Worker attaches CSP, HSTS, nosniff, restricted framing, Referrer-Policy, Permissions-Policy, COOP and CORP on pages, assets, JSON APIs and error responses. CSP restricts scripts, styles, connections and workers to this origin; only fixed OpenStreetMap image tiles are allowed externally, plus data-URL images used internally by Leaflet. A meta CSP adds a browser-level fallback. Application rendering uses text nodes, including all provider-supplied labels and popup contents. Leaflet is locally bundled; no remote scripts or embedded credentials are used. Leaflet is vendored with its license; no npm install is needed.
 
 Security header behavior is tested against the actual request handler. A deployment verification must also inspect responses through authenticated Sites service access; testing only the sign-in gate is insufficient. Endpoint status and body limits apply to errors as well as successful responses.
 
@@ -21,3 +21,9 @@ Saving is opt-in. Cache allowlists include app assets and read-only transit snap
 Automated tests cover calendar rules, return trips, stale/expired/offline states, update validation and CSRF protections, error-path headers and offline cache behavior. Browser inspection covers route/stop interactions, a narrow 440px compact layout, return search and source warnings. These checks do not certify WCAG conformance, real-device behavior or absence of all vulnerabilities. No independent penetration test has been performed.
 
 No public vulnerability inbox is provisioned. Contact the maintainer privately through the channel where you obtained the project; never post secrets, personal records or unpatched exploit details in public issues.
+
+## Optional live-data endpoints
+
+Read-only live and traffic endpoints accept no caller-supplied upstream URLs. Only server environment settings configure the SCPT HTTPS feed; redirects and local/literal-IP hostnames are rejected. The host operator must select a trusted public provider, including its DNS destination, and enforce outbound policy. Optional bearer credentials remain server-side. Fetches use eight-second timeouts, body limits, per-isolate request coalescing, and schema/coordinate validation. Traffic requests use a fixed TomTom host and bounded tile/service geography. Errors omit upstream content and credentials. Set host-level rate limits and provider quotas before enabling paid services publicly; the per-isolate cache is not a global rate limiter.
+
+Live responses and traffic tiles are excluded from the service worker. API responses use no-store; traffic tile responses have a 60-second private HTTP cache. No user GPS is requested. Browser tests cover keyboard stop selection, route visibility, mobile overflow, live fixtures, stale locations and outages. Actual agency GPS and paid traffic data require a provider account for operational validation.

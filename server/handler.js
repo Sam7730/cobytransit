@@ -1,6 +1,7 @@
+import {vehicleData,trafficData,trafficTile} from './live.js';
 import {validateSnapshot,FEED_URL} from '../web/assets/validation.js';
 export const SECURITY_HEADERS={
- 'Content-Security-Policy':"default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://tile.openstreetmap.org; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' https://chatgpt.com; worker-src 'self'; manifest-src 'self'",
+ 'Content-Security-Policy':"default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' https://chatgpt.com; worker-src 'self'; manifest-src 'self'",
  'X-CobyTransit-App':'1','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','Permissions-Policy':'camera=(), microphone=(), geolocation=(), payment=(), usb=()','Strict-Transport-Security':'max-age=31536000','Cross-Origin-Opener-Policy':'same-origin','Cross-Origin-Resource-Policy':'same-origin','Cache-Control':'no-store','X-XSS-Protection':'0'
 };
 const MAX_BODY=1500000,STATE_KEY='cobytransit/v1/snapshot.json';
@@ -38,9 +39,19 @@ export default {async fetch(request,env={}){
    stage='persist-snapshot';await env.BUCKET.put(STATE_KEY,JSON.stringify(d),{httpMetadata:{contentType:'application/json'}});
    return json({ok:true,...summary,checkedAt});
   }
+  if(['/api/vehicles','/api/traffic'].includes(url.pathname)||url.pathname.startsWith('/api/traffic/tiles/')){
+   if(!['GET','HEAD'].includes(request.method))return json({error:'Method not allowed'},405);
+   if(url.pathname.startsWith('/api/traffic/tiles/')){
+    const match=url.pathname.match(/^\/api\/traffic\/tiles\/(\d{1,2})\/(\d{1,6})\/(\d{1,6})\.png$/);
+    if(!match)return json({error:'Invalid tile'},400);
+    try{const tile=await trafficTile(env,...match.slice(1).map(Number));return tile?response(request.method==='HEAD'?null:tile,200,'image/png',{'Cache-Control':'private, max-age=60'}):json({error:'Traffic tile unavailable'},404);}catch{return json({error:'Traffic provider unavailable'},502);}
+   }
+   const payload=url.pathname==='/api/vehicles'?await vehicleData(env,await snapshot(env,assets)):await trafficData(env);
+   return response(request.method==='HEAD'?null:JSON.stringify(payload));
+  }
   if(url.pathname==='/api/status'){
    if(!['GET','HEAD'].includes(request.method))return json({error:'Method not allowed'},405);
-   const d=await snapshot(env,assets);return json({release:'1.1.0',snapshot:d.meta,liveTracking:{connected:false,reason:'No authorized live feed has been configured.'},persistentUpdates:!!env.BUCKET&&env.UPDATES_ENABLED==='owner-private'});
+   const d=await snapshot(env,assets);return json({release:'1.2.0',snapshot:d.meta,liveTracking:await vehicleData(env,d),traffic:{configured:!!env.TOMTOM_API_KEY},persistentUpdates:!!env.BUCKET&&env.UPDATES_ENABLED==='owner-private'});
   }
   if(!['GET','HEAD'].includes(request.method))return response('Method not allowed',405,'text/plain; charset=utf-8',{'Allow':'GET, HEAD'});
   const pathname=url.pathname==='/'?'/index.html':url.pathname;

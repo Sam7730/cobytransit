@@ -1,6 +1,6 @@
 // Explicit opt-in only. Cache public transit information; never credentials or write APIs.
-const CACHE='cobytransit-offline-v1.1.0',PREFIX='cobytransit-offline-';
-const FILES=['/','/index.html','/assets/style.css','/assets/app.js','/assets/engine.js','/assets/map.js','/assets/catalog.js','/assets/validation.js','/assets/favicon.svg','/manifest.webmanifest','/api/snapshot','/assets/transit.json'];
+const CACHE='cobytransit-offline-v1.2.0',PREFIX='cobytransit-offline-';
+const FILES=['/','/index.html','/assets/style.css','/assets/app.js','/assets/engine.js','/assets/map.js','/assets/live-data.js','/assets/vendor/leaflet.js','/assets/vendor/leaflet.css','/assets/vendor/images/marker-icon.png','/assets/vendor/images/marker-icon-2x.png','/assets/vendor/images/marker-shadow.png','/assets/vendor/images/layers.png','/assets/vendor/images/layers-2x.png','/assets/catalog.js','/assets/validation.js','/assets/favicon.svg','/manifest.webmanifest','/api/snapshot','/assets/transit.json'];
 const paths=new Set(FILES);
 self.addEventListener('install',event=>event.waitUntil(self.skipWaiting()));
 self.addEventListener('activate',event=>event.waitUntil((async()=>{for(const key of await caches.keys())if(key.startsWith(PREFIX)&&key!==CACHE)await caches.delete(key);await self.clients.claim();})()));

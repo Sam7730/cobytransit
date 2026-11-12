@@ -19,7 +19,7 @@ This project continues the earlier CobyTransit concept, replacing its approximat
 | GTFS specification | Pickup/drop-off types and calendar semantics | https://gtfs.org/documentation/schedule/reference/ |
 
 ## Discovery and data terms
-Transitland's catalog https://www.transit.land/feeds/f-schoharie~county~public~transit identifies the fixed 511NY download and links to OPEN-NY terms at https://data.ny.gov/download/77gx-ii52/application/pdf . The terms document was downloaded and read for this work. Transit data is supplied as source data, not relicensed under the application MIT license. No agency logos are included. OpenStreetMap tiles, when enabled by the visitor, carry OpenStreetMap contributor attribution; see https://www.openstreetmap.org/copyright .
+Transitland's catalog https://www.transit.land/feeds/f-schoharie~county~public~transit identifies the fixed 511NY download and links to OPEN-NY terms at https://data.ny.gov/download/77gx-ii52/application/pdf . The terms document was downloaded and read for this work. Transit data is supplied as source data, not relicensed under the application MIT license. No agency logos are included. OpenStreetMap street tiles are enabled by default and carry OpenStreetMap contributor attribution; see https://www.openstreetmap.org/copyright .
 
 The archive hash and correction records are in `data/feed-manifest.json`. Dates in the GTFS indicate service coverage, not a guarantee of current operation. No authenticated or officially authorized GTFS-Realtime/AVL endpoint was verified or connected; absence of a verified endpoint is not proof that none exists.
 
@@ -33,7 +33,7 @@ The archive hash and correction records are in `data/feed-manifest.json`. Dates 
 - GTFS includes nominal times at request stops. Do not present them as fixed boarding times. Stop names containing 'On call' are also excluded conservatively even if a particular GTFS call has pickup_type=0.
 - Route 22 return drop-offs are driver-coordinated in GTFS. Keep restrictions rather than silently changing them to standard drop-offs.
 - The feed has 65 stop records, including records not used in the 23 imported trips. Stop browser exposes all records with route availability indicated.
-- Map background contours are abstract decoration. Gray corridors and colored lines are agency shape geometry, not a complete road or terrain map. Optional street tiles supply a labeled basemap.
+- The interactive Leaflet map uses OpenStreetMap street tiles based on OpenStreetMap. Colored route lines and stop markers come from the 511NY agency snapshot. Services without fixed GTFS geometry remain linked to official information; no routes are invented.
 
 Research was targeted to the official agency, college and feed; it is not an exhaustive audit of every local document, road condition, operator change or stop location.
 
@@ -43,3 +43,15 @@ Research was targeted to the official agency, college and feed; it is not an exh
 - Cloudflare response security headers: https://developers.cloudflare.com/workers/examples/security-headers/
 - Cloudflare notes that Worker-generated responses need response headers rather than relying on an assets `_headers` file: https://developers.cloudflare.com/workers/static-assets/headers/
 - W3C accessibility guidance: https://www.w3.org/WAI/standards-guidelines/wcag/
+
+## Map integration check — November 11, 2026 (Eastern)
+
+The current 511NY archive was downloaded again and still has SHA-256 `7d90990a545e4eba79d02d000cec26e047c2c35a53da4ba36202c47d47b98b97`, matching the reviewed baseline. This targeted check does not change the snapshot retrieval/review dates or claim a complete timetable re-audit. RideSCPT home and Routes 1, 2 and 2A were consulted for the map work; the home page includes the November 11 holiday closure and newer office hours. Existing conflicts and dated student calendars still need operator confirmation.
+
+- Basemap: https://www.openstreetmap.org/copyright
+- Mapping library: https://leafletjs.com/ (1.9.4, BSD-2-Clause; license bundled in `web/assets/vendor/LEAFLET-LICENSE.txt`)
+- Optional traffic incidents: https://developer.tomtom.com/traffic-api/documentation/traffic-incidents/incident-details
+- Optional flow tiles: https://developer.tomtom.com/traffic-api/documentation/traffic-flow/raster-flow-tiles
+- Official road information and cameras: https://511ny.org/
+
+No live SCPT feed or traffic account was verified. See `LIVE_TRACKING.md` for the implemented API contract and required provider configuration.

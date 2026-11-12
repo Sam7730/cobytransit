@@ -22,4 +22,24 @@ assert.equal(
   `${pathToFileURL(workerPath)} must export default.fetch`,
 );
 
+// Verify the generated Worker includes the map runtime and binary vendor assets,
+// and that its live API imports survive source embedding.
+for (const [asset, type] of [
+  ['/assets/vendor/leaflet.js', 'text/javascript'],
+  ['/assets/vendor/leaflet.css', 'text/css'],
+  ['/assets/vendor/images/marker-icon.png', 'image/png'],
+  ['/assets/live-data.js', 'text/javascript'],
+]) {
+  const response = await workerModule.default.fetch(new Request('https://app.example' + asset));
+  assert.equal(response.status, 200, asset);
+  assert.ok(response.headers.get('Content-Type').startsWith(type), asset);
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  assert.ok(bytes.length > 0, asset);
+  if (type === 'image/png') assert.deepEqual([...bytes.slice(0, 4)], [137, 80, 78, 71]);
+}
+for (const path of ['/api/vehicles', '/api/traffic']) {
+  const response = await workerModule.default.fetch(new Request('https://app.example' + path));
+  assert.equal((await response.json()).status, 'unconfigured', path);
+}
+
 console.log("Artifact is valid ESM and exports default.fetch");
