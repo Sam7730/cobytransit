@@ -1,7 +1,7 @@
 // ZIP writer for the source download, using Node built-ins only.
 import {readFile,writeFile,readdir,copyFile} from 'node:fs/promises';import path from 'node:path';import {deflateRawSync} from 'node:zlib';
 const root=path.resolve('.');
-for(const f of ['SECURITY.md','DATA_SOURCES.md','LICENSE','MAINTENANCE.md','LIVE_TRACKING.md'])await copyFile(f,path.join('web',f));
+for(const f of ['SECURITY.md','DATA_SOURCES.md','LICENSE','MAINTENANCE.md','LIVE_TRACKING.md','GPS_SETUP.md'])await copyFile(f,path.join('web',f));
 const table=Array.from({length:256},(_,i)=>{let c=i;for(let j=0;j<8;j++)c=c&1?0xedb88320^(c>>>1):c>>>1;return c>>>0;});
 const crc=b=>{let c=0xffffffff;for(const n of b)c=table[(c^n)&255]^(c>>>8);return (c^0xffffffff)>>>0;};
 async function walk(dir){let files=[];for(const e of await readdir(dir,{withFileTypes:true})){if(['.git','.openai','node_modules','dist','worker','.qa'].includes(e.name)||e.name.startsWith('.env')||e.name==='cobytransit-source.zip')continue;const f=path.join(dir,e.name);if(e.isDirectory())files.push(...await walk(f));else if(e.isFile())files.push(f);}return files;}

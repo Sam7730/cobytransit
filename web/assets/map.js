@@ -1,53 +1,143 @@
-const NS='http://www.w3.org/2000/svg';
-function svg(name,attrs={},text){const e=document.createElementNS(NS,name);for(const[k,v]of Object.entries(attrs))e.setAttribute(k,String(v));if(text!==undefined)e.textContent=text;return e;}
-function world(lat,lon,z){const scale=256*2**z,s=Math.sin(lat*Math.PI/180);return [(lon+180)/360*scale,(.5-Math.log((1+s)/(1-s))/(4*Math.PI))*scale];}
-function fromWorld(x,y,z){const scale=256*2**z;return [Math.atan(Math.sinh(Math.PI*(1-2*y/scale)))*180/Math.PI,x/scale*360-180];}
-export class TransitMap{
- constructor(data,routes,onStop){this.data=data;this.routes=routes;this.onStop=onStop;this.container=document.getElementById('map-container');this.root=document.getElementById('route-map');this.tiles=document.getElementById('tiles');this.tileCache=new Map();this.center=[42.679,-74.48];this.zoom=14;this.selected='2';this.street=false;this.activeStop=null;this.demo=false;this.demoProgress=0;this.drag=null;
- new ResizeObserver(()=>{this.draw();}).observe(this.container);
- this.container.addEventListener('pointerdown',e=>{if(e.target.closest('.map-stop'))return;this.drag={x:e.clientX,y:e.clientY,center:world(...this.center,this.zoom)};this.container.setPointerCapture(e.pointerId);});
- this.container.addEventListener('pointermove',e=>{if(!this.drag)return;this.center=fromWorld(this.drag.center[0]-e.clientX+this.drag.x,this.drag.center[1]-e.clientY+this.drag.y,this.zoom);this.draw();});
- this.container.addEventListener('pointerup',()=>this.drag=null);this.container.addEventListener('pointercancel',()=>this.drag=null);
- document.getElementById('zoom-in').onclick=()=>this.changeZoom(1);document.getElementById('zoom-out').onclick=()=>this.changeZoom(-1);document.getElementById('reset-map').onclick=()=>this.fit();
- document.getElementById('local-view').onclick=()=>{this.center=[42.679,-74.48];this.zoom=14;this.setRegion(false);this.draw();};
- document.getElementById('county-view').onclick=()=>{this.center=[42.676,-74.25];this.zoom=10;this.setRegion(true);this.draw();};
- document.getElementById('basemap').onclick=()=>{this.street=!this.street;const b=document.getElementById('basemap');b.setAttribute('aria-pressed',String(this.street));b.querySelector('span').textContent=this.street?'on':'off';document.getElementById('osm-credit').hidden=!this.street;document.getElementById('geometry-note').textContent=this.street?'Agency routes on OpenStreetMap':'Agency route geometry · no street basemap';if(this.street)b.title='OpenStreetMap receives your IP and the map area viewed.';this.draw();};
+import './vendor/leaflet.js';
+import {freshVehicle, SERVICE_BOUNDS} from './live-data.js';
+const L=window.L, $=id=>document.getElementById(id);
+function textNode(tag,text){const node=document.createElement(tag);node.textContent=text;return node;}
+function popup(title,lines){const box=document.createElement('div');box.append(textNode('strong',title));for(const line of lines)box.append(textNode('p',line));return box;}
+export class TransitMap {
+ constructor(data,routes,onStop,onCounty){
+  this.data=data;this.routes=routes;this.onStop=onStop;this.onCounty=onCounty;this.selected='2';this.activeStop=null;this.mode='all';this.vehicles=[];this.vehicleMarkers=new Map();this.incidents=[];this.showStops=true;
+  this.map=L.map('map-container',{zoomControl:false,attributionControl:false,zoomSnap:.25,minZoom:8,maxZoom:18,zoomAnimation:!matchMedia('(prefers-reduced-motion: reduce)').matches}).setView([42.59,-74.44],10);
+  this.map.setMaxBounds([[41.9,-75.3],[43.3,-73.2]]);
+  this.streets=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,referrerPolicy:'strict-origin-when-cross-origin'}).addTo(this.map);
+  this.streets.on('tileerror',()=>{$('geometry-note').textContent='Street tiles unavailable · routes and stops remain available';});
+  this.streets.on('load',()=>{if(this.streets.getContainer()?.querySelector('.leaflet-tile-loaded'))$('geometry-note').textContent='Agency routes on OpenStreetMap';});
+  this.map.createPane('serviceAreas');this.map.getPane('serviceAreas').style.zIndex='360';this.serviceLayers=L.layerGroup().addTo(this.map);this.overlays=[];this.loadServiceMaps();
+  this.routeLayers=L.layerGroup().addTo(this.map);this.stopLayers=L.layerGroup().addTo(this.map);this.vehicleLayers=L.layerGroup().addTo(this.map);this.incidentLayers=L.layerGroup().addTo(this.map);
+  new ResizeObserver(()=>this.map.invalidateSize({pan:false})).observe($('map-container'));
+  $('zoom-in').onclick=()=>this.map.zoomIn();$('zoom-out').onclick=()=>this.map.zoomOut();$('reset-map').onclick=()=>this.fit();
+  $('local-view').onclick=()=>{this.map.setView([42.679,-74.48],14);this.setRegion(false);};
+  $('county-view').onclick=()=>this.county();
+  $('basemap').onclick=()=>{const on=this.map.hasLayer(this.streets);if(on)this.streets.remove();else this.streets.addTo(this.map);$('basemap').setAttribute('aria-pressed',String(!on));$('basemap').querySelector('span').textContent=on?'off':'on';$('osm-credit').hidden=on;$('geometry-note').textContent=on?'Agency geometry · street map off':'Agency routes on OpenStreetMap';};
+  for(const mode of ['selected','all','none'])$(`routes-${mode}`).onclick=()=>{this.mode=mode;this.activeStop=null;if(mode==='none')this.draw();else this.fit();};
+  $('show-county').disabled=true;this.loadCounty();
+  $('show-county').onchange=e=>{if(!this.countyLayer)return;if(e.target.checked)this.countyLayer.addTo(this.map);else this.countyLayer.remove();};
+  $('show-stops').onchange=e=>{this.showStops=e.target.checked;this.draw();};
+  $('traffic-flow').onchange=e=>this.toggleFlow(e.target.checked);
+  $('traffic-incidents').onchange=()=>this.drawIncidents();
+  $('live-refresh').onclick=()=>this.refresh();
+  $('fullscreen-map').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.querySelector('.map-area').requestFullscreen();}catch{$('geometry-note').textContent='Full screen is unavailable in this browser.';}};
+  document.addEventListener('fullscreenchange',()=>{const full=!!document.fullscreenElement;$('fullscreen-map').setAttribute('aria-pressed',String(full));this.map.invalidateSize();});
+  this.expiryTimer=setInterval(()=>this.drawVehicles(),5000);
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimeout(this.pollTimer);this.vehicles=[];this.incidents=[];this.drawVehicles();this.drawIncidents();this.toggleFlow(false);$('live-status').textContent='Paused while this tab is hidden';}else this.refresh();});
+  window.addEventListener('offline',()=>{this.vehicles=[];this.incidents=[];this.drawVehicles();this.drawIncidents();this.toggleFlow(false);$('traffic-flow').checked=false;$('live-status').textContent='Offline · live locations unavailable';$('traffic-status').textContent='Offline · check conditions when reconnected';});
+  window.addEventListener('online',()=>this.refresh());
+  this.refresh();
  }
- setRegion(regional){document.getElementById('county-view').classList.toggle('active',regional);document.getElementById('local-view').classList.toggle('active',!regional);document.getElementById('map-place').textContent=regional?'Schoharie County & region':'Cobleskill, New York';}
- select(id){this.selected=id;this.activeStop=null;this.stopDemo();this.fit();}
- stop(id){this.activeStop=id;const s=this.data.stops[id];this.center=[s.lat,s.lon];this.zoom=14;this.draw();}
- changeZoom(d){this.zoom=Math.max(8,Math.min(17,this.zoom+d));this.draw();}
- fit(){const trips=this.data.trips.filter(t=>t.route===this.selected),ids=[...new Set(trips.flatMap(t=>t.calls.map(c=>c.stop)))],pts=ids.map(i=>this.data.stops[i]);
- if(!pts.length){this.center=[42.676,-74.25];this.zoom=this.selected==='campus'?14:10;if(this.selected==='campus')this.center=[42.675,-74.499];this.setRegion(this.selected!=='campus');this.draw();return;}
- const minLat=Math.min(...pts.map(s=>s.lat)),maxLat=Math.max(...pts.map(s=>s.lat)),minLon=Math.min(...pts.map(s=>s.lon)),maxLon=Math.max(...pts.map(s=>s.lon));this.center=[(minLat+maxLat)/2,(minLon+maxLon)/2];
- const w=this.container.clientWidth||1000,h=this.container.clientHeight||700;this.zoom=17;
- while(this.zoom>8){const a=world(minLat,minLon,this.zoom),b=world(maxLat,maxLon,this.zoom);if(Math.abs(a[0]-b[0])<w-190&&Math.abs(a[1]-b[1])<Math.max(180,h-390))break;this.zoom--;}
- this.setRegion(!['2','2A'].includes(this.selected));this.draw();}
- draw(){const w=this.container.clientWidth,h=this.container.clientHeight;if(!w||!h)return;this.root.setAttribute('viewBox',`0 0 ${w} ${h}`);this.root.replaceChildren();const center=world(...this.center,this.zoom),oy=h/2-(w<600?85:65),ox=w/2;const project=(lat,lon)=>{const p=world(lat,lon,this.zoom);return [p[0]-center[0]+ox,p[1]-center[1]+oy];};
- const wanted=new Set();if(this.street){const left=center[0]-ox,top=center[1]-oy;for(let x=Math.floor(left/256);x<=Math.floor((left+w)/256);x++)for(let y=Math.floor(top/256);y<=Math.floor((top+h)/256);y++){if(x<0||y<0||x>=2**this.zoom||y>=2**this.zoom)continue;const key=`${this.zoom}/${x}/${y}`,pos=[x*256-left,y*256-top];wanted.add(key);let img=this.tileCache.get(key);if(!img){img=document.createElement('img');img.alt='';img.referrerPolicy='no-referrer';img.draggable=false;img.src=`https://tile.openstreetmap.org/${key}.png`;img.onerror=()=>{document.getElementById('geometry-note').textContent='Street tiles unavailable · agency geometry still shown';};this.tiles.append(img);this.tileCache.set(key,img);}img.style.left=`${pos[0]}px`;img.style.top=`${pos[1]}px`;}}
- for(const[k,img]of this.tileCache)if(!wanted.has(k)){img.remove();this.tileCache.delete(k);}
- if(!this.street){const defs=svg('defs');const pattern=svg('pattern',{id:'map-grid',width:48,height:48,patternUnits:'userSpaceOnUse'});pattern.append(svg('path',{d:'M 48 0 L 0 0 0 48',fill:'none',stroke:'#e5eadb','stroke-width':'.6'}));defs.append(pattern);this.root.append(defs,svg('rect',{width:w,height:h,fill:'url(#map-grid)'}));
- // Abstract contours are decorative, not surveyed terrain or roads.
- for(let i=0;i<7;i++)this.root.append(svg('ellipse',{cx:w*.82,cy:h*.2,rx:w*.23+i*32,ry:90+i*29,fill:'none',stroke:'#e2e8d6','stroke-width':1,transform:`rotate(-23 ${w*.82} ${h*.2})`,'aria-hidden':'true'}));
- for(let i=0;i<4;i++)this.root.append(svg('ellipse',{cx:w*.12,cy:h*.83,rx:100+i*35,ry:70+i*26,fill:'none',stroke:'#e1e7d6','stroke-width':1,'aria-hidden':'true'}));
+ async loadServiceMaps(){
+  try{const response=await fetch('./assets/service-overlays.json',{signal:AbortSignal.timeout(8000)});if(!response.ok)throw Error('Service maps unavailable');const data=await response.json();
+   if(!Array.isArray(data.features)||data.features.length>100||!data.features.every(f=>['5','20','23'].includes(f.properties?.route)))throw Error('Invalid service maps');
+   this.overlays=data.features;if(this.mode==='selected'&&!this.activeStop&&['5','20','23'].includes(this.selected))this.fit();else this.draw();
+  }catch{this.overlays=[];}
  }
- const shapeIds=[...new Set(this.data.trips.map(t=>t.shape))];const pathFor=id=>(this.data.shapes[id]||[]).map((p,i)=>{const[x,y]=project(...p);return `${i?'L':'M'}${x.toFixed(1)},${y.toFixed(1)}`;}).join('');
- for(const id of shapeIds)this.root.append(svg('path',{d:pathFor(id),fill:'none',stroke:this.street?'#9eae9950':'#d4ddc7','stroke-width':this.street?2:8,'stroke-linejoin':'round','stroke-linecap':'round','aria-hidden':'true'}));
- const r=this.routes.find(r=>r.id===this.selected),selectedShapes=[...new Set(this.data.trips.filter(t=>t.route===this.selected).map(t=>t.shape))];
- for(const id of selectedShapes){const d=pathFor(id);this.root.append(svg('path',{d,fill:'none',stroke:'#fff','stroke-width':8,'stroke-linecap':'round','stroke-linejoin':'round'}),svg('path',{d,fill:'none',stroke:r.color,'stroke-width':4,'stroke-linecap':'round','stroke-linejoin':'round'}));}
- const towns=[['COBLESKILL',42.6795,-74.487],['RICHMONDVILLE',42.635,-74.564],['CENTRAL BRIDGE',42.712,-74.335],['SCHOHARIE',42.667,-74.31],['MIDDLEBURGH',42.595,-74.329],['ALBANY',42.648,-73.765]];
- if(!this.street)for(const[name,lat,lon]of towns){const[x,y]=project(lat,lon);if(x>20&&x<w-80&&y>50&&y<h-150)this.root.append(svg('text',{x,y,class:'map-town','aria-hidden':'true'},name));}
- const selectedStops=[...new Set(this.data.trips.filter(t=>t.route===this.selected).flatMap(t=>t.calls.map(c=>c.stop)))];if(this.activeStop&&!selectedStops.includes(this.activeStop))selectedStops.push(this.activeStop);
- const labelBoxes=[];
- const priority=s=>/SUNY Cobleskill|Wal-Mart|Main & Center|Hospital$|Price Chopper|County Office|Middleburgh Library/.test(s.name)?1:0;
- selectedStops.sort((a,b)=>priority(this.data.stops[b])-priority(this.data.stops[a]));
- for(const id of selectedStops){const s=this.data.stops[id],[x,y]=project(s.lat,s.lon);if(x<-5||x>w+5||y<0||y>h)continue;const g=svg('g',{class:'map-stop',role:'button',tabindex:0,'aria-label':`View stop: ${s.name}`});g.append(svg('circle',{cx:x,cy:y,r:id===this.activeStop?8:4.5,stroke:r?.color||'#258265'}));
- const text=s.name.replace('SUNY Cobleskill,  Knapp Circle','SUNY · Knapp Circle').replace('Main & Center St., Cobleskill','Main & Center').replace('Main & Union Street, Cobleskill','Main & Union').replace('Price Chopper Plaza','Price Chopper').replace('Wal-Mart Plaza','Walmart').replace(/ - On call/i,'');const labelY=y-12,labelX=x+9,labelW=Math.min(160,text.length*5.7);
- if((priority(s)||id===this.activeStop)&&x+labelW+15<w&&labelY>140&&labelY<h-(w<600?310:230)&&!labelBoxes.some(b=>labelX<b[2]&&labelX+labelW>b[0]&&labelY-10<b[3]&&labelY+8>b[1])){g.append(svg('text',{x:labelX,y:labelY},text));labelBoxes.push([labelX,labelY-10,labelX+labelW,labelY+8]);}
- g.append(svg('title',{},s.name));g.addEventListener('click',e=>{e.stopPropagation();this.onStop(id);});g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();this.onStop(id);}});this.root.append(g);}
- if(this.demo&&selectedShapes.length){const shape=this.data.shapes[selectedShapes[0]],p=shape[Math.floor(this.demoProgress*(shape.length-1))],[x,y]=project(...p);this.root.append(svg('rect',{x:x-12,y:y-11,width:24,height:22,rx:6,class:'demo-bus'}),svg('text',{x:x+17,y:y-10,class:'demo-text'},'SIMULATED'));
+ drawServiceMaps(){
+  this.serviceLayers.clearLayers();
+  if(this.mode==='none')return;
+  const features=this.overlays.filter(f=>this.mode==='all'||f.properties.route===this.selected);
+  L.geoJSON(features,{
+   pane:'serviceAreas',style:feature=>feature.geometry.type==='Point'?{color:'#8c5d14',weight:2,fillColor:'#ffe2a6',fillOpacity:1}:{color:'#a47a2a',weight:1.5,dashArray:'4 4',fillColor:'#d7c17e',fillOpacity:.16},
+   pointToLayer:(feature,latlng)=>L.circleMarker(latlng,{radius:6,color:'#8c5d14',weight:2,fillColor:'#ffe2a6',fillOpacity:1}),
+   onEachFeature:(feature,layer)=>{
+    const p=feature.properties,area=p.kind==='reservation-area';
+    const box=popup(`${p.name} · Route ${p.route}`,[area?`${p.days} · reservation pickup area`:'Location shown on the agency’s map',area?'Call SCPT to confirm pickup for your address. The shaded area is not a fixed bus path.':'Reservations required. Confirm the location and service time with SCPT; map entries can differ from the timetable.']);
+    const link=textNode('a','Official route details →');link.href=`https://ridescpt.com/index.php/routes/route-${p.route}`;link.target='_blank';link.rel='noopener noreferrer';box.append(link);
+    layer.bindTooltip(textNode('span',`Route ${p.route} · ${p.name} · reserve ahead`)).bindPopup(box);
+    layer.on('add',()=>{const element=layer.getElement();if(!element)return;element.setAttribute('tabindex','0');element.setAttribute('role','button');element.setAttribute('aria-label',`Agency map ${area?'area':'location'}: ${p.name}, Route ${p.route}`);element.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();layer.openPopup();}});});
+   }
+  }).addTo(this.serviceLayers);
  }
+ async loadCounty(){
+  try{
+   const response=await fetch('./assets/schoharie-county.json',{signal:AbortSignal.timeout(8000)});if(!response.ok)throw Error('Boundary unavailable');const geo=await response.json();
+   if(geo.features?.length!==1||geo.features[0].properties?.GEOID!=='36095')throw Error('Wrong county');
+   this.map.createPane('countyBoundary');this.map.getPane('countyBoundary').style.zIndex='350';
+   this.countyLayer=L.geoJSON(geo,{pane:'countyBoundary',style:{color:'#576f52',weight:2,dashArray:'7 6',fillColor:'#b1d38e',fillOpacity:.08},interactive:false}).addTo(this.map);
+   $('show-county').disabled=false;
+  }catch{$('show-county').checked=false;$('show-county').closest('label').append(textNode('small',' · unavailable'));}
  }
- toggleDemo(){if(this.demo){this.stopDemo();return false;}this.demo=true;this.demoProgress=0;this.tick=setInterval(()=>{this.demoProgress=(this.demoProgress+.003)%1;this.draw();},180);this.draw();return true;}
- stopDemo(){this.demo=false;clearInterval(this.tick);this.draw();}
+ county(){this.mode='all';this.activeStop=null;this.onCounty?.();this.map.invalidateSize({pan:false});this.map.fitBounds([[42.35502,-74.71158],[42.82956,-74.16468]],{paddingTopLeft:[30,155],paddingBottomRight:[55,75]});this.setRegion(true);this.draw();}
+ setRegion(regional){$('county-view').classList.toggle('active',regional);$('local-view').classList.toggle('active',!regional);$('map-place').textContent=regional?'Schoharie County':'Cobleskill, New York';}
+ select(id){this.selected=id;this.activeStop=null;this.mode='selected';this.fit();}
+ stop(id){this.activeStop=id;const s=this.data.stops[id];this.map.invalidateSize({pan:false});this.map.setView([s.lat,s.lon],16);this.draw();}
+ fit(){
+  this.map.invalidateSize({pan:false});
+  const trips=this.data.trips.filter(t=>this.mode==='all'||t.route===this.selected),points=trips.flatMap(t=>this.data.shapes[t.shape]||[]);
+  if(this.mode==='all'){points.push([42.35502,-74.71158],[42.82956,-74.16468]);for(const feature of this.overlays){const bounds=L.geoJSON(feature).getBounds();if(bounds.isValid())points.push(bounds.getSouthWest(),bounds.getNorthEast());}}
+  if(points.length)this.map.fitBounds(L.latLngBounds(points),{paddingTopLeft:[30,165],paddingBottomRight:[55,85],maxZoom:15});
+  else {const features=this.overlays.filter(f=>f.properties.route===this.selected);if(features.length)this.map.fitBounds(L.geoJSON(features).getBounds(),{paddingTopLeft:[35,180],paddingBottomRight:[60,85],maxZoom:13});else this.map.setView(this.selected==='campus'?[42.675,-74.499]:[42.61,-74.4],this.selected==='campus'?14:10);}
+  this.setRegion(!['2','2A','campus'].includes(this.selected));this.draw();
+ }
+ draw(){
+  this.map.invalidateSize({pan:false});this.drawServiceMaps();this.routeLayers.clearLayers();this.stopLayers.clearLayers();
+  for(const mode of ['selected','all','none'])$(`routes-${mode}`).setAttribute('aria-pressed',String(this.mode===mode));
+  const trips=this.data.trips.filter(t=>this.mode==='all'||(this.mode==='selected'&&t.route===this.selected));
+  const shapes=new Set();
+  for(const trip of trips){const key=`${trip.route}/${trip.shape}`;if(shapes.has(key))continue;shapes.add(key);const color=this.routes.find(r=>r.id===trip.route)?.color||'#1d7356',points=this.data.shapes[trip.shape];
+   L.polyline(points,{color:'#fff',weight:8,opacity:.9,interactive:false}).addTo(this.routeLayers);
+   L.polyline(points,{color,weight:4,opacity:.95}).bindTooltip(textNode('span',`SCPT Route ${trip.route}`)).addTo(this.routeLayers);
+  }
+  const ids=new Set(this.showStops?trips.flatMap(t=>t.calls.map(c=>c.stop)):[]);if(this.activeStop)ids.add(this.activeStop);
+  for(const id of ids){const s=this.data.stops[id],marker=L.circleMarker([s.lat,s.lon],{radius:id===this.activeStop?9:5,weight:2,color:'#183e35',fillColor:'#fff',fillOpacity:1}).addTo(this.stopLayers);
+   marker.bindTooltip(textNode('span',s.name));marker.on('click',()=>this.onStop(id));
+   const element=marker.getElement();element.setAttribute('tabindex','0');element.setAttribute('role','button');element.setAttribute('aria-label',`View stop: ${s.name}`);element.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();this.onStop(id);}});
+  }
+  const hasOverlay=this.overlays.some(f=>f.properties.route===this.selected);
+  $('map-empty').hidden=trips.length>0||this.mode==='none';
+  $('map-empty').textContent=hasOverlay?'Agency reservation areas or map locations are shown. Confirm your pickup with SCPT; no fixed bus path is implied.':'This service has no fixed route line on this map. See the booking details below or check the official schedule.';
+  this.drawVehicles();
+ }
+ drawVehicles(){
+  const fresh=this.vehicles.filter(v=>freshVehicle(v));
+  const visible=fresh.filter(v=>this.mode==='all'||(this.mode==='selected'&&v.routeId===this.selected));
+  const visibleIds=new Set(visible.map(v=>v.id));for(const [id,marker] of this.vehicleMarkers)if(!visibleIds.has(id)){this.vehicleLayers.removeLayer(marker);this.vehicleMarkers.delete(id);}
+  for(const v of visible){let marker=this.vehicleMarkers.get(v.id);if(!marker){const content=textNode('span',v.routeId);content.className='bus-marker-label';
+   marker=L.marker([v.lat,v.lon],{icon:L.divIcon({className:'live-bus-marker',html:content,iconSize:[36,30],iconAnchor:[18,15]}),title:`Bus ${v.label}, route ${v.routeId}`,alt:`Live bus ${v.label}`,zIndexOffset:1000}).addTo(this.vehicleLayers);
+   this.vehicleMarkers.set(v.id,marker);}
+   marker.setLatLng([v.lat,v.lon]);const label=marker.getElement()?.querySelector('.bus-marker-label');if(label)label.textContent=v.routeId;
+   marker.bindPopup(popup(`Bus ${v.label} · Route ${v.routeId}`,[`GPS measured ${new Date(v.timestamp*1000).toLocaleTimeString('en-US',{timeZone:'America/New_York'})} ET · ${Math.max(0,Math.floor(Date.now()/1000-v.timestamp))} seconds ago`,'Location only. Use the timetable for scheduled departures; no live arrival prediction is provided.']));
+  }
+  if(this.vehicles.length&&!fresh.length)$('live-status').textContent='GPS positions expired · waiting for fresh data';
+  $('gps-badge').textContent=fresh.length?`${fresh.length} live buses`:'Scheduled times';
+  $('gps-badge').dataset.live=String(fresh.length>0);
+  $('live-summary').textContent=fresh.length?`${visible.length} buses shown for your route filter. GPS expires after 90 seconds.`:'No current bus positions to display.';
+ }
+ toggleFlow(enabled){
+  if(this.flow){this.flow.remove();this.flow=null;}
+  if(!enabled)return;
+  this.flow=L.tileLayer(`/api/traffic/tiles/{z}/{x}/{y}.png?t=${Math.floor(Date.now()/60000)}`,{opacity:.8,bounds:[[SERVICE_BOUNDS.south,SERVICE_BOUNDS.west],[SERVICE_BOUNDS.north,SERVICE_BOUNDS.east]],maxZoom:18}).addTo(this.map);
+  this.flow.on('tileerror',()=>{$('traffic-status').textContent='Some traffic tiles could not load. Check 511NY for current conditions.';});
+ }
+ drawIncidents(){this.incidentLayers.clearLayers();if(!$('traffic-incidents').checked)return;
+  for(const item of this.incidents){const color=item.category===8?'#ae2634':'#bc6811',lines=[item.description,[item.from,item.to].filter(Boolean).join(' → '),item.delay===null?'Delay not reported':`Reported delay: ${Math.ceil(item.delay/60)} min`];
+   if(item.points.length>1)L.polyline(item.points,{color,weight:6,dashArray:'6 5'}).bindPopup(popup('Road incident',lines)).addTo(this.incidentLayers);
+   const symbol=textNode('span',item.category===8?'×':'!');
+   L.marker(item.points[Math.floor(item.points.length/2)],{icon:L.divIcon({className:'incident-marker',html:symbol,iconSize:[26,26]}),title:item.description}).bindPopup(popup('Road incident',lines)).addTo(this.incidentLayers);
+  }
+ }
+ async refresh(){
+  clearTimeout(this.pollTimer);if(this.refreshing||document.hidden)return;this.refreshing=true;$('live-refresh').disabled=true;
+  const fetchJson=async path=>{const r=await fetch(path,{cache:'no-store',signal:AbortSignal.timeout(10000)});if(!r.ok)throw Error('Unavailable');return r.json();};
+  const results=await Promise.allSettled([fetchJson('./api/vehicles'),fetchJson('./api/traffic')]);
+  if(document.hidden||!navigator.onLine){this.refreshing=false;$('live-refresh').disabled=false;return;}
+  const buses=results[0],traffic=results[1];
+  if(buses.status==='fulfilled'&&Array.isArray(buses.value.vehicles)){this.vehicles=buses.value.vehicles;$('live-status').textContent=buses.value.message;}
+  else{this.vehicles=[];$('live-status').textContent='Live bus service unavailable · use the published timetable';}
+  this.drawVehicles();
+  if(traffic.status==='fulfilled'&&Array.isArray(traffic.value.incidents)){
+   const state=traffic.value;this.incidents=state.connected?state.incidents:[];$('traffic-status').textContent=state.message;
+   $('traffic-updated').textContent=state.connected?`Traffic checked ${new Date(state.checkedAt).toLocaleTimeString('en-US',{timeZone:'America/New_York'})} ET · TomTom`:'';
+   for(const id of ['traffic-flow','traffic-incidents']){$(id).disabled=!state.connected;if(!state.connected)$(id).checked=false;}
+   $('traffic-options').hidden=!state.connected;$('traffic-credit').hidden=!state.connected;this.toggleFlow(state.connected&&$('traffic-flow').checked);
+  }else{this.incidents=[];this.toggleFlow(false);for(const id of ['traffic-flow','traffic-incidents']){$(id).disabled=true;$(id).checked=false;}$('traffic-status').textContent='Traffic service unavailable · check 511NY';$('traffic-updated').textContent='';$('traffic-credit').hidden=true;$('traffic-options').hidden=true;}
+  this.drawIncidents();this.refreshing=false;$('live-refresh').disabled=false;if(!document.hidden)this.pollTimer=setTimeout(()=>this.refresh(),30000);
+ }
 }
