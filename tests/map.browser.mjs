@@ -17,7 +17,7 @@ await page.goto(process.env.BASE_URL||'http://localhost:4173');await page.waitFo
 assert.equal(await page.locator('#gps-badge').textContent(),'1 live buses');
 await page.locator('.live-bus-marker').click();assert.ok((await page.locator('.leaflet-popup-content').textContent()).includes('<img src=x onerror=alert(1)>'));assert.equal(await page.locator('.leaflet-popup-content img').count(),0);
 await page.locator('.leaflet-popup-close-button').click();
-assert.equal(await page.locator('[aria-label^="View stop:"]').count(),20);
+assert.equal(await page.locator('[aria-label^="View stop:"]').count(),47);
 await page.locator('.map-layers summary').click();
 await page.locator('#routes-all').click();assert.equal(await page.locator('[aria-label^="View stop:"]').count(),47);
 await page.locator('#routes-none').click();assert.equal(await page.locator('[aria-label^="View stop:"]').count(),0);assert.equal(await page.locator('.live-bus-marker').count(),0);
@@ -27,6 +27,14 @@ await page.locator('#traffic-flow').check();await page.waitForFunction(()=>docum
 mode='stale';await page.locator('#live-refresh').click();await page.waitForFunction(()=>document.getElementById('live-refresh').disabled===false);assert.equal(await page.locator('.live-bus-marker').count(),0);assert.match(await page.locator('#live-status').textContent(),/expired/);
 mode='live';await page.locator('#live-refresh').click();await page.waitForSelector('.live-bus-marker');
 mode='failure';await page.locator('#live-refresh').click();await page.waitForFunction(()=>document.getElementById('live-refresh').disabled===false);assert.equal(await page.locator('.live-bus-marker').count(),0);assert.match(await page.locator('#live-status').textContent(),/unavailable/);
+await page.locator('.map-layers summary').click();
+await page.getByRole('button',{name:'Route 2: Cobleskill local',exact:true}).click();
+await page.locator('.route-stops summary').click();await page.locator('.route-stop-list button').first().click();
+assert.equal(await page.locator('#departure-board').isVisible(),true);
+await page.getByRole('button',{name:'Share this stop →',exact:true}).click();const shareUrl=await page.locator('#share-url').inputValue();assert.ok(new URL(shareUrl).searchParams.get('stop'));await page.locator('#close-share').click();
+const stopTitle=await page.locator('#detail h2').textContent();await page.goto(shareUrl);await page.waitForSelector('#departure-board');assert.equal(await page.locator('#detail h2').textContent(),stopTitle);
+await page.locator('#county-view').click();await page.waitForFunction(()=>!document.getElementById('show-county').disabled);assert.equal(await page.locator('[aria-label^="Agency map area:"]').count(),10);assert.equal(await page.locator('[aria-label^="Agency map location:"]').count(),12);
 await page.setViewportSize({width:390,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
-await page.locator('.map-layers summary').click();await page.locator('#show-list').click();await page.getByRole('button',{name:'Route 5: A ride closer to your door',exact:true}).click();assert.equal(await page.locator('#map-empty').isVisible(),true);
+await page.locator('#show-list').click();await page.getByRole('button',{name:'Route 5: County demand response',exact:true}).click();assert.equal(await page.locator('#map-empty').isVisible(),true);assert.match(await page.locator('#detail').textContent(),/Gilboa/);assert.equal(await page.locator('[aria-label^="Agency map area:"]').count(),10);
+await page.keyboard.press('/');assert.equal(await page.locator('#search').evaluate(e=>e===document.activeElement),true);await page.locator('#search').fill('Gilboa');assert.equal(await page.locator('.route-card').count(),1);
 assert.deepEqual(errors,[]);console.log('PASS: fixture live bus, escaped popup, incident layer, tile outage, stale GPS expiry and feed outage.');await browser.close();

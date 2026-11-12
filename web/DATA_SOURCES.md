@@ -55,3 +55,16 @@ The current 511NY archive was downloaded again and still has SHA-256 `7d90990a54
 - Official road information and cameras: https://511ny.org/
 
 No live SCPT feed or traffic account was verified. See `LIVE_TRACKING.md` for the implemented API contract and required provider configuration.
+
+## County coverage and service maps — November 12, 2026
+
+The county boundary is a US Census TIGERweb `State_County/MapServer/1` query for STATE 36, COUNTY 095, exported as WGS84 GeoJSON with 0.0001-degree simplification and five decimal places. It is a geographic reference, not a service guarantee or survey boundary. Source: https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/1 .
+
+RideSCPT's Routes 5, 20 and 23 embed public agency-authored Google My Maps. Their KML exports are imported by `scripts/import-service-maps.py`; source URLs and archive SHA-256 digests are recorded in `web/assets/service-overlays.json`. Google imagery is not downloaded or included. Map data retains the source's terms.
+
+- Route 5: ten named pickup-area polygons. Duplicate Sharon/county outlines, the Cobleskill destination polygon and the decorative legend polygon are excluded. Tuesday/Thursday labels come from the route page. No fixed route is created.
+- Route 20: five map locations. Several pickups are on call; reservations and destination requests determine the trip.
+- Route 23: seven map locations, including Cooperstown. Its map and written schedule differ (e.g. additional map entries at Zion Church, Bassett Hall and Richmondville Fire House). All are explicitly marked as agency map locations requiring confirmation, not guaranteed timed stops. They are excluded from the timetable and direct-trip planner.
+- The expanded catalog makes published Route 5 town coverage searchable and keeps the weekend service date caveat. Broome, Esperance, Wright and any address without explicit published coverage are referred to dispatch.
+
+The original fixed-route snapshot review dates remain unchanged; this is a targeted coverage/map review. Upcoming departures use the existing GTFS calendar and exceptions over a seven-day horizon and remain labeled as scheduled.

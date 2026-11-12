@@ -1,4 +1,4 @@
-# Security and privacy — release 1.2
+# Security and privacy — release 1.3
 
 The rider interface collects no accounts, payments, precise user locations, uploads or personal profiles. Saved stop IDs and explicitly requested offline transit schedules remain in the browser. Standard hosting request logs may still be retained by the host. Default OpenStreetMap street tiles disclose the requested map area, referrer origin and client IP to that provider. Streets can be switched off.
 
@@ -27,3 +27,5 @@ No public vulnerability inbox is provisioned. Contact the maintainer privately t
 Read-only live and traffic endpoints accept no caller-supplied upstream URLs. Only server environment settings configure the SCPT HTTPS feed; redirects and local/literal-IP hostnames are rejected. The host operator must select a trusted public provider, including its DNS destination, and enforce outbound policy. Optional bearer credentials remain server-side. Fetches use eight-second timeouts, body limits, per-isolate request coalescing, and schema/coordinate validation. Traffic requests use a fixed TomTom host and bounded tile/service geography. Errors omit upstream content and credentials. Set host-level rate limits and provider quotas before enabling paid services publicly; the per-isolate cache is not a global rate limiter.
 
 Live responses and traffic tiles are excluded from the service worker. API responses use no-store; traffic tile responses have a 60-second private HTTP cache. No user GPS is requested. Browser tests cover keyboard stop selection, route visibility, mobile overflow, live fixtures, stale locations and outages. Actual agency GPS and paid traffic data require a provider account for operational validation.
+
+County and service-overlay geometry is packaged locally. Agency-map text is rendered as text nodes; imported map descriptions/HTML are not used. Share links contain only validated route/stop IDs and the explorer hash, omitting unrelated URL parameters. No GPS devices, tracking accounts or credentials are configured by the hardware guide.

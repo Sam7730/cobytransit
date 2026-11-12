@@ -14,6 +14,18 @@ export function activeService(data,service,date){
 }
 export function requestStop(data,call){return /on call/i.test(data.stops[call.stop]?.name||'')||call.pickup>1||call.dropoff>1;}
 export function departures(data,stop,date,after=0,route=null){return data.trips.filter(t=>(!route||t.route===route)&&activeService(data,t.service,date)).flatMap(t=>t.calls.filter(c=>c.stop===stop&&c.pickup===0&&!requestStop(data,c)&&c.departure>=after).map(c=>({trip:t,call:c}))).sort((a,b)=>a.call.departure-b.call.departure);}
+export function upcomingDepartures(data,stop,now=new Date(),limit=3){
+  const local=localNow(now),result=[];
+  if(!Object.hasOwn(data.stops,stop))return result;
+  for(let day=0;day<7&&result.length<limit;day++){
+    const date=new Date(local.date+'T12:00:00Z');date.setUTCDate(date.getUTCDate()+day);
+    const key=date.toISOString().slice(0,10);
+    for(const item of departures(data,stop,key,day===0?minutes(local.time):0)){
+      result.push({...item,date:key,dayOffset:day});if(result.length>=limit)break;
+    }
+  }
+  return result;
+}
 export function plan(data,from,to,date,time){
   const after=minutes(time);if(from===to||!Object.hasOwn(data.stops,from)||!Object.hasOwn(data.stops,to)||!validDate(date)||!Number.isFinite(after))return [];
   return data.trips.filter(t=>activeService(data,t.service,date)).flatMap(trip=>{

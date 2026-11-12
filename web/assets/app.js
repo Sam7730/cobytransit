@@ -1,5 +1,5 @@
-import {routes,routeUrl,sources,notices} from './catalog.js';
-import {localNow,minutes,formatTime,activeService,requestStop,departures,plan,validDate,lastDeparture,returnsFor} from './engine.js';
+import {routes,routeUrl,sources,notices,serviceDetails} from './catalog.js';
+import {localNow,minutes,formatTime,activeService,requestStop,departures,upcomingDepartures,plan,validDate,lastDeparture,returnsFor} from './engine.js';
 import {validateSnapshot,freshness} from './validation.js';
 import {TransitMap} from './map.js';
 const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
@@ -8,17 +8,17 @@ function icon(name){const s=document.createElementNS(NS,'svg'),u=document.create
 function link(text,url,cls){const a=el('a',cls,text);const parsed=new URL(url,location.href);if(!['https:','tel:'].includes(parsed.protocol)&&parsed.origin!==location.origin)throw Error('Unsupported link');a.href=url;if(parsed.protocol==='https:'&&parsed.origin!==location.origin){a.target='_blank';a.rel='noopener noreferrer';}return a;}
 function button(text,cls,fn){const b=el('button',cls,text);b.type='button';b.onclick=fn;return b;}
 function badge(r){return el('span',`route-badge r${r.id}`,r.id==='campus'?'SUNY':r.id==='20W'?'20W':r.id);}
-let data,map,selected='2',side='routes',filter='all',query='',stopId=null,currentView='explore',toastTimer,offlineSnapshot=false;
+let data,map,selected=null,side='routes',filter='all',query='',stopId=null,currentView='explore',toastTimer,offlineSnapshot=false;
 const storageKey='cobytransit:saved-stops:v1';let saved=new Set();
 function toast(text){$('toast').textContent=text;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,3500);}
 function storeSaved(){try{localStorage.setItem(storageKey,JSON.stringify([...saved]));}catch{toast('Storage is unavailable. Saved stops will last for this visit only.');}}
 function toggleSaved(id){if(saved.has(id))saved.delete(id);else if(saved.size<65)saved.add(id);storeSaved();renderList();if(stopId===id)showStop(id,false);toast(saved.has(id)?'Stop saved on this device.':'Stop removed from saved stops.');}
-function renderList(){const body=$('service-list');body.replaceChildren();$('filters').hidden=side!=='routes';document.querySelectorAll('[data-side]').forEach(b=>b.classList.toggle('active',b.dataset.side===side));
+function renderList(){const body=$('service-list');body.replaceChildren();$('filters').hidden=side!=='routes';document.querySelectorAll('[data-side]').forEach(b=>{b.classList.toggle('active',b.dataset.side===side);b.setAttribute('aria-pressed',String(b.dataset.side===side));});
  if(side==='routes'){
- const list=routes.filter(r=>(filter==='all'||filter===r.group)&&[r.id,r.name,r.sub,...data.trips.filter(t=>t.route===r.id).flatMap(t=>t.calls.map(c=>data.stops[c.stop].name))].join(' ').toLowerCase().includes(query));
- $('list-title').textContent='FIND YOUR ROUTE';$('list-count').textContent=`${list.length} services`;
+ const list=routes.filter(r=>(filter==='all'||filter===r.group)&&[r.id,r.name,r.sub,...(serviceDetails[r.id]?.areas||[]),...data.trips.filter(t=>t.route===r.id).flatMap(t=>t.calls.map(c=>data.stops[c.stop].name))].join(' ').toLowerCase().includes(query));
+ $('list-title').textContent='COUNTY & REGIONAL SERVICES';$('list-count').textContent=`${list.length} services`;
  for(const r of list){const b=button('',`route-card${selected===r.id?' selected':''}`,()=>selectRoute(r.id));b.setAttribute('aria-pressed',String(selected===r.id));b.setAttribute('aria-label',`Route ${r.id}: ${r.name}`);const copy=el('span','route-copy');copy.append(el('b','',r.name),el('small','',r.sub),el('small','route-meta',`${r.days}  ·  ${r.fare}${r.id==='3'?' · Check notice':''}`));b.append(badge(r),copy,el('span','route-arrow','›'));body.append(b);}
- if(!list.length)body.append(el('p','empty-list','No routes match. Try a stop name, route number, or another category.'));
+ if(!list.length)body.append(el('p','empty-list','No published service matches this search. Try another town or call SCPT at 518-234-0952 to check pickup options for your address.'));
  }else{
  const list=Object.values(data.stops).filter(s=>(side!=='saved'||saved.has(s.id))&&s.name.toLowerCase().includes(query)).sort((a,b)=>a.name.localeCompare(b.name));
  $('list-title').textContent=side==='saved'?'YOUR SAVED STOPS':'EXPLORE AGENCY STOPS';$('list-count').textContent=`${list.length} stop${list.length===1?'':'s'}`;
@@ -28,17 +28,62 @@ function renderList(){const body=$('service-list');body.replaceChildren();$('fil
 }
 function stopRoutes(id){return [...new Set(data.trips.filter(t=>t.calls.some(c=>c.stop===id)).map(t=>t.route))].sort();}
 function revealMap(){const wasList=$('explorer').classList.contains('list-mode');$('explorer').classList.remove('list-mode');$('show-list').setAttribute('aria-pressed','false');$('show-map').setAttribute('aria-pressed','true');if(wasList)document.querySelector('.map-area').scrollIntoView({block:'start'});}
-function selectRoute(id){selected=id;stopId=null;revealMap();map.select(id);renderList();renderRoute();}
-function renderRoute(){const r=routes.find(r=>r.id===selected),card=$('detail');card.replaceChildren();const head=el('div','detail-head'),copy=el('div');copy.append(el('h2','',r.name),el('p','',`Route ${r.id==='campus'?'Campus shuttle':r.id} · ${r.sub}`));const actions=el('div','detail-actions'),ts=data.trips.filter(t=>t.route===r.id);
- if(ts.length)actions.append(button('View timetable','primary',()=>openSchedule(r.id)));else actions.append(link('Official schedule ↗',routeUrl(r),'primary'));
- actions.append(button('Plan a trip','secondary',()=>{switchView('plan');}));head.append(badge(r),copy,actions);const bottom=el('div','detail-bottom');bottom.append(el('b','',r.days),el('span','',`${r.fare}${['1','2','2A','3'].includes(r.id)?' one-way':' published fare'}`));if(ts.length)bottom.append(el('span','',`${ts.length} scheduled runs`));else bottom.append(el('span','','No GTFS geometry imported'));bottom.append(link('Official route ↗',routeUrl(r)));card.append(head,bottom,el('p','detail-note',r.note));
-
+function selectRoute(id){if(!routes.some(r=>r.id===id))return;selected=id;stopId=null;revealMap();renderList();renderRoute();map.select(id);updateLocation();}
+function updateLocation(){const url=new URL(location.href);if(selected)url.searchParams.set('route',selected);else url.searchParams.delete('route');if(stopId)url.searchParams.set('stop',stopId);else url.searchParams.delete('stop');history.replaceState(null,'',url);}
+function shareSelection(){const url=new URL(location.pathname,location.origin);if(selected)url.searchParams.set('route',selected);if(stopId)url.searchParams.set('stop',stopId);url.hash='explore';$('share-url').value=url.href;$('share-message').textContent='';$('share-dialog').showModal();$('share-url').focus();$('share-url').select();}
+function renderRoute(){
+ const card=$('detail');card.replaceChildren();
+ if(!selected){
+  const head=el('div','detail-head'),copy=el('div'),actions=el('div','detail-actions');
+  copy.append(el('h2','','Your county. Your connection.'),el('p','','Explore local, reservation and regional services.'));
+  actions.append(button('Plan a trip','primary',()=>switchView('plan')));head.append(icon('map'),copy,actions);
+  const bottom=el('div','detail-bottom');bottom.append(el('b','',`${routes.filter(r=>r.id!=='campus').length} SCPT service listings`),el('span','',`${new Set(data.trips.map(t=>t.route)).size} fixed-route maps`),el('span','','Separate SUNY campus shuttle'));
+  card.append(head,bottom,el('p','detail-note','Choose a route or map stop to see fares, scheduled departures and booking details. The dashed county boundary is a geographic guide, not a pickup guarantee.'));return;
+ }
+ const r=routes.find(r=>r.id===selected),info=serviceDetails[r.id]||{},ts=data.trips.filter(t=>t.route===r.id);
+ const head=el('div','detail-head'),copy=el('div'),actions=el('div','detail-actions');copy.append(el('h2','',r.name),el('p','',`Route ${r.id==='campus'?'Campus shuttle':r.id} · ${r.sub}`));
+ if(ts.length)actions.append(button('View timetable','primary',()=>openSchedule(r.id)));
+ else if(info.reservation)actions.append(link('Call to reserve →','tel:+15182340952','primary'));
+ else actions.append(link('Official schedule →',routeUrl(r),'primary'));
+ if(ts.length)actions.append(button('Plan a trip','secondary',()=>switchView('plan')));
+ head.append(badge(r),copy,actions);
+ const bottom=el('div','detail-bottom');bottom.append(el('b','',r.days),el('span','',`${r.fare}${['1','2','2A','3'].includes(r.id)?' one-way':' published fare'}`),el('span','',ts.length?`${ts.length} scheduled runs`:info.reservation?'Reserve with dispatch':'Separate campus service'),link('Official route →',routeUrl(r)));
+ card.append(head,bottom,el('p','detail-note',r.note));
+ if(info.notes){const details=el('div','reservation-details');for(const note of info.notes)details.append(el('p','',note));card.append(details);}
+ const tools=el('div','detail-tools');tools.append(button('Share this route →','schedule-link',shareSelection));card.append(tools);
+ if(ts.length){const details=el('details','route-stops'),summary=el('summary','',`Explore stops on Route ${r.id}`),list=el('ol','route-stop-list');
+  // This is a stop directory in the first published run's order, not a claimed
+  // universal itinerary. Other runs can call at different stops.
+  const ids=[...new Set(ts.flatMap(t=>t.calls.map(c=>c.stop)))];
+  for(const id of ids){const item=el('li');item.append(button(data.stops[id].name,'',()=>showStop(id)));list.append(item);}
+  details.append(summary,el('p','detail-note','Stops vary by run. Use the timetable to check order, request stops and boarding restrictions.'),list);card.append(details);
+ }
 }
-function showStop(id,move=true){if(!data.stops[id])return;stopId=id;const s=data.stops[id],card=$('detail');if(move){revealMap();map.stop(id);}card.replaceChildren();const head=el('div','detail-head'),copy=el('div');copy.append(el('h2','',s.name),el('p','',`Agency stop ${s.id} · Routes ${stopRoutes(id).join(', ')}`));const actions=el('div','detail-actions'),save=button(saved.has(id)?'★ Saved':'☆ Save stop','secondary',()=>toggleSaved(id));save.setAttribute('aria-pressed',String(saved.has(id)));actions.append(save,button('Plan from here','primary',()=>{$('from').value=id;switchView('plan');}));head.append(icon('pin'),copy,actions);card.append(head);
- const now=localNow(),next=departures(data,id,now.date,minutes(now.time)).slice(0,3),ds=el('div','departures');for(const n of next)ds.append(el('span','',`${n.trip.route} · ${formatTime(n.call.departure)}`));if(!next.length)ds.append(el('span','','No remaining standard departures in today’s snapshot.'));card.append(ds,el('p','detail-note',`Scheduled departures for ${now.date} · Eastern Time. Not live predictions. Request stops are excluded. Accessibility status in the GTFS: ${s.wheelchair==='1'?'accessible boarding reported':s.wheelchair==='2'?'inaccessible boarding reported':'not specified; confirm with dispatch'}.`));card.append(button('Back to route details','schedule-link',()=>{stopId=null;map.activeStop=null;map.draw();renderRoute();}));}
-function switchView(view){if(!['explore','plan','notices','about'].includes(view))view='explore';currentView=view;$('explorer').hidden=view!=='explore';for(const v of ['plan','notices','about'])$(v+'-view').hidden=v!==view;document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));document.querySelectorAll('nav [data-view]').forEach(b=>b.setAttribute('aria-current',b.dataset.view===view?'page':'false'));if(location.hash!==`#${view}`)history.replaceState(null,'',`#${view}`);if(view!=='explore')map?.stopDemo();else{if(!stopId)renderRoute();if(document.body.classList.contains('compact'))map?.fit();else map?.draw();}}
-function renderNotices(){const displayed=data.meta.notices||notices;document.querySelector('.count').textContent=String(displayed.length);for(const n of displayed){const card=el('article','notice'),circle=el('div','notice-icon'),text=el('div');circle.append(icon('info'));text.append(el('span','badge',n.tag),el('h2','',n.title),el('p','',n.body),link('Read agency source ↗',n.url));card.append(circle,text);$('notices-list').append(card);}}
-function renderSources(){if(data.meta.checkedAt){const review=el('div','latest-review');review.append(el('h3','','Latest source check'),el('p','',new Date(data.meta.checkedAt).toLocaleString('en-US',{timeZone:'America/New_York'})+' ET'));for(const note of data.meta.reviewNotes||[])review.append(el('p','',note));$('source-list').append(review);}for(const [name,desc,url]of sources){const row=el('div','source-row'),text=el('div');text.append(el('b','',name),el('small','',desc));row.append(text,link('View source ↗',url));$('source-list').append(row);}$('data-summary').textContent=`The 511NY agency feed supplies ${Object.keys(data.stops).length} stop records, ${data.trips.length} scheduled trips, and ${Object.keys(data.shapes).length} route shapes across 5 county routes. Other services are listed with official links. Agency geometry is displayed on an interactive OpenStreetMap street map. Demand-response services do not have fixed routes to draw.`;}
+function renderDepartures(id){
+ const board=$('departure-board');if(!board||!data.stops[id])return;board.replaceChildren();
+ const head=el('div','departure-title');head.append(el('strong','','UPCOMING DEPARTURES'),el('span','','SCHEDULED · EASTERN TIME'));board.append(head);
+ const next=upcomingDepartures(data,id),list=el('div','departures');
+ for(const item of next){const r=routes.find(r=>r.id===item.trip.route),entry=el('div','departure-item'),copy=el('div');
+  const day=item.dayOffset===0?'Today':item.dayOffset===1?'Tomorrow':new Intl.DateTimeFormat('en-US',{timeZone:'UTC',weekday:'short',month:'short',day:'numeric'}).format(new Date(item.date+'T12:00:00Z'));
+  copy.append(el('strong','',formatTime(item.call.departure)),el('small','',`${day} · Route ${item.trip.route}`));entry.append(badge(r),copy);list.append(entry);
+ }
+ if(!next.length)list.append(el('p','empty-list','No standard departures in the next seven days of this schedule. Check the official timetable or call dispatch.'));
+ board.append(list);
+}
+function showStop(id,move=true){
+ if(!Object.hasOwn(data.stops,id))return;stopId=id;const stop=data.stops[id],card=$('detail');if(move)revealMap();card.replaceChildren();
+ const head=el('div','detail-head'),copy=el('div'),actions=el('div','detail-actions'),save=button(saved.has(id)?'★ Saved':'☆ Save stop','secondary',()=>toggleSaved(id));save.setAttribute('aria-pressed',String(saved.has(id)));
+ copy.append(el('h2','',stop.name),el('p','',`Bus stop · ${stopRoutes(id).length?'Routes '+stopRoutes(id).join(', '):'No imported scheduled service'}`));actions.append(save);
+ if(stopRoutes(id).length)actions.append(button('Plan from here','primary',()=>{$('from').value=id;switchView('plan');}));
+ head.append(icon('pin'),copy,actions);card.append(head);
+ const board=el('div','departure-board');board.id='departure-board';card.append(board);renderDepartures(id);
+ const accessible=stop.wheelchair==='1'?'Accessible boarding reported':stop.wheelchair==='2'?'Boarding reported inaccessible':'Boarding accessibility not specified';
+ card.append(el('p','detail-note',`${accessible}; confirm your needs with SCPT. Departures use the published calendar, exclude request stops and are not live predictions.`));
+ const tools=el('div','detail-tools');tools.append(button('Share this stop →','schedule-link',shareSelection),button('Back to route details','schedule-link',()=>{stopId=null;map.activeStop=null;map.draw();renderRoute();updateLocation();}));card.append(tools);if(move)map.stop(id);updateLocation();
+}
+function switchView(view){if(!['explore','plan','notices','about'].includes(view))view='explore';currentView=view;$('explorer').hidden=view!=='explore';$('explore-heading').hidden=view!=='explore';$('county-guide').hidden=view!=='explore';for(const v of ['plan','notices','about'])$(v+'-view').hidden=v!==view;document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));document.querySelectorAll('nav [data-view]').forEach(b=>b.setAttribute('aria-current',b.dataset.view===view?'page':'false'));if(location.hash!==`#${view}`)history.replaceState(null,'',`#${view}`);if(view==='explore'){if(!stopId)renderRoute();map?.draw();}else $(view+'-view').focus({preventScroll:true});}
+function renderNotices(){const displayed=data.meta.notices||notices;document.querySelector('.count').textContent=String(displayed.length);for(const n of displayed){const card=el('article','notice'),circle=el('div','notice-icon'),text=el('div');circle.append(icon('info'));text.append(el('span','badge',n.tag),el('h2','',n.title),el('p','',n.body),link('Read agency source →',n.url));card.append(circle,text);$('notices-list').append(card);}}
+function renderSources(){if(data.meta.checkedAt){const review=el('div','latest-review');review.append(el('h3','','Latest source check'),el('p','',new Date(data.meta.checkedAt).toLocaleString('en-US',{timeZone:'America/New_York'})+' ET'));for(const note of data.meta.reviewNotes||[])review.append(el('p','',note));$('source-list').append(review);}for(const [name,desc,url]of sources){const row=el('div','source-row'),text=el('div');text.append(el('b','',name),el('small','',desc));row.append(text,link('View source →',url));$('source-list').append(row);}$('data-summary').textContent=`The 511NY agency feed supplies ${Object.keys(data.stops).length} stop records, ${data.trips.length} scheduled trips, and ${Object.keys(data.shapes).length} route shapes across 5 county routes. Other services are listed with official links. Agency geometry is displayed on an interactive OpenStreetMap street map. Demand-response services do not have fixed routes to draw.`;}
 function fillPlanner(){const stops=Object.values(data.stops).filter(s=>data.trips.some(t=>t.calls.some(c=>c.stop===s.id))).sort((a,b)=>a.name.localeCompare(b.name));for(const s of stops){for(const id of ['from','to']){const o=el('option','',s.name);o.value=s.id;$(id).append(o);}}
  $('from').value=stops.find(s=>s.name.includes('SUNY Cobleskill'))?.id||stops[0].id;$('to').value=stops.find(s=>s.name==='Wal-Mart Plaza')?.id||stops[1].id;const now=localNow();$('travel-date').value=now.date;$('travel-time').value=now.time;
  $('include-return').onchange=()=>$('return-fields').hidden=!$('include-return').checked;
@@ -58,14 +103,20 @@ function openSchedule(routeId,tripId){const r=routes.find(r=>r.id===routeId),ts=
 function renderRun(){const t=data.trips.find(t=>t.id===$('run-select').value);$('schedule-body').replaceChildren();for(const c of t.calls){const row=el('tr');let type='Standard stop',time=formatTime(c.departure);if(requestStop(data,c)){type='Request / on call — coordinate first';time='By arrangement';}else if(c.pickup===1)type='Drop-off only';else if(c.dropoff===1)type='Pickup only';row.append(el('td','',data.stops[c.stop].name),el('td','',time),el('td','',type));$('schedule-body').append(row);}}
 async function main(){try{let response=await fetch('./api/snapshot',{credentials:'same-origin',cache:'no-store'}).catch(()=>null);if(!response?.ok)response=await fetch('./assets/transit.json',{credentials:'same-origin',cache:'no-store'});if(!response.ok)throw Error('Schedule fetch failed');offlineSnapshot=response.headers.get('X-CobyTransit-Offline')==='1';data=await response.json();validateSnapshot(data);
  try{const a=JSON.parse(localStorage.getItem(storageKey)||'[]');if(Array.isArray(a))saved=new Set(a.filter(v=>typeof v==='string'&&Object.hasOwn(data.stops,v)).slice(0,65));}catch{}
- map=new TransitMap(data,routes,id=>showStop(id));map.fit();renderList();renderRoute();fillPlanner();renderNotices();renderSources();updateFreshness();setupOffline();$('about-freshness').textContent=`Schedule downloaded ${data.meta.retrieved}; service coverage through ${data.meta.validUntil}.`;
+ const initialParams=new URLSearchParams(location.search);
+ map=new TransitMap(data,routes,id=>showStop(id),()=>{selected=null;stopId=null;renderList();renderRoute();updateLocation();});map.county();renderList();renderRoute();fillPlanner();renderNotices();renderSources();updateFreshness();setupOffline();
  const setMobileView=list=>{$('explorer').classList.toggle('list-mode',list);$('show-list').setAttribute('aria-pressed',String(list));$('show-map').setAttribute('aria-pressed',String(!list));if(list)document.querySelector('.sidebar').scrollIntoView({block:'start'});else map.draw();};$('show-list').onclick=()=>setMobileView(true);$('show-map').onclick=()=>setMobileView(false);
- document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>switchView(b.dataset.view));document.querySelectorAll('[data-side]').forEach(b=>b.onclick=()=>{side=b.dataset.side;renderList();});document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(c=>c.classList.toggle('active',c===b));renderList();});
+ document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>switchView(b.dataset.view));document.querySelectorAll('[data-side]').forEach(b=>b.onclick=()=>{side=b.dataset.side;renderList();});document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(c=>{c.classList.toggle('active',c===b);c.setAttribute('aria-pressed',String(c===b));});renderList();});
  const syncSearch=()=>{query=$('search').value.trim().toLowerCase().slice(0,100);renderList();};for(const event of ['input','change','search','keyup'])$('search').addEventListener(event,syncSearch);$('run-search').onclick=syncSearch;$('close-schedule').onclick=()=>$('schedule-dialog').close();
- $('compact-layout').onclick=()=>{const compact=document.body.classList.toggle('compact');$('compact-layout').textContent=compact?'Use full-width layout':'Use compact layout';$('compact-layout').setAttribute('aria-pressed',String(compact));};
+ $('browse-county').onclick=()=>{$('county-guide').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});};
+ $('show-demand').onclick=()=>selectRoute('5');
+ document.querySelectorAll('[data-route]').forEach(b=>b.onclick=()=>{switchView('explore');selectRoute(b.dataset.route);document.querySelector('.map-area').scrollIntoView({block:'start'});});
+ $('close-share').onclick=()=>$('share-dialog').close();
+ $('copy-share').onclick=async()=>{try{await navigator.clipboard.writeText($('share-url').value);$('share-message').textContent='Link copied.';}catch{$('share-url').focus();$('share-url').select();$('share-message').textContent='Select and copy the link above.';}};
+ setInterval(()=>{if(!document.hidden){updateFreshness();if(stopId)renderDepartures(stopId);}},30000);
  $('clear-saved').onclick=()=>{saved.clear();try{localStorage.removeItem(storageKey);}catch{}renderList();$('privacy-message').textContent='All saved stops have been cleared from this browser.';};
- document.addEventListener('keydown',e=>{if(e.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('schedule-dialog').open){e.preventDefault();switchView('explore');$('search').focus();}});
- window.addEventListener('hashchange',()=>switchView(location.hash.slice(1)));switchView(location.hash.slice(1)||'explore');
+ document.addEventListener('keydown',e=>{if(e.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('schedule-dialog').open&&!$('share-dialog').open){e.preventDefault();switchView('explore');if(getComputedStyle(document.querySelector('.sidebar')).display==='none')$('show-list').click();$('search').focus();}});
+ window.addEventListener('hashchange',()=>switchView(location.hash.slice(1)));const params=initialParams;if(routes.some(r=>r.id===params.get('route')))selectRoute(params.get('route'));if(Object.hasOwn(data.stops,params.get('stop')))showStop(params.get('stop'));switchView(location.hash.slice(1)||'explore');
  }catch(error){$('service-list').replaceChildren(el('p','empty-list','The local schedule could not load. Refresh this page or check official transit information at ridescpt.com.'));$('detail').append(el('p','muted','Schedule data is unavailable. Please confirm your trip with dispatch: 518-234-0952.'));console.error('CobyTransit could not initialize.');}}
 function formatInputTime(n){return `${String(Math.min(23,Math.floor(n/60))).padStart(2,'0')}:${String(Math.min(59,n%60)).padStart(2,'0')}`;}
 function updateFreshness(){if(!data)return;const state=freshness(data.meta,new Date(),offlineSnapshot||!navigator.onLine);$('freshness-banner').dataset.level=state.level;$('freshness-text').textContent=state.text;$('about-freshness').textContent=`Snapshot downloaded ${data.meta.retrieved}; coverage through ${data.meta.validUntil}. Last source check: ${data.meta.checkedAt?new Date(data.meta.checkedAt).toLocaleString('en-US',{timeZone:'America/New_York'})+' ET':'not recorded'}.`;}

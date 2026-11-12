@@ -1,7 +1,7 @@
 // Shared by the browser and Worker. Never substitute a feed-generation timestamp
 // for the time at which an individual GPS measurement was taken.
 export const VEHICLE_MAX_AGE = 90;
-export const SERVICE_BOUNDS = {south:42.25, west:-74.85, north:42.95, east:-73.65};
+export const SERVICE_BOUNDS = {south:42.25, west:-75.05, north:42.95, east:-73.65};
 export function inServiceArea(lat, lon) {
   return Number.isFinite(lat) && Number.isFinite(lon) && lat >= SERVICE_BOUNDS.south && lat <= SERVICE_BOUNDS.north && lon >= SERVICE_BOUNDS.west && lon <= SERVICE_BOUNDS.east;
 }

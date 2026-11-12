@@ -1,4 +1,4 @@
-# CobyTransit 1.2
+# CobyTransit 1.3
 
 Independent, MIT-licensed transit explorer for Cobleskill and Schoharie County. Leaflet 1.9.4 is bundled locally under its BSD-2-Clause license; no package installation is required to run the app. Agency GTFS supplies actual stop coordinates, route shapes, scheduled trips, calendars and holiday exceptions.
 
@@ -18,10 +18,11 @@ npm run dev
 Open http://localhost:4173 . The preview runs the same request handler and security headers as the deployed Worker. Offline saving needs an HTTPS origin and a supported browser. Do not disable browser security for local tests.
 
 ## Features
-- Real street map centered on Cobleskill, with county view, pan/pinch/scroll zoom, full screen, route layers, stop search and saved stops. Ten service listings link to official schedules; five have agency GTFS geometry.
+- Green-and-white, map-first county explorer with a simplified rider guide, searchable towns, shareable route/stop links, and a scheduled upcoming-departures board.
+- County overview with a US Census boundary, five GTFS fixed-route maps, ten Route 5 reservation-area polygons and twelve agency map locations for Routes 20/23. All nine SCPT service listings plus the separate SUNY shuttle remain available. No reservation paths or guaranteed address coverage are inferred.
 - Direct outbound and same-day return search; minimum 10-minute turnaround; last direct departure warnings. No transfer or walking route is inferred.
 - Dynamic schedule freshness, review warnings and calendar expiration. Source conflicts remain visible.
-- Larger text, stronger contrast, 44-pixel primary controls, a mobile map/list switch, an optional compact layout, keyboard controls and semantic timetable dialog.
+- Responsive map/list navigation, keyboard-accessible stops and service areas, readable controls, reduced-motion support, and semantic timetable/share dialogs.
 - Opt-in offline app/schedule storage. Cross-origin tiles, credentials, login pages, maintenance writes and source archives are not cached. Offline results are dated and cannot contain new cancellations.
 - Security headers on every application response, including errors and APIs; no embedded secrets, geolocation, payment collection, user uploads or application accounts.
 - Owner-private, validated maintenance writer and R2 persistence for reviewed data updates without code deployment.
@@ -54,3 +55,5 @@ Application code: MIT. Transit data and map tiles retain their source terms. See
 ## Optional browser checks
 
 With the dev server running, install the test-only browser dependency using `npm install --no-save --package-lock=false playwright`, then run `npx playwright install chromium` and `node tests/map.browser.mjs`. Set `BROWSER_EXECUTABLE` to use an installed Chromium and `BASE_URL` to use another preview URL. The browser suite uses explicitly synthetic live/traffic fixtures and blocks street tiles to test the failure path; it never claims provider connectivity. Real OpenStreetMap tiles were also visually checked separately at desktop and phone sizes.
+
+For a practical device-based GPS pilot using hardware sold through Walmart or Target, read [GPS_SETUP.md](GPS_SETUP.md). `scripts/import-service-maps.py` reimports the published RideSCPT map features; review changed source content before accepting updates.
