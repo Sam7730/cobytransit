@@ -10,14 +10,14 @@ export class TransitMap {
   this.map.setMaxBounds([[41.9,-75.3],[43.3,-73.2]]);
   this.streets=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,referrerPolicy:'strict-origin-when-cross-origin'}).addTo(this.map);
   this.streets.on('tileerror',()=>{$('geometry-note').textContent='Street tiles unavailable · routes and stops remain available';});
-  this.streets.on('load',()=>{if(this.streets.getContainer()?.querySelector('.leaflet-tile-loaded'))$('geometry-note').textContent='Agency routes on OpenStreetMap';});
+  this.streets.on('load',()=>{if(this.streets.getContainer()?.querySelector('.leaflet-tile-loaded'))$('geometry-note').textContent='GTFS route reference · confirm boarding locations';});
   this.map.createPane('serviceAreas');this.map.getPane('serviceAreas').style.zIndex='360';this.serviceLayers=L.layerGroup().addTo(this.map);this.overlays=[];this.loadServiceMaps();
   this.routeLayers=L.layerGroup().addTo(this.map);this.stopLayers=L.layerGroup().addTo(this.map);this.vehicleLayers=L.layerGroup().addTo(this.map);this.incidentLayers=L.layerGroup().addTo(this.map);
   new ResizeObserver(()=>this.map.invalidateSize({pan:false})).observe($('map-container'));
   $('zoom-in').onclick=()=>this.map.zoomIn();$('zoom-out').onclick=()=>this.map.zoomOut();$('reset-map').onclick=()=>this.fit();
   $('local-view').onclick=()=>{this.map.setView([42.679,-74.48],14);this.setRegion(false);};
   $('county-view').onclick=()=>this.county();
-  $('basemap').onclick=()=>{const on=this.map.hasLayer(this.streets);if(on)this.streets.remove();else this.streets.addTo(this.map);$('basemap').setAttribute('aria-pressed',String(!on));$('basemap').querySelector('span').textContent=on?'off':'on';$('osm-credit').hidden=on;$('geometry-note').textContent=on?'Agency geometry · street map off':'Agency routes on OpenStreetMap';};
+  $('basemap').onclick=()=>{const on=this.map.hasLayer(this.streets);if(on)this.streets.remove();else this.streets.addTo(this.map);$('basemap').setAttribute('aria-pressed',String(!on));$('basemap').querySelector('span').textContent=on?'off':'on';$('osm-credit').hidden=on;$('geometry-note').textContent=on?'Agency geometry · street map off':'GTFS route reference · confirm boarding locations';};
   for(const mode of ['selected','all','none'])$(`routes-${mode}`).onclick=()=>{this.mode=mode;this.activeStop=null;if(mode==='none')this.draw();else this.fit();};
   $('show-county').disabled=true;this.loadCounty();
   $('show-county').onchange=e=>{if(!this.countyLayer)return;if(e.target.checked)this.countyLayer.addTo(this.map);else this.countyLayer.remove();};
@@ -83,11 +83,11 @@ export class TransitMap {
   const shapes=new Set();
   for(const trip of trips){const key=`${trip.route}/${trip.shape}`;if(shapes.has(key))continue;shapes.add(key);const color=this.routes.find(r=>r.id===trip.route)?.color||'#1d7356',points=this.data.shapes[trip.shape];
    L.polyline(points,{color:'#fff',weight:8,opacity:.9,interactive:false}).addTo(this.routeLayers);
-   L.polyline(points,{color,weight:4,opacity:.95}).bindTooltip(textNode('span',`SCPT Route ${trip.route}`)).addTo(this.routeLayers);
+   L.polyline(points,{color,weight:4,opacity:.95,dashArray:['1','2'].includes(trip.route)?'8 5':null}).bindTooltip(textNode('span',`SCPT Route ${trip.route}`)).addTo(this.routeLayers);
   }
   const ids=new Set(this.showStops?trips.flatMap(t=>t.calls.map(c=>c.stop)):[]);if(this.activeStop)ids.add(this.activeStop);
   for(const id of ids){const s=this.data.stops[id],marker=L.circleMarker([s.lat,s.lon],{radius:id===this.activeStop?9:5,weight:2,color:'#183e35',fillColor:'#fff',fillOpacity:1}).addTo(this.stopLayers);
-   marker.bindTooltip(textNode('span',s.name));marker.on('click',()=>this.onStop(id));
+   marker.bindTooltip(textNode('span',s.name+(s.locationNote?' · confirm map location':'')));marker.on('click',()=>this.onStop(id));
    const element=marker.getElement();element.setAttribute('tabindex','0');element.setAttribute('role','button');element.setAttribute('aria-label',`View stop: ${s.name}`);element.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();this.onStop(id);}});
   }
   const hasOverlay=this.overlays.some(f=>f.properties.route===this.selected);

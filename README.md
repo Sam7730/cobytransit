@@ -1,4 +1,4 @@
-# CobyTransit 1.3
+# CobyTransit 1.3.1
 
 Independent, MIT-licensed transit explorer for Cobleskill and Schoharie County. Leaflet 1.9.4 is bundled locally under its BSD-2-Clause license; no package installation is required to run the app. Agency GTFS supplies actual stop coordinates, route shapes, scheduled trips, calendars and holiday exceptions.
 
@@ -57,3 +57,7 @@ Application code: MIT. Transit data and map tiles retain their source terms. See
 With the dev server running, install the test-only browser dependency using `npm install --no-save --package-lock=false playwright`, then run `npx playwright install chromium` and `node tests/map.browser.mjs`. Set `BROWSER_EXECUTABLE` to use an installed Chromium and `BASE_URL` to use another preview URL. The browser suite uses explicitly synthetic live/traffic fixtures and blocks street tiles to test the failure path; it never claims provider connectivity. Real OpenStreetMap tiles were also visually checked separately at desktop and phone sizes.
 
 For a practical device-based GPS pilot using hardware sold through Walmart or Target, read [GPS_SETUP.md](GPS_SETUP.md). `scripts/import-service-maps.py` reimports the published RideSCPT map features; review changed source content before accepting updates.
+
+## Route accuracy review
+
+See [ROUTE_AUDIT.md](ROUTE_AUDIT.md) for the November 16 review of every SCPT route, 23 fixed-route runs and 469 published timetable rows. Clear mismatches were corrected; conflicting times and map pins remain explicitly flagged. The map is not certified street-by-street bus navigation. Importing a changed GTFS archive requires a new review before applying the recorded overrides.

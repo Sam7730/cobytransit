@@ -12,7 +12,7 @@ export function activeService(data,service,date){
   const e=data.exceptions.find(e=>e.service_id===service&&e.date===key);
   return e?e.exception_type==='1':c.days.includes(new Date(`${date}T12:00:00Z`).getUTCDay());
 }
-export function requestStop(data,call){return /on call/i.test(data.stops[call.stop]?.name||'')||call.pickup>1||call.dropoff>1;}
+export function requestStop(data,call){return call.unconfirmed===true||/on call/i.test(data.stops[call.stop]?.name||'')||call.pickup>1||call.dropoff>1;}
 export function departures(data,stop,date,after=0,route=null){return data.trips.filter(t=>(!route||t.route===route)&&activeService(data,t.service,date)).flatMap(t=>t.calls.filter(c=>c.stop===stop&&c.pickup===0&&!requestStop(data,c)&&c.departure>=after).map(c=>({trip:t,call:c}))).sort((a,b)=>a.call.departure-b.call.departure);}
 export function upcomingDepartures(data,stop,now=new Date(),limit=3){
   const local=localNow(now),result=[];

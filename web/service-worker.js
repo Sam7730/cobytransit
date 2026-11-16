@@ -1,5 +1,5 @@
 // Explicit opt-in only. Cache public transit information; never credentials or write APIs.
-const CACHE='cobytransit-offline-v1.3.0',PREFIX='cobytransit-offline-';
+const CACHE='cobytransit-offline-v1.3.1',PREFIX='cobytransit-offline-';
 const FILES=['/','/index.html','/assets/style.css','/assets/app.js','/assets/engine.js','/assets/map.js','/assets/live-data.js','/assets/vendor/leaflet.js','/assets/vendor/leaflet.css','/assets/vendor/images/marker-icon.png','/assets/vendor/images/marker-icon-2x.png','/assets/vendor/images/marker-shadow.png','/assets/vendor/images/layers.png','/assets/vendor/images/layers-2x.png','/assets/catalog.js','/assets/validation.js','/assets/favicon.svg','/manifest.webmanifest','/api/snapshot','/assets/transit.json','/assets/schoharie-county.json','/assets/service-overlays.json'];
 const paths=new Set(FILES);
 self.addEventListener('install',event=>event.waitUntil(self.skipWaiting()));

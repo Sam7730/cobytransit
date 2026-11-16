@@ -1,4 +1,8 @@
-# Data provenance — reviewed October 23, 2026 (America/New_York)
+# Data provenance
+
+**Latest review: November 16, 2026.** [ROUTE_AUDIT.md](ROUTE_AUDIT.md) supersedes the earlier targeted reviews below. It documents all 23 runs/469 published rows, corrections, map disagreements and the updated 2026–27 SUNY calendar. Earlier notes are retained as history, not current confirmation.
+
+## Initial review — October 23, 2026 (America/New_York)
 
 This project continues the earlier CobyTransit concept, replacing its approximate waypoints and hand-selected timetable samples with the downloaded agency GTFS snapshot. It does not copy Alpine Systems software, artwork, trademarks or tracking feeds. The Oneonta reference informed only the interaction pattern of selecting routes and map stops.
 

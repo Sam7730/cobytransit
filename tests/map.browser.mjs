@@ -34,7 +34,31 @@ assert.equal(await page.locator('#departure-board').isVisible(),true);
 await page.getByRole('button',{name:'Share this stop →',exact:true}).click();const shareUrl=await page.locator('#share-url').inputValue();assert.ok(new URL(shareUrl).searchParams.get('stop'));await page.locator('#close-share').click();
 const stopTitle=await page.locator('#detail h2').textContent();await page.goto(shareUrl);await page.waitForSelector('#departure-board');assert.equal(await page.locator('#detail h2').textContent(),stopTitle);
 await page.locator('#county-view').click();await page.waitForFunction(()=>!document.getElementById('show-county').disabled);assert.equal(await page.locator('[aria-label^="Agency map area:"]').count(),10);assert.equal(await page.locator('[aria-label^="Agency map location:"]').count(),12);
+// Inspect every published run through the actual timetable UI.
+let checkedRuns=0;
+for(const route of ['1','2','2A','3','22']){
+ await page.locator(`.route-card[aria-label^="Route ${route}:"]`).click();
+ await page.getByRole('button',{name:'View timetable',exact:true}).click();
+ const values=await page.locator('#run-select option').evaluateAll(nodes=>nodes.map(n=>n.value));
+ for(const id of values){
+  await page.locator('#run-select').selectOption(id);checkedRuns++;
+  if(id==='Route 1 - Loop 3')assert.match(await page.locator('#schedule-body').textContent(),/12:46 PM/);
+  if(id==='Route 2-Loop 4'){
+   const row=page.locator('#schedule-body tr').filter({hasText:'Teen Town'});assert.match(await row.textContent(),/Confirm with dispatch/);assert.match(await row.textContent(),/12:41 PM/);
+  }
+  if(id==='SC_R2A_WDSa_01_T01'){
+   const row=page.locator('#schedule-body tr').filter({hasText:'Greenbridge'});assert.match(await row.textContent(),/3:20 PM/);assert.match(await row.textContent(),/Standard stop/);
+  }
+  if(id==='SC_R22_WD_PM_T01'){assert.match(await page.locator('#run-select option:checked').textContent(),/Toward Cobleskill/);assert.match(await page.locator('#schedule-body').textContent(),/6:05 PM/);assert.match(await page.locator('#schedule-body tr').last().textContent(),/Drop-off only — coordinate with driver/);}
+ }
+ await page.locator('#close-schedule').click();
+}
+assert.equal(checkedRuns,23);
+await page.locator('.route-card[aria-label^="Route 2:"]').click();await page.locator('.route-stops summary').click();
+assert.equal(await page.locator('#detail').evaluate(e=>e.scrollHeight>e.clientHeight),true);
+await page.locator('.route-stop-list button').filter({hasText:'SUNY'}).click();assert.match(await page.locator('#detail').textContent(),/GTFS and SCPT map pins differ/);
+assert.equal((await page.request.get(new URL('/ROUTE_AUDIT.md',page.url()).href)).status(),200);
 await page.setViewportSize({width:390,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
 await page.locator('#show-list').click();await page.getByRole('button',{name:'Route 5: County demand response',exact:true}).click();assert.equal(await page.locator('#map-empty').isVisible(),true);assert.match(await page.locator('#detail').textContent(),/Gilboa/);assert.equal(await page.locator('[aria-label^="Agency map area:"]').count(),10);
 await page.keyboard.press('/');assert.equal(await page.locator('#search').evaluate(e=>e===document.activeElement),true);await page.locator('#search').fill('Gilboa');assert.equal(await page.locator('.route-card').count(),1);
-assert.deepEqual(errors,[]);console.log('PASS: fixture live bus, escaped popup, incident layer, tile outage, stale GPS expiry and feed outage.');await browser.close();
+assert.deepEqual(errors,[]);console.log('PASS: all 23 timetables, uncertainty/coordinate notes, mobile layout and live-data failure paths.');await browser.close();
