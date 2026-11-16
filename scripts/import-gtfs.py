@@ -52,7 +52,7 @@ for update in review['stopUpdates']:
 for t in d['trips']:
     assert all(c['stop'] in d['stops'] for c in t['calls'])
     assert all(a['departure']<=b['arrival'] for a,b in zip(t['calls'],t['calls'][1:]))
-d['meta'].update(checkedAt=review['reviewed']+'T12:00:00Z',reviewStatus='needs-review',reviewNotes=[
+d['meta'].update(checkedAt=review['checkedAt'],reviewStatus='needs-review',reviewNotes=[
     'All 23 fixed-route runs (469 published rows) checked against individual RideSCPT pages. See ROUTE_AUDIT.md for decisions and remaining conflicts.',
     'Route 1 stops/times and terminal restrictions corrected; Teen Town restored to Route 2; Greenbridge is timed on Route 2A but on call on Route 2.',
     'Route 2 run 4 Teen Town time/order and Route 2A run 4 duplicate Walmart entry need dispatch confirmation. Unconfirmed calls are excluded from trip search.',

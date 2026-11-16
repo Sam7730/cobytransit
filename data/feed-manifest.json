@@ -121,7 +121,7 @@
       "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
     }
   ],
-  "checkedAt": "2026-11-16T12:00:00Z",
+  "checkedAt": "2026-11-16T06:43:54Z",
   "reviewStatus": "needs-review",
   "reviewNotes": [
     "All 23 fixed-route runs (469 published rows) checked against individual RideSCPT pages. See ROUTE_AUDIT.md for decisions and remaining conflicts.",
