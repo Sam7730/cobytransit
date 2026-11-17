@@ -5,7 +5,7 @@ function textNode(tag,text){const node=document.createElement(tag);node.textCont
 function popup(title,lines){const box=document.createElement('div');box.append(textNode('strong',title));for(const line of lines)box.append(textNode('p',line));return box;}
 export class TransitMap {
  constructor(data,routes,onStop,onCounty){
-  this.data=data;this.routes=routes;this.onStop=onStop;this.onCounty=onCounty;this.selected='2';this.activeStop=null;this.mode='all';this.vehicles=[];this.vehicleMarkers=new Map();this.incidents=[];this.showStops=true;
+  this.data=data;this.routes=routes;this.onStop=onStop;this.onCounty=onCounty;this.selected='2';this.activeTrip=null;this.activeStop=null;this.mode='all';this.vehicles=[];this.vehicleMarkers=new Map();this.incidents=[];this.showStops=true;
   this.map=L.map('map-container',{zoomControl:false,attributionControl:false,zoomSnap:.25,minZoom:8,maxZoom:18,zoomAnimation:!matchMedia('(prefers-reduced-motion: reduce)').matches}).setView([42.59,-74.44],10);
   this.map.setMaxBounds([[41.9,-75.3],[43.3,-73.2]]);
   this.streets=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,referrerPolicy:'strict-origin-when-cross-origin'}).addTo(this.map);
@@ -64,13 +64,14 @@ export class TransitMap {
    $('show-county').disabled=false;
   }catch{$('show-county').checked=false;$('show-county').closest('label').append(textNode('small',' · unavailable'));}
  }
- county(){this.mode='all';this.activeStop=null;this.onCounty?.();this.map.invalidateSize({pan:false});this.map.fitBounds([[42.35502,-74.71158],[42.82956,-74.16468]],{paddingTopLeft:[30,155],paddingBottomRight:[55,75]});this.setRegion(true);this.draw();}
+ county(){this.activeTrip=null;this.mode='all';this.activeStop=null;this.onCounty?.();this.map.invalidateSize({pan:false});this.map.fitBounds([[42.35502,-74.71158],[42.82956,-74.16468]],{paddingTopLeft:[30,155],paddingBottomRight:[55,75]});this.setRegion(true);this.draw();}
  setRegion(regional){$('county-view').classList.toggle('active',regional);$('local-view').classList.toggle('active',!regional);$('map-place').textContent=regional?'Schoharie County':'Cobleskill, New York';}
- select(id){this.selected=id;this.activeStop=null;this.mode='selected';this.fit();}
+ selectTrip(id){const trip=this.data.trips.find(t=>t.id===id);if(!trip)return;this.activeTrip=id;this.selected=trip.route;this.activeStop=null;this.mode='selected';this.fit();}
+ select(id){this.activeTrip=null;this.selected=id;this.activeStop=null;this.mode='selected';this.fit();}
  stop(id){this.activeStop=id;const s=this.data.stops[id];this.map.invalidateSize({pan:false});this.map.setView([s.lat,s.lon],16);this.draw();}
  fit(){
   this.map.invalidateSize({pan:false});
-  const trips=this.data.trips.filter(t=>this.mode==='all'||t.route===this.selected),points=trips.flatMap(t=>this.data.shapes[t.shape]||[]);
+  const trips=this.data.trips.filter(t=>this.mode==='all'||(t.route===this.selected&&(!this.activeTrip||t.id===this.activeTrip))),points=trips.flatMap(t=>[...(this.data.shapes[t.shape]||[]),...t.calls.map(c=>{const stop=this.data.stops[c.stop];return [stop.lat,stop.lon];})]);
   if(this.mode==='all'){points.push([42.35502,-74.71158],[42.82956,-74.16468]);for(const feature of this.overlays){const bounds=L.geoJSON(feature).getBounds();if(bounds.isValid())points.push(bounds.getSouthWest(),bounds.getNorthEast());}}
   if(points.length)this.map.fitBounds(L.latLngBounds(points),{paddingTopLeft:[30,165],paddingBottomRight:[55,85],maxZoom:15});
   else {const features=this.overlays.filter(f=>f.properties.route===this.selected);if(features.length)this.map.fitBounds(L.geoJSON(features).getBounds(),{paddingTopLeft:[35,180],paddingBottomRight:[60,85],maxZoom:13});else this.map.setView(this.selected==='campus'?[42.675,-74.499]:[42.61,-74.4],this.selected==='campus'?14:10);}
@@ -79,16 +80,18 @@ export class TransitMap {
  draw(){
   this.map.invalidateSize({pan:false});this.drawServiceMaps();this.routeLayers.clearLayers();this.stopLayers.clearLayers();
   for(const mode of ['selected','all','none'])$(`routes-${mode}`).setAttribute('aria-pressed',String(this.mode===mode));
-  const trips=this.data.trips.filter(t=>this.mode==='all'||(this.mode==='selected'&&t.route===this.selected));
+  const trips=this.data.trips.filter(t=>this.mode==='all'||(this.mode==='selected'&&t.route===this.selected&&(!this.activeTrip||t.id===this.activeTrip)));
   const shapes=new Set();
   for(const trip of trips){const key=`${trip.route}/${trip.shape}`;if(shapes.has(key))continue;shapes.add(key);const color=this.routes.find(r=>r.id===trip.route)?.color||'#1d7356',points=this.data.shapes[trip.shape];
    L.polyline(points,{color:'#fff',weight:8,opacity:.9,interactive:false}).addTo(this.routeLayers);
    L.polyline(points,{color,weight:4,opacity:.95,dashArray:['1','2'].includes(trip.route)?'8 5':null}).bindTooltip(textNode('span',`SCPT Route ${trip.route}`)).addTo(this.routeLayers);
   }
   const ids=new Set(this.showStops?trips.flatMap(t=>t.calls.map(c=>c.stop)):[]);if(this.activeStop)ids.add(this.activeStop);
-  for(const id of ids){const s=this.data.stops[id],marker=L.circleMarker([s.lat,s.lon],{radius:id===this.activeStop?9:5,weight:2,color:'#183e35',fillColor:'#fff',fillOpacity:1}).addTo(this.stopLayers);
+  const run=this.mode==='selected'&&this.activeTrip?trips.find(t=>t.id===this.activeTrip):null;
+  for(const id of ids){const s=this.data.stops[id],visits=run?run.calls.flatMap((c,i)=>c.stop===id?[i+1]:[]):[],label=textNode('span',visits.join(' · '));
+   const marker=visits.length?L.marker([s.lat,s.lon],{icon:L.divIcon({className:'run-stop-marker',html:label,iconSize:[Math.max(30,visits.length*24),30],iconAnchor:[Math.max(30,visits.length*24)/2,15]}),title:`${s.name} · visits ${visits.join(', ')}`}):L.circleMarker([s.lat,s.lon],{radius:id===this.activeStop?9:5,weight:2,color:'#183e35',fillColor:'#fff',fillOpacity:1});marker.addTo(this.stopLayers);
    marker.bindTooltip(textNode('span',s.name+(s.locationNote?' · confirm map location':'')));marker.on('click',()=>this.onStop(id));
-   const element=marker.getElement();element.setAttribute('tabindex','0');element.setAttribute('role','button');element.setAttribute('aria-label',`View stop: ${s.name}`);element.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();this.onStop(id);}});
+   const element=marker.getElement();element.setAttribute('tabindex','0');element.setAttribute('role','button');element.setAttribute('aria-label',`View stop: ${s.name}${visits.length?' · visits '+visits.join(', '):''}`);element.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();this.onStop(id);}});
   }
   const hasOverlay=this.overlays.some(f=>f.properties.route===this.selected);
   $('map-empty').hidden=trips.length>0||this.mode==='none';
@@ -108,7 +111,7 @@ export class TransitMap {
   if(this.vehicles.length&&!fresh.length)$('live-status').textContent='GPS positions expired · waiting for fresh data';
   $('gps-badge').textContent=fresh.length?`${fresh.length} live buses`:'Scheduled times';
   $('gps-badge').dataset.live=String(fresh.length>0);
-  $('live-summary').textContent=fresh.length?`${visible.length} buses shown for your route filter. GPS expires after 90 seconds.`:'No current bus positions to display.';
+  $('live-summary').textContent=fresh.length?`${visible.length} buses shown for your route filter. GPS expires after 90 seconds.${this.activeTrip?' Vehicles are matched to the route, not this specific run.':''}`:'No current bus positions to display.';
  }
  toggleFlow(enabled){
   if(this.flow){this.flow.remove();this.flow=null;}

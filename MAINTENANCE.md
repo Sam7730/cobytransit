@@ -12,3 +12,9 @@ The published Site remains owner-private. Do not change its audience. No credent
 Retries: use bounded timeouts. On upstream failure, validation failure, 409, or unavailable access/storage, retain the last working dataset; explain the failure and let the next scheduled run retry. Do not create duplicate schedules, rotate unrelated credentials, or replace known service rules with guesses.
 
 The static source snapshot stays available as a fallback and in source downloads. Runtime data updates are independent of code releases. Any future public Site launch requires disabling this private maintenance writer or replacing the hosting access boundary with explicit server-side writer authorization first.
+
+## Source monitoring and operational notices
+
+Run `npm run check:sources` to compare 13 official pages, seven map files and the GTFS archive with the monitoring baseline. Inspect `.qa/source-report.json` or the GitHub Actions summary. The checker also fails within 14 days of calendar expiry. It never imports or approves changes. After reviewing changed sources and correcting any affected data, deliberately run `python3 scripts/check-sources.py --record` and review the baseline diff. Recording hashes does not update the timetable audit timestamp. KML comparison ignores rotating image URLs and checks placemark names and geometry.
+
+The rider site warns when service notices cannot be checked. The optional staff dashboard and notice storage are documented in [STAFF_SETUP.md](STAFF_SETUP.md). A full-day cancellation suppresses every affected scheduled run for those dates; partial-day changes need an informational notice and dispatch confirmation. The dashboard cannot edit the audited schedule.

@@ -29,3 +29,9 @@ Read-only live and traffic endpoints accept no caller-supplied upstream URLs. On
 Live responses and traffic tiles are excluded from the service worker. API responses use no-store; traffic tile responses have a 60-second private HTTP cache. No user GPS is requested. Browser tests cover keyboard stop selection, route visibility, mobile overflow, live fixtures, stale locations and outages. Actual agency GPS and paid traffic data require a provider account for operational validation.
 
 County and service-overlay geometry is packaged locally. Agency-map text is rendered as text nodes; imported map descriptions/HTML are not used. Share links contain only validated route/stop IDs and the explorer hash, omitting unrelated URL parameters. No GPS devices, tracking accounts or credentials are configured by the hardware guide.
+
+## Staff notices
+
+The optional `/staff` interface uses `/api/admin/alerts` with a bearer token held only in tab memory. Configure a random `ADMIN_TOKEN` of at least 32 characters and an R2 `BUCKET`; missing configuration disables the feature. The server hashes credentials before a fixed-size comparison, rejects cross-origin writes, bounds and validates JSON, and uses conditional storage writes to reject stale edits. Public `/api/alerts` exposes notice content but not the token or private revision. Neither endpoint is cached offline. Shared tokens do not provide individual staff identity or an audit trail; use hosting identity controls for larger teams. See [STAFF_SETUP.md](STAFF_SETUP.md).
+
+The report dialog generates a GitHub issue draft link only after user interaction; the user reviews and submits on GitHub. It includes selected route/stop/run and schedule provenance, never a staff credential or personal location. Source downloads exclude `.dev.vars*`, `.wrangler`, `.env*`, `.codex` and `.agents`.

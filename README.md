@@ -6,6 +6,22 @@ The project brings information from [Schoharie County Public Transit (SCPT)](htt
 
 **This is a community project, not an official SCPT or SUNY service.** Some agency sources disagree. The app identifies known conflicts; confirm uncertain trips with SCPT at **518-234-0952**. Live bus tracking is supported by the code but needs an authorized GPS feed before real buses can appear.
 
+## New rider and staff tools
+
+Choose a specific scheduled run to see numbered map stops and the full visit order, including repeated stops and boarding restrictions. Trip results have a **View this trip on the map** button with boarding and getting-off details. Saved stops appear on the home screen with their next scheduled departures. Times remain scheduled, not live predictions.
+
+**Report a problem** prepares a public GitHub issue for you to review and submit. It does not send a message automatically. Do not include personal information; call dispatch for immediate travel help.
+
+The optional **Staff tools** page can publish information, detours and full-day route cancellations. Cancellations affect trip searches and departure boards. It requires server hosting, persistent storage and a secret; it is disabled until configured. Follow [STAFF_SETUP.md](STAFF_SETUP.md) for simple setup and usage instructions. No additional frontend library is needed.
+
+Source monitoring checks official route pages, maps and the feed without changing reviewed data:
+
+```bash
+npm run check:sources
+```
+
+This command requires Python 3.9+ and internet access. It saves a report to `.qa/source-report.json` and returns a failing status if sources changed, cannot be reached, or the schedule expires within 14 days. The GitHub workflow runs daily once this workflow is on the default branch and scheduled Actions are enabled. A matching source hash is not proof that buses are running or that map pins are correct.
+
 ## What the website does
 
 - Shows county geography, published bus routes, stops and reservation areas on a real street map.
@@ -187,15 +203,17 @@ Keep `npm run dev` running in one terminal. In a second terminal, from the same 
 npm install --no-save --package-lock=false playwright
 npx playwright install chromium
 node tests/map.browser.mjs
+npm run build
+node tests/journey.browser.mjs
 ```
 
 These packages are only for testing. On a Linux machine missing browser system dependencies, Playwright also provides `npx playwright install --with-deps chromium`; installing system packages may require administrator access.
 
-The browser suite uses synthetic GPS/traffic fixtures, not real buses. `BASE_URL` selects another preview address, and `BROWSER_EXECUTABLE` can select an installed Chromium executable.
+The map browser suite uses synthetic GPS/traffic fixtures, not real buses. `BASE_URL` selects another preview address. The journey suite starts its own isolated server and tests the generated Worker, staff publication and cancellation behavior with temporary in-memory storage. `BROWSER_EXECUTABLE` can select an installed Chromium executable for either suite.
 
 ### Update transit data
 
-Install [Python](https://www.python.org/downloads/) only if you need to update the included data. Then run:
+Install [Python](https://www.python.org/downloads/) if you need to monitor sources or update the included data. Then run:
 
 ```sh
 python3 scripts/import-gtfs.py

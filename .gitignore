@@ -12,3 +12,8 @@ dist/
 .openai/
 .codex/
 .agents/
+
+.wrangler/
+.dev.vars*
+__pycache__/
+*.pyc

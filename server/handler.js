@@ -1,3 +1,4 @@
+import {alertsEndpoint} from './alerts.js';
 import {vehicleData,trafficData,trafficTile} from './live.js';
 import {validateSnapshot,FEED_URL} from '../web/assets/validation.js';
 export const SECURITY_HEADERS={
@@ -13,6 +14,7 @@ export default {async fetch(request,env={}){
  const url=new URL(request.url),assets=env.LOCAL_ASSET_CONTENTS||ASSETS;let stage='route';
  try{
   if(request.method==='OPTIONS')return response(null,405,'text/plain; charset=utf-8',{'Allow':'GET, HEAD, POST'});
+  if(['/api/alerts','/api/admin/alerts'].includes(url.pathname))return await alertsEndpoint(request,env,(value,status=200)=>response(request.method==='HEAD'?null:JSON.stringify(value),status),boundedBody);
   if(url.pathname==='/api/snapshot'){
    if(request.method==='GET'||request.method==='HEAD'){const d=await snapshot(env,assets);return response(request.method==='HEAD'?null:JSON.stringify(d));}
    if(request.method!=='POST')return json({error:'Method not allowed'},405);
@@ -51,10 +53,10 @@ export default {async fetch(request,env={}){
   }
   if(url.pathname==='/api/status'){
    if(!['GET','HEAD'].includes(request.method))return json({error:'Method not allowed'},405);
-   const d=await snapshot(env,assets);return json({release:'1.3.1',snapshot:d.meta,liveTracking:await vehicleData(env,d),traffic:{configured:!!env.TOMTOM_API_KEY},persistentUpdates:!!env.BUCKET&&env.UPDATES_ENABLED==='owner-private'});
+   const d=await snapshot(env,assets);return json({release:'1.4.0',snapshot:d.meta,liveTracking:await vehicleData(env,d),traffic:{configured:!!env.TOMTOM_API_KEY},persistentUpdates:!!env.BUCKET&&env.UPDATES_ENABLED==='owner-private'});
   }
   if(!['GET','HEAD'].includes(request.method))return response('Method not allowed',405,'text/plain; charset=utf-8',{'Allow':'GET, HEAD'});
-  const pathname=url.pathname==='/'?'/index.html':url.pathname;
+  const pathname=url.pathname==='/'?'/index.html':url.pathname==='/staff'?'/staff.html':url.pathname;
   if(!Object.hasOwn(assets,pathname))return response('Not found',404,'text/plain; charset=utf-8');
   const asset=assets[pathname],body=asset.base64?Uint8Array.from(atob(asset.body),c=>c.charCodeAt(0)):asset.body;
   const extra=pathname==='/service-worker.js'?{'Service-Worker-Allowed':'/','Cache-Control':'no-cache'}:{};
