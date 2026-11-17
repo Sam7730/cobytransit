@@ -1,3 +1,4 @@
+import {routeCancelled} from './alerts.js';
 // Copyright (c) 2026 Sohaib Khan. MIT License.
 export function localNow(date=new Date()) {
   const p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(date).map(v=>[v.type,v.value]));
@@ -12,8 +13,9 @@ export function activeService(data,service,date){
   const e=data.exceptions.find(e=>e.service_id===service&&e.date===key);
   return e?e.exception_type==='1':c.days.includes(new Date(`${date}T12:00:00Z`).getUTCDay());
 }
-export function requestStop(data,call){return /on call/i.test(data.stops[call.stop]?.name||'')||call.pickup>1||call.dropoff>1;}
-export function departures(data,stop,date,after=0,route=null){return data.trips.filter(t=>(!route||t.route===route)&&activeService(data,t.service,date)).flatMap(t=>t.calls.filter(c=>c.stop===stop&&c.pickup===0&&!requestStop(data,c)&&c.departure>=after).map(c=>({trip:t,call:c}))).sort((a,b)=>a.call.departure-b.call.departure);}
+export function tripRuns(data,trip,date){return activeService(data,trip.service,date)&&!routeCancelled(data,trip.route,date);}
+export function requestStop(data,call){return call.unconfirmed===true||/on call/i.test(data.stops[call.stop]?.name||'')||call.pickup>1||call.dropoff>1;}
+export function departures(data,stop,date,after=0,route=null){return data.trips.filter(t=>(!route||t.route===route)&&tripRuns(data,t,date)).flatMap(t=>t.calls.filter(c=>c.stop===stop&&c.pickup===0&&!requestStop(data,c)&&c.departure>=after).map(c=>({trip:t,call:c}))).sort((a,b)=>a.call.departure-b.call.departure);}
 export function upcomingDepartures(data,stop,now=new Date(),limit=3){
   const local=localNow(now),result=[];
   if(!Object.hasOwn(data.stops,stop))return result;
@@ -28,7 +30,7 @@ export function upcomingDepartures(data,stop,now=new Date(),limit=3){
 }
 export function plan(data,from,to,date,time){
   const after=minutes(time);if(from===to||!Object.hasOwn(data.stops,from)||!Object.hasOwn(data.stops,to)||!validDate(date)||!Number.isFinite(after))return [];
-  return data.trips.filter(t=>activeService(data,t.service,date)).flatMap(trip=>{
+  return data.trips.filter(t=>tripRuns(data,t,date)).flatMap(trip=>{
     const results=[];
     trip.calls.forEach((a,i)=>{if(a.stop!==from||a.pickup!==0||requestStop(data,a)||a.departure<after)return;
       const b=trip.calls.slice(i+1).find(b=>b.stop===to&&b.dropoff===0&&!requestStop(data,b)&&b.arrival>a.departure);

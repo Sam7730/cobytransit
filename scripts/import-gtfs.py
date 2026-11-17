@@ -31,17 +31,36 @@ trips=[]
 corrections=[]
 for t in table('trips.txt'):
     cs=sorted(calls[t['trip_id']],key=lambda c:c['seq'])
-    # Official route pages explicitly mark these endpoints as drop-off only.
-    if t['trip_id'] in ['Route 2-Loop 3','SC_R2A_WDSa_01_T06','SC_R2A_WDSa_07']:
-        cs[-1]['pickup']=1
-        corrections.append({'trip':t['trip_id'],'stop':cs[-1]['stop'],'field':'pickup','value':1,'reason':'Terminal marked drop-off only on agency route page.'})
     assert all(c['stop'] in stops for c in cs)
     assert all(a['departure']<=b['arrival'] for a,b in zip(cs,cs[1:]))
     trips.append({'id':t['trip_id'],'route':routes[t['route_id']],'service':t['service_id'],'shape':t['shape_id'],'calls':cs})
 cal={r['service_id']:{'start':r['start_date'],'end':r['end_date'],'days':[i for i,d in enumerate(['sunday','monday','tuesday','wednesday','thursday','friday','saturday']) if r[d]=='1']} for r in table('calendar.txt')}
 exceptions=table('calendar_dates.txt')
 d={'meta':{'retrieved':datetime.now(ZoneInfo('America/New_York')).date().isoformat(),'timezone':'America/New_York','feedUrl':URL,'sha256':hashlib.sha256(raw).hexdigest(),'validUntil':max(c['end'] for c in cal.values())[:4]+'-'+max(c['end'] for c in cal.values())[4:6]+'-'+max(c['end'] for c in cal.values())[6:8],'corrections':corrections},'stops':stops,'shapes':shapes,'trips':trips,'calendar':cal,'exceptions':exceptions}
+# Reviewed overrides apply only to the exact archive audited against RideSCPT.
+# A changed upstream archive must be reviewed, not silently patched with old calls.
+review=json.loads((ROOT/'data/reviewed-corrections.json').read_text())
+if d['meta']['sha256'] != review['feedSha256']:
+    raise ValueError('Upstream feed changed: review RideSCPT pages and update reviewed-corrections.json before importing')
+by_id={t['id']:t for t in d['trips']}
+for update in review['tripUpdates']:
+    if update['id'] not in by_id: raise ValueError('Reviewed trip missing from feed')
+    by_id[update['id']].update(update)
+for update in review['stopUpdates']:
+    if update['id'] not in d['stops']: raise ValueError('Reviewed stop missing from feed')
+    d['stops'][update['id']].update(update)
+for t in d['trips']:
+    assert all(c['stop'] in d['stops'] for c in t['calls'])
+    assert all(a['departure']<=b['arrival'] for a,b in zip(t['calls'],t['calls'][1:]))
+d['meta'].update(checkedAt=review['checkedAt'],reviewStatus='needs-review',reviewNotes=[
+    'All 23 fixed-route runs (469 published rows) checked against individual RideSCPT pages. See ROUTE_AUDIT.md for decisions and remaining conflicts.',
+    'Route 1 stops/times and terminal restrictions corrected; Teen Town restored to Route 2; Greenbridge is timed on Route 2A but on call on Route 2.',
+    'Route 2 run 4 Teen Town time/order and Route 2A run 4 duplicate Walmart entry need dispatch confirmation. Unconfirmed calls are excluded from trip search.',
+    'Agency map pins differ from GTFS at several locations. Shapes remain GTFS references, not verified turn-by-turn directions.',
+    'SUNY now publishes a fall 2026–spring 2027 calendar naming Route 2A. It conflicts with the general calendar on some dates and does not establish weekend Route 20 dates.'
+])
+d['meta']['corrections']=[{'trip':u['id'],'field':'calls','reason':'Individual RideSCPT timetable review '+review['reviewed']+'; see data/route-review.json.'} for u in review['tripUpdates']]
 (ROOT/'web/assets/transit.json').write_text(json.dumps(d,separators=(',',':')))
 (ROOT/'data').mkdir(exist_ok=True)
 (ROOT/'data/feed-manifest.json').write_text(json.dumps(d['meta'],indent=2)+'\n')
-print(f'Validated {len(stops)} stops, {len(trips)} trips, {len(shapes)} shapes, {len(exceptions)} calendar exceptions; {len(corrections)} documented corrections.')
+print(f"Validated {len(stops)} stops, {len(trips)} trips, {len(shapes)} shapes, {len(exceptions)} calendar exceptions; {len(d['meta']['corrections'])} reviewed trip records.")

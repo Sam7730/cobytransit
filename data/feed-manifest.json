@@ -1,30 +1,133 @@
 {
-  "retrieved": "2026-10-23",
+  "retrieved": "2026-11-16",
   "timezone": "America/New_York",
   "feedUrl": "https://s3.amazonaws.com/datatools-511ny/public/Schoharie_County_Public_Transit.zip",
   "sha256": "7d90990a545e4eba79d02d000cec26e047c2c35a53da4ba36202c47d47b98b97",
   "validUntil": "2026-12-31",
   "corrections": [
     {
-      "trip": "SC_R2A_WDSa_07",
-      "stop": "364271",
-      "field": "pickup",
-      "value": 1,
-      "reason": "Terminal marked drop-off only on agency route page."
+      "trip": "Route 1-Loop 4",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "Route 1 - Loop 2",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "Route 1 - Loop 3",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "Route 1 Loop 4",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "Route 2-Loop 1",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "Route 2-Loop 2",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
     },
     {
       "trip": "Route 2-Loop 3",
-      "stop": "364278",
-      "field": "pickup",
-      "value": 1,
-      "reason": "Terminal marked drop-off only on agency route page."
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "Route 2-Loop 4",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "Route 2-Loop 5",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "Route 2-Loop 6",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "SC_R2A_WDSa_01_T01",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "SC_R2A_WDSa_01_T02",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "SC_R2A_WDSa_01_T03",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "SC_R2A_WDSa_01_T04",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "SC_R2A_WDSa_01_T05",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
     },
     {
       "trip": "SC_R2A_WDSa_01_T06",
-      "stop": "364278",
-      "field": "pickup",
-      "value": 1,
-      "reason": "Terminal marked drop-off only on agency route page."
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "SC_R2A_WDSa_07",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "SC-03-WD-01",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "SC-03-WD-02",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "SC-03-WD-03",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "SC-03-WD-04",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "SC_R22_WD_AM_T01",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
+    },
+    {
+      "trip": "SC_R22_WD_PM_T01",
+      "field": "calls",
+      "reason": "Individual RideSCPT timetable review 2026-11-16; see data/route-review.json."
     }
+  ],
+  "checkedAt": "2026-11-16T06:43:54Z",
+  "reviewStatus": "needs-review",
+  "reviewNotes": [
+    "All 23 fixed-route runs (469 published rows) checked against individual RideSCPT pages. See ROUTE_AUDIT.md for decisions and remaining conflicts.",
+    "Route 1 stops/times and terminal restrictions corrected; Teen Town restored to Route 2; Greenbridge is timed on Route 2A but on call on Route 2.",
+    "Route 2 run 4 Teen Town time/order and Route 2A run 4 duplicate Walmart entry need dispatch confirmation. Unconfirmed calls are excluded from trip search.",
+    "Agency map pins differ from GTFS at several locations. Shapes remain GTFS references, not verified turn-by-turn directions.",
+    "SUNY now publishes a fall 2026\u2013spring 2027 calendar naming Route 2A. It conflicts with the general calendar on some dates and does not establish weekend Route 20 dates."
   ]
 }

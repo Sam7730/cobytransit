@@ -1,0 +1,132 @@
+{
+  "recordedAt": "2026-11-17T00:28:37.002157-05:00",
+  "purpose": "Content-change monitoring only; not a new timetable or map audit.",
+  "sources": [
+    {
+      "name": "routes",
+      "url": "https://ridescpt.com/index.php/routes",
+      "kind": "page",
+      "sha256": "d1b7c1391977bffc104df83231cac4d7b8303e5c9838c223ef8e49f4df46b762"
+    },
+    {
+      "name": "routes/route-1",
+      "url": "https://ridescpt.com/index.php/routes/route-1",
+      "kind": "page",
+      "sha256": "f728db1697e421c218696501fcfcd42c64eacddee6c47b629f6f7a3e85a1a635"
+    },
+    {
+      "name": "routes/route-2",
+      "url": "https://ridescpt.com/index.php/routes/route-2",
+      "kind": "page",
+      "sha256": "1c10848b2ac21c2adef9c104e3e12e13f859753466b5be64076361bf7342d4f6"
+    },
+    {
+      "name": "routes/route-2a-service",
+      "url": "https://ridescpt.com/index.php/routes/route-2a-service",
+      "kind": "page",
+      "sha256": "73bd5dbb53b3c99a3c8cc392f0f0d5b2fcce101c379bb29424b14793bccb810f"
+    },
+    {
+      "name": "routes/route-3",
+      "url": "https://ridescpt.com/index.php/routes/route-3",
+      "kind": "page",
+      "sha256": "e128837a1bc06d139768b32254d135fb4987ce2cdefd373e5c310d1fdc706e56"
+    },
+    {
+      "name": "routes/route-5",
+      "url": "https://ridescpt.com/index.php/routes/route-5",
+      "kind": "page",
+      "sha256": "8197f2e2c51a5d441a0a70d70d03795c8eb4d37e880e5d41f3423f88407a25f5"
+    },
+    {
+      "name": "routes/route-20",
+      "url": "https://ridescpt.com/index.php/routes/route-20",
+      "kind": "page",
+      "sha256": "7dda3610487ee02c6ea94c9bf76abc7abfd383bcde2bbd4ccd892297352bcbb4"
+    },
+    {
+      "name": "routes/route-22",
+      "url": "https://ridescpt.com/index.php/routes/route-22",
+      "kind": "page",
+      "sha256": "a4b541381d545b93153396beef1bdc42db0e115560d85952cbe98ad8a83a2634"
+    },
+    {
+      "name": "routes/route-23",
+      "url": "https://ridescpt.com/index.php/routes/route-23",
+      "kind": "page",
+      "sha256": "d23b048923134be7609b515ee293512b38b34f90c3f1dd976912a32d6b111605"
+    },
+    {
+      "name": "suny-cobleskill",
+      "url": "https://ridescpt.com/index.php/suny-cobleskill",
+      "kind": "page",
+      "sha256": "09a57690b4a7c62d4e8004672efc1f9856f1fd19814a777bf6f0bbd7ecad300c"
+    },
+    {
+      "name": "announcements",
+      "url": "https://ridescpt.com/index.php/announcements",
+      "kind": "page",
+      "sha256": "2b6b4d3f9b33d7e4fc641b1e8e405ab2d79cca6abcaeb666c3af0a09d8819898"
+    },
+    {
+      "name": "policies",
+      "url": "https://ridescpt.com/index.php/policies",
+      "kind": "page",
+      "sha256": "1ebaf69d1959c99355929649f6bfd0bc3a65317d47c78a561249bd7c7d9710f2"
+    },
+    {
+      "name": "homepage/fares",
+      "url": "https://ridescpt.com/index.php/homepage/fares",
+      "kind": "page",
+      "sha256": "31646df5b7b59e2d48ec03a71579fb6a76214f6636ce8129b2900d02089ff22e"
+    },
+    {
+      "name": "map-1",
+      "url": "https://www.google.com/maps/d/kml?mid=1hXKWTgbaVch5nKjGLzfzTd17djE&forcekml=1",
+      "kind": "map",
+      "sha256": "5cfe52103f3afaecec80d76015a356f1628fe5e89975315adcd55b6e1a17813b"
+    },
+    {
+      "name": "map-2",
+      "url": "https://www.google.com/maps/d/kml?mid=1J26Rb6udIrleOTfoTkgYhj9sCiw&forcekml=1",
+      "kind": "map",
+      "sha256": "45c1aca3309c4ac1f5d46c154f0a8f363a53d71110607af9746ccf40a05bd3a1"
+    },
+    {
+      "name": "map-3",
+      "url": "https://www.google.com/maps/d/kml?mid=1lsJabyrC_0PLf-qGCCC1KGotnqw&forcekml=1",
+      "kind": "map",
+      "sha256": "54c738ae763702efba50c27bab59bda1beac98dd2aa3e81a9cd6e36f44ae42a2"
+    },
+    {
+      "name": "map-5",
+      "url": "https://www.google.com/maps/d/kml?mid=1amvoepvN9wrTVJNIEpfsTsJ55vE&forcekml=1",
+      "kind": "map",
+      "sha256": "77eb3c59495e88d99b22b301a13f6b62a2f9bfb2c1cf99d916509cd41ada40e2"
+    },
+    {
+      "name": "map-20",
+      "url": "https://www.google.com/maps/d/kml?mid=1a6ZlV9I-rfQk3_Ys7fkZae-pCnk&forcekml=1",
+      "kind": "map",
+      "sha256": "e2cefebba5129e29478f610891e3f481be3c88c875d4020d0b4245bfffce2a10"
+    },
+    {
+      "name": "map-22",
+      "url": "https://www.google.com/maps/d/kml?mid=1007eLI6__sB1eM9SwntaZsLg_Ko&forcekml=1",
+      "kind": "map",
+      "sha256": "1c740df3a948f81ebc7d831358a2dcf3c6f1b0b76f81dec7680355e2713a9aeb"
+    },
+    {
+      "name": "map-23",
+      "url": "https://www.google.com/maps/d/kml?mid=1mWHhjsJsxmXFOywg3YOlRzKN0uo&forcekml=1",
+      "kind": "map",
+      "sha256": "a4730c39c2f8d37e0b5e910bf838e554464616a10b8a9eb5d10a5646ae4ad2fa"
+    },
+    {
+      "name": "GTFS",
+      "url": "https://s3.amazonaws.com/datatools-511ny/public/Schoharie_County_Public_Transit.zip",
+      "kind": "feed",
+      "sha256": "7d90990a545e4eba79d02d000cec26e047c2c35a53da4ba36202c47d47b98b97"
+    }
+  ]
+}

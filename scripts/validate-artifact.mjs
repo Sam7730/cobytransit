@@ -29,6 +29,9 @@ for (const [asset, type] of [
   ['/assets/vendor/leaflet.css', 'text/css'],
   ['/assets/vendor/images/marker-icon.png', 'image/png'],
   ['/assets/live-data.js', 'text/javascript'],
+  ['/assets/alerts.js', 'text/javascript'],
+  ['/assets/staff.js', 'text/javascript'],
+  ['/staff', 'text/html'],
 ]) {
   const response = await workerModule.default.fetch(new Request('https://app.example' + asset));
   assert.equal(response.status, 200, asset);
@@ -42,4 +45,6 @@ for (const path of ['/api/vehicles', '/api/traffic']) {
   assert.equal((await response.json()).status, 'unconfigured', path);
 }
 
+const alertsResponse=await workerModule.default.fetch(new Request('https://app.example/api/alerts'));
+assert.equal(alertsResponse.status,503);assert.equal((await alertsResponse.json()).configured,false);
 console.log("Artifact is valid ESM and exports default.fetch");

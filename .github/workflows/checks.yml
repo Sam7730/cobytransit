@@ -12,9 +12,39 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - run: python3 tests/source-monitor.test.py
       - run: node --version && npm test && node scripts/check-data.mjs
       - name: Create a portable manifest for build validation
         run: |
           mkdir -p .openai
           printf '%s\n' '{"d1":null,"r2":"BUCKET"}' > .openai/hosting.json
       - run: npm run build
+
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - run: npm install --no-save --package-lock=false --ignore-scripts playwright@1.65.0
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - name: Check rider journeys and staff publication
+        run: node tests/journey.browser.mjs
+      - name: Check timetables and live-data failures
+        run: |
+          npm run dev > /tmp/cobytransit-preview.log 2>&1 &
+          preview_pid=$!
+          trap 'kill "$preview_pid"' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://localhost:4173/api/status > /dev/null; then break; fi
+            sleep 1
+          done
+          node tests/map.browser.mjs

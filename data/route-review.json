@@ -1,0 +1,5705 @@
+{
+  "reviewed": "2026-11-16",
+  "feedSha256": "7d90990a545e4eba79d02d000cec26e047c2c35a53da4ba36202c47d47b98b97",
+  "sources": [
+    {
+      "page": "routes",
+      "sha256": "f0a9291dab2511003a8c2d6f5f9141e29b031263899103dedf32c44219d8f766",
+      "tables": 6,
+      "iframes": [],
+      "files": []
+    },
+    {
+      "page": "routes/route-1",
+      "sha256": "12e92d141189df3c9794a1955c62b592a74d3be4c8ee40abfe740417bf07c744",
+      "tables": 7,
+      "iframes": [
+        "https://www.google.com/maps/d/u/1/embed?mid=1hXKWTgbaVch5nKjGLzfzTd17djE&ehbc=2E312F"
+      ],
+      "files": []
+    },
+    {
+      "page": "routes/route-2",
+      "sha256": "0ea16548ddae42d79014044e01a7e1b118b0d5652702b82b13a186e598ea0fd2",
+      "tables": 7,
+      "iframes": [
+        "https://www.google.com/maps/d/u/1/embed?mid=1J26Rb6udIrleOTfoTkgYhj9sCiw&ehbc=2E312F"
+      ],
+      "files": []
+    },
+    {
+      "page": "routes/route-2a-service",
+      "sha256": "b8d766acb07e0e1bbcf5010344d70d238bc1483a5b6a5af84946a8209518d3b5",
+      "tables": 7,
+      "iframes": [],
+      "files": []
+    },
+    {
+      "page": "routes/route-3",
+      "sha256": "57f7674fff3b7b42d8ee273da3d5b9e6938e0aeea6385b25015197f45b57cc08",
+      "tables": 7,
+      "iframes": [
+        "https://www.google.com/maps/d/u/1/embed?mid=1lsJabyrC_0PLf-qGCCC1KGotnqw&ehbc=2E312F"
+      ],
+      "files": []
+    },
+    {
+      "page": "routes/route-5",
+      "sha256": "2a0b685cb38f8e1e4033a653576971aac72cab503c6a12e58f1342d11851fcd9",
+      "tables": 7,
+      "iframes": [
+        "https://www.google.com/maps/d/u/1/embed?mid=1amvoepvN9wrTVJNIEpfsTsJ55vE&ehbc=2E312F"
+      ],
+      "files": []
+    },
+    {
+      "page": "routes/route-20",
+      "sha256": "bb90c787a128bc93476bd287ad5d11442fb0435eb17d86fd417f553f9b3f873d",
+      "tables": 2,
+      "iframes": [
+        "https://www.google.com/maps/d/u/1/embed?mid=1a6ZlV9I-rfQk3_Ys7fkZae-pCnk&ehbc=2E312F"
+      ],
+      "files": []
+    },
+    {
+      "page": "routes/route-22",
+      "sha256": "dd5c679e0d270b3b3a0c005faa133d58544e706cd3a38345a3b0b5c319c12588",
+      "tables": 7,
+      "iframes": [
+        "https://www.google.com/maps/d/u/1/embed?mid=1007eLI6__sB1eM9SwntaZsLg_Ko&ehbc=2E312F"
+      ],
+      "files": []
+    },
+    {
+      "page": "routes/route-23",
+      "sha256": "e24457860bfcbb3aebcb159b139c0cb37926b23e8751abc9336130e65e9ee536",
+      "tables": 7,
+      "iframes": [
+        "https://www.google.com/maps/d/u/1/embed?mid=1mWHhjsJsxmXFOywg3YOlRzKN0uo&ehbc=2E312F"
+      ],
+      "files": []
+    },
+    {
+      "page": "announcements",
+      "sha256": "e9ad2f3b55fc7203cae2e6c058de1bb1f7ef9cd456f8985a844b8bef5436a696",
+      "tables": 7,
+      "iframes": [],
+      "files": []
+    },
+    {
+      "page": "policies",
+      "sha256": "04246704e83865a2a408e57f4edc4942201e36cd7e3036d840f32cd25c4964ff",
+      "tables": 7,
+      "iframes": [],
+      "files": [
+        "Https://ridescpt.com/Civil Rights/2023_Title_VI_Policy_signed.pdf",
+        "Https://ridescpt.com/Civil Rights/2023_Title_VI_Policy_signed.pdf",
+        "/Civil Rights/2023_Title_VI_Policy_signed.pdf",
+        "Https://ridescpt.com/Civil Rights/2023_Title_VI_Policy_signed.pdf",
+        "/Civil Rights/ADA_Transition_Plan.pdf"
+      ]
+    },
+    {
+      "page": "suny-cobleskill",
+      "sha256": "0b46c97eb04a2ee41e4d3ff65b2aa0f6ca6e3273902d6eff8f8a4833db4e3466",
+      "tables": 2,
+      "iframes": [],
+      "files": []
+    },
+    {
+      "page": "homepage/fares",
+      "sha256": "5ac6deed5ccc40d79903d48737e83d85143bf8b59cae84830b11cba51c73202b",
+      "tables": 11,
+      "iframes": [],
+      "files": []
+    }
+  ],
+  "runs": [
+    {
+      "route": "1",
+      "trip": "Route 1-Loop 4",
+      "run": 1,
+      "rows": [
+        {
+          "publishedTime": "7:05",
+          "publishedStop": "Price Chopper Plaza",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Candlewood Apartments",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "23dw"
+          ]
+        },
+        {
+          "publishedTime": "7:20",
+          "publishedStop": "Reinhardt's Mini-Mart",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "364287"
+          ]
+        },
+        {
+          "publishedTime": "7:22",
+          "publishedStop": "Main St./Fire Department",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364283"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Richmondview Apartments",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "364279"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "7:34",
+          "publishedStop": "Main & Center St. Cobleskill",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "7:38",
+          "publishedStop": "Price Chopper Plaza",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "7:42",
+          "publishedStop": "Wal-Mart Plaza",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "7:58",
+          "publishedStop": "County Annex Building",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "8:09",
+          "publishedStop": "County Office Building, side lobby",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "8:14",
+          "publishedStop": "ARC",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "60f0676e"
+          ]
+        },
+        {
+          "publishedTime": "8:21",
+          "publishedStop": "Parsonage Pines",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "364284"
+          ]
+        },
+        {
+          "publishedTime": "8:23",
+          "publishedStop": "County Office Building",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "8:34",
+          "publishedStop": "County Annex",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "8:54",
+          "publishedStop": "Wal-Mart Plaza",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "8:58",
+          "publishedStop": "Price Chopper Plaza",
+          "callIndices": [
+            18
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "9:03",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            19
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            20
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Candlewood Apartments",
+          "callIndices": [
+            21
+          ],
+          "stopIds": [
+            "23dw"
+          ]
+        },
+        {
+          "publishedTime": "9:15",
+          "publishedStop": "Main St./Fire Department",
+          "callIndices": [
+            22
+          ],
+          "stopIds": [
+            "364283"
+          ]
+        },
+        {
+          "publishedTime": "9:17",
+          "publishedStop": "Reinhardt's Mini-Mart",
+          "callIndices": [
+            23
+          ],
+          "stopIds": [
+            "364287"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Richmondview Apartments",
+          "callIndices": [
+            24
+          ],
+          "stopIds": [
+            "364279"
+          ]
+        }
+      ],
+      "oldCallCount": 24,
+      "reviewedCallCount": 25
+    },
+    {
+      "route": "1",
+      "trip": "Route 1 - Loop 2",
+      "run": 2,
+      "rows": [
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Candlewood Apartments",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "23dw"
+          ]
+        },
+        {
+          "publishedTime": "9:18",
+          "publishedStop": "Reinhardt's Mini-Mart",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364287"
+          ]
+        },
+        {
+          "publishedTime": "9:20",
+          "publishedStop": "Main St./Fire Department",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "364283"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Richmondvilew Apartments",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364279"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "9:32",
+          "publishedStop": "Main & Center",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "9:36",
+          "publishedStop": "Price Chopper Plaza",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "9:40",
+          "publishedStop": "Wal-Mart Plaza",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "9:56",
+          "publishedStop": "County Annex Building",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "10:07*",
+          "publishedStop": "County Office Building (Drop-Off ONLY)",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "ARC",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "60f0676e"
+          ]
+        },
+        {
+          "publishedTime": "10:26",
+          "publishedStop": "Parsonage Pines",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "364284"
+          ]
+        },
+        {
+          "publishedTime": "10:28",
+          "publishedStop": "County Office Building",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "10:39",
+          "publishedStop": "County Annex",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "10:59",
+          "publishedStop": "Wal-Mart Plaza",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "11:03",
+          "publishedStop": "Price Chopper Plaza",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "11:08",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            18
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            19
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Candlewood Apartments",
+          "callIndices": [
+            20
+          ],
+          "stopIds": [
+            "23dw"
+          ]
+        },
+        {
+          "publishedTime": "11:20",
+          "publishedStop": "Main St./Fire Department",
+          "callIndices": [
+            21
+          ],
+          "stopIds": [
+            "364283"
+          ]
+        },
+        {
+          "publishedTime": "11:22",
+          "publishedStop": "Reinhardt's Mini-Mart",
+          "callIndices": [
+            22
+          ],
+          "stopIds": [
+            "364287"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Richmondview Apartments",
+          "callIndices": [
+            23
+          ],
+          "stopIds": [
+            "364279"
+          ]
+        }
+      ],
+      "oldCallCount": 22,
+      "reviewedCallCount": 24
+    },
+    {
+      "route": "1",
+      "trip": "Route 1 - Loop 3",
+      "run": 3,
+      "rows": [
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Candlewood Apartments",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "23dw"
+          ]
+        },
+        {
+          "publishedTime": "11:23",
+          "publishedStop": "Reinhardt's Mini-Mart",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364287"
+          ]
+        },
+        {
+          "publishedTime": "11:25",
+          "publishedStop": "Main St./Fire Department",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "364283"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Richmondview Apartments",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364279"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "11:37",
+          "publishedStop": "Main & Center",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "11:41",
+          "publishedStop": "Price Chopper Plaza",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "11:45",
+          "publishedStop": "Wal-Mart Plaza",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "12:01",
+          "publishedStop": "County Annex Building",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "12:12*",
+          "publishedStop": "County Office Building (Drop-Off Only)",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "On call",
+          "publishedStop": "ARC",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "60f0676e"
+          ]
+        },
+        {
+          "publishedTime": "12:46",
+          "publishedStop": "Parsonage Pines",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "364284"
+          ]
+        },
+        {
+          "publishedTime": "12:48",
+          "publishedStop": "County Office Building",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "12:59",
+          "publishedStop": "County Annex",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "1:19",
+          "publishedStop": "Wal-Mart Plaza",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "1:23",
+          "publishedStop": "Price Chopper Plaza",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "1:28",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            18
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            19
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Candlewood Apartments",
+          "callIndices": [
+            20
+          ],
+          "stopIds": [
+            "23dw"
+          ]
+        },
+        {
+          "publishedTime": "1:40",
+          "publishedStop": "Main St./Fire Department",
+          "callIndices": [
+            21
+          ],
+          "stopIds": [
+            "364283"
+          ]
+        },
+        {
+          "publishedTime": "1:42",
+          "publishedStop": "Reinhardt's Mini-Mart",
+          "callIndices": [
+            22
+          ],
+          "stopIds": [
+            "364287"
+          ]
+        },
+        {
+          "publishedTime": "On call",
+          "publishedStop": "Richmondview Apartments",
+          "callIndices": [
+            23
+          ],
+          "stopIds": [
+            "364279"
+          ]
+        }
+      ],
+      "oldCallCount": 22,
+      "reviewedCallCount": 24
+    },
+    {
+      "route": "1",
+      "trip": "Route 1 Loop 4",
+      "run": 4,
+      "rows": [
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Candlewood Apartments",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "23dw"
+          ]
+        },
+        {
+          "publishedTime": "1:43",
+          "publishedStop": "Reinhardt's Mini-Mart",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364287"
+          ]
+        },
+        {
+          "publishedTime": "1:45",
+          "publishedStop": "Main St./Fire Department",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "364283"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Richmondview Apartments",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364279"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "1:57",
+          "publishedStop": "Main & Center",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "2:01",
+          "publishedStop": "Price Chopper Plaza",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "2:05",
+          "publishedStop": "Wal-Mart Plaza",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "2:21",
+          "publishedStop": "County Annex Building",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "2:32",
+          "publishedStop": "County Office Building",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "2:37",
+          "publishedStop": "ARC",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "60f0676e"
+          ]
+        },
+        {
+          "publishedTime": "2:44",
+          "publishedStop": "Parsonage Pines",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "364284"
+          ]
+        },
+        {
+          "publishedTime": "2:46",
+          "publishedStop": "County Office Building",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "2:57",
+          "publishedStop": "County Annex",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "3:17",
+          "publishedStop": "Wal-Mart Plaza",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "3:21",
+          "publishedStop": "Price Chopper Plaza",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "3:26",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            18
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            19
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Candlewood Apartments",
+          "callIndices": [
+            20
+          ],
+          "stopIds": [
+            "23dw"
+          ]
+        },
+        {
+          "publishedTime": "3:38",
+          "publishedStop": "Main St./Fire Department",
+          "callIndices": [
+            21
+          ],
+          "stopIds": [
+            "364283"
+          ]
+        },
+        {
+          "publishedTime": "3:40",
+          "publishedStop": "Reinhardt's Mini-Mart",
+          "callIndices": [
+            22
+          ],
+          "stopIds": [
+            "364287"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Richmondview Apartments",
+          "callIndices": [
+            23
+          ],
+          "stopIds": [
+            "364279"
+          ]
+        },
+        {
+          "publishedTime": "3:55",
+          "publishedStop": "Main and Center",
+          "callIndices": [
+            24
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "3:59*",
+          "publishedStop": "Price Chopper Plaza (Drop-Off Only)",
+          "callIndices": [
+            25
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        }
+      ],
+      "oldCallCount": 24,
+      "reviewedCallCount": 26
+    },
+    {
+      "route": "2",
+      "trip": "Route 2-Loop 1",
+      "run": 1,
+      "rows": [
+        {
+          "publishedTime": "8:30",
+          "publishedStop": "Stoneview Apartments",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364295"
+          ]
+        },
+        {
+          "publishedTime": "8:32",
+          "publishedStop": "Early Woodlands Apartments",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364274"
+          ]
+        },
+        {
+          "publishedTime": "8:33",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "8:34",
+          "publishedStop": "Wohl's Plaza",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "STOP_db22aeda-bf24-47eb-aac7-450bada21940"
+          ]
+        },
+        {
+          "publishedTime": "8:36",
+          "publishedStop": "Granite Drive",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "STOP_c67a6ebe-5f9e-4516-a733-ea7990d93443"
+          ]
+        },
+        {
+          "publishedTime": "8:38",
+          "publishedStop": "Campus Drive",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364296"
+          ]
+        },
+        {
+          "publishedTime": "8:39",
+          "publishedStop": "Grandview Apartments",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "STOP_2ff9d679-6674-49c6-b1df-850d14aa0033"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Jay Ridge Apartments",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "STOP_9d8538ad-b16e-407d-b54f-c15a4e55889b"
+          ]
+        },
+        {
+          "publishedTime": "8:45",
+          "publishedStop": "H/Stone Mohawk Drive",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "364289"
+          ]
+        },
+        {
+          "publishedTime": "8:48",
+          "publishedStop": "H/Stone Iroquois Drive",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364290"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Meadow Lanes",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364293"
+          ]
+        },
+        {
+          "publishedTime": "8:53",
+          "publishedStop": "Hospital & Clinic",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "STOP_ec5c3758-95e2-4af9-8500-b130b2fac975"
+          ]
+        },
+        {
+          "publishedTime": "8:58",
+          "publishedStop": "Main/Union Streets",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "8:59",
+          "publishedStop": "N. Grand/Chapel Streets",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "STOP_c2c019dd-9278-4453-b3d4-062c43b66c30"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Teen Town (Meal site)",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "STOP_d52dc432-8a57-42a0-8d86-59a81117bb6e"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Park Pl./Veterans Dr.",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "STOP_b6b5f844-9350-4860-9144-1be574052f5e"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Greenbridge Apartments",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "STOP_79ba74e9-f6ec-4fe4-94cc-a8e5e3580194"
+          ]
+        },
+        {
+          "publishedTime": "9:05",
+          "publishedStop": "SUNY Campus/ Knapp Circle",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "9:10",
+          "publishedStop": "MacArthur/S. Grand",
+          "callIndices": [
+            18
+          ],
+          "stopIds": [
+            "STOP_348161ef-01d4-4f60-b7f7-a8da7f1837b5"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Park Pl./Veterans Dr.",
+          "callIndices": [
+            19
+          ],
+          "stopIds": [
+            "STOP_b6b5f844-9350-4860-9144-1be574052f5e"
+          ]
+        },
+        {
+          "publishedTime": "9:12",
+          "publishedStop": "Main/Center Streets",
+          "callIndices": [
+            20
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "9:15",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            21
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "9:20",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            22
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        }
+      ],
+      "oldCallCount": 22,
+      "reviewedCallCount": 23
+    },
+    {
+      "route": "2",
+      "trip": "Route 2-Loop 2",
+      "run": 2,
+      "rows": [
+        {
+          "publishedTime": "XXX",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [],
+          "decision": "Not operating at this row; no call created.",
+          "stopIds": []
+        },
+        {
+          "publishedTime": "9:30",
+          "publishedStop": "Stoneview Apartments",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364295"
+          ]
+        },
+        {
+          "publishedTime": "9:32",
+          "publishedStop": "Early Woodlands Apartments",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364274"
+          ]
+        },
+        {
+          "publishedTime": "9:33",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "9:34",
+          "publishedStop": "Wohl's Plaza",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "STOP_db22aeda-bf24-47eb-aac7-450bada21940"
+          ]
+        },
+        {
+          "publishedTime": "9:36",
+          "publishedStop": "Granite Drive",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "STOP_c67a6ebe-5f9e-4516-a733-ea7990d93443"
+          ]
+        },
+        {
+          "publishedTime": "9:38",
+          "publishedStop": "Campus Drive",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364296"
+          ]
+        },
+        {
+          "publishedTime": "9:39",
+          "publishedStop": "Grandview Apartments",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "STOP_2ff9d679-6674-49c6-b1df-850d14aa0033"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Jay Ridge Apartments",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "STOP_9d8538ad-b16e-407d-b54f-c15a4e55889b"
+          ]
+        },
+        {
+          "publishedTime": "9:45",
+          "publishedStop": "H/Stone Mohawk Drive",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "364289"
+          ]
+        },
+        {
+          "publishedTime": "9:48",
+          "publishedStop": "H/Stone Iroquois Drive",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364290"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Meadow Lanes",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364293"
+          ]
+        },
+        {
+          "publishedTime": "9:53",
+          "publishedStop": "Hospital & Clinic",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "STOP_ec5c3758-95e2-4af9-8500-b130b2fac975"
+          ]
+        },
+        {
+          "publishedTime": "9:58",
+          "publishedStop": "Main/Union Streets",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "9:59",
+          "publishedStop": "N. Grand/Chapel Streets",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "STOP_c2c019dd-9278-4453-b3d4-062c43b66c30"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Teen Town (Meal site)",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "STOP_d52dc432-8a57-42a0-8d86-59a81117bb6e"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Park Pl./Veterans Dr.",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "STOP_b6b5f844-9350-4860-9144-1be574052f5e"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Greenbridge Apartments",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "STOP_79ba74e9-f6ec-4fe4-94cc-a8e5e3580194"
+          ]
+        },
+        {
+          "publishedTime": "10:05",
+          "publishedStop": "SUNY Campus/ Knapp Circle",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "10:10",
+          "publishedStop": "MacArthur/S. Grand",
+          "callIndices": [
+            18
+          ],
+          "stopIds": [
+            "STOP_348161ef-01d4-4f60-b7f7-a8da7f1837b5"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Park Pl./Veterans Dr.",
+          "callIndices": [
+            19
+          ],
+          "stopIds": [
+            "STOP_b6b5f844-9350-4860-9144-1be574052f5e"
+          ]
+        },
+        {
+          "publishedTime": "10:12",
+          "publishedStop": "Main/Center Streets",
+          "callIndices": [
+            20
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "10:15",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            21
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "10:20",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            22
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        }
+      ],
+      "oldCallCount": 22,
+      "reviewedCallCount": 23
+    },
+    {
+      "route": "2",
+      "trip": "Route 2-Loop 3",
+      "run": 3,
+      "rows": [
+        {
+          "publishedTime": "10:30",
+          "publishedStop": "Stoneview Apartments",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364295"
+          ]
+        },
+        {
+          "publishedTime": "10:32",
+          "publishedStop": "Early Woodlands Apartments",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364274"
+          ]
+        },
+        {
+          "publishedTime": "10:33",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "10:34",
+          "publishedStop": "Wohl's Plaza",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "STOP_db22aeda-bf24-47eb-aac7-450bada21940"
+          ]
+        },
+        {
+          "publishedTime": "10:36",
+          "publishedStop": "Granite Drive",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "STOP_c67a6ebe-5f9e-4516-a733-ea7990d93443"
+          ]
+        },
+        {
+          "publishedTime": "10:38",
+          "publishedStop": "Campus Drive",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364296"
+          ]
+        },
+        {
+          "publishedTime": "10:39",
+          "publishedStop": "Grandview Apartments",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "STOP_2ff9d679-6674-49c6-b1df-850d14aa0033"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Jay Ridge Apartments",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "STOP_9d8538ad-b16e-407d-b54f-c15a4e55889b"
+          ]
+        },
+        {
+          "publishedTime": "10:45",
+          "publishedStop": "H/Stone Mohawk Drive",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "364289"
+          ]
+        },
+        {
+          "publishedTime": "10:48",
+          "publishedStop": "H/Stone Iroquois Drive",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364290"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Meadow Lanes",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364293"
+          ]
+        },
+        {
+          "publishedTime": "10:53",
+          "publishedStop": "Hospital & Clinic",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "STOP_ec5c3758-95e2-4af9-8500-b130b2fac975"
+          ]
+        },
+        {
+          "publishedTime": "10:58",
+          "publishedStop": "Main/Union Streets",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "10:59",
+          "publishedStop": "N. Grand/Chapel Streets",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "STOP_c2c019dd-9278-4453-b3d4-062c43b66c30"
+          ]
+        },
+        {
+          "publishedTime": "11:00",
+          "publishedStop": "Teen Town (Meal site)",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "STOP_d52dc432-8a57-42a0-8d86-59a81117bb6e"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Park Pl./Veterans Dr.",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "STOP_b6b5f844-9350-4860-9144-1be574052f5e"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Greenbridge Apartments",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "STOP_79ba74e9-f6ec-4fe4-94cc-a8e5e3580194"
+          ]
+        },
+        {
+          "publishedTime": "11:05",
+          "publishedStop": "SUNY Campus/ Knapp Circle",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "11:10",
+          "publishedStop": "MacArthur/S. Grand",
+          "callIndices": [
+            18
+          ],
+          "stopIds": [
+            "STOP_348161ef-01d4-4f60-b7f7-a8da7f1837b5"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Park Pl./Veterans Dr.",
+          "callIndices": [
+            19
+          ],
+          "stopIds": [
+            "STOP_b6b5f844-9350-4860-9144-1be574052f5e"
+          ]
+        },
+        {
+          "publishedTime": "11:12",
+          "publishedStop": "Main/Center Streets",
+          "callIndices": [
+            20
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "11:15",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            21
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "11:20**",
+          "publishedStop": "Wal-Mart (Drop-Off Only)",
+          "callIndices": [
+            22
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        }
+      ],
+      "oldCallCount": 22,
+      "reviewedCallCount": 23
+    },
+    {
+      "route": "2",
+      "trip": "Route 2-Loop 4",
+      "run": 4,
+      "rows": [
+        {
+          "publishedTime": "12:00",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "12:01",
+          "publishedStop": "Stoneview Apartments",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364295"
+          ]
+        },
+        {
+          "publishedTime": "12:02",
+          "publishedStop": "Early Woodlands Apartments",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "364274"
+          ]
+        },
+        {
+          "publishedTime": "12:03",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "12:04",
+          "publishedStop": "Wohl's Plaza",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "STOP_db22aeda-bf24-47eb-aac7-450bada21940"
+          ]
+        },
+        {
+          "publishedTime": "12:06",
+          "publishedStop": "Granite Drive",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "STOP_c67a6ebe-5f9e-4516-a733-ea7990d93443"
+          ]
+        },
+        {
+          "publishedTime": "12:08",
+          "publishedStop": "Campus Drive",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "364296"
+          ]
+        },
+        {
+          "publishedTime": "12:09",
+          "publishedStop": "Grandview Apartments",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "STOP_2ff9d679-6674-49c6-b1df-850d14aa0033"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Jay Ridge Apartments",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "STOP_9d8538ad-b16e-407d-b54f-c15a4e55889b"
+          ]
+        },
+        {
+          "publishedTime": "12:15",
+          "publishedStop": "H/Stone Mohawk Drive",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364289"
+          ]
+        },
+        {
+          "publishedTime": "12:18",
+          "publishedStop": "H/Stone Iroquois Drive",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364290"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Meadow Lanes",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "364293"
+          ]
+        },
+        {
+          "publishedTime": "12:23",
+          "publishedStop": "Hospital & Clinic",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "STOP_ec5c3758-95e2-4af9-8500-b130b2fac975"
+          ]
+        },
+        {
+          "publishedTime": "12:28",
+          "publishedStop": "Main/Union Streets",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "12:29",
+          "publishedStop": "N. Grand/Chapel Streets",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "STOP_c2c019dd-9278-4453-b3d4-062c43b66c30"
+          ]
+        },
+        {
+          "publishedTime": "12:41",
+          "publishedStop": "Teen Town (Mealsite)",
+          "callIndices": [
+            15
+          ],
+          "decision": "Conflicting time/order. Retained as unconfirmed; internal ordering placeholder is never shown or used for trips.",
+          "stopIds": [
+            "STOP_d52dc432-8a57-42a0-8d86-59a81117bb6e"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Park Pl./Veterans Dr.",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "STOP_b6b5f844-9350-4860-9144-1be574052f5e"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Greenbridge Apartments",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "STOP_79ba74e9-f6ec-4fe4-94cc-a8e5e3580194"
+          ]
+        },
+        {
+          "publishedTime": "12:35",
+          "publishedStop": "SUNY Campus/ Knapp Circle",
+          "callIndices": [
+            18
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "12:40",
+          "publishedStop": "MacArthur/S. Grand",
+          "callIndices": [
+            19
+          ],
+          "stopIds": [
+            "STOP_348161ef-01d4-4f60-b7f7-a8da7f1837b5"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Park Pl./Veterans Dr.",
+          "callIndices": [
+            20
+          ],
+          "stopIds": [
+            "STOP_b6b5f844-9350-4860-9144-1be574052f5e"
+          ]
+        },
+        {
+          "publishedTime": "12:42",
+          "publishedStop": "Main/Center Streets",
+          "callIndices": [
+            21
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "12:45",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            22
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "12:50",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            23
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        }
+      ],
+      "oldCallCount": 23,
+      "reviewedCallCount": 24
+    },
+    {
+      "route": "2",
+      "trip": "Route 2-Loop 5",
+      "run": 5,
+      "rows": [
+        {
+          "publishedTime": "1:00",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "1:01",
+          "publishedStop": "Stoneview Apartments",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364295"
+          ]
+        },
+        {
+          "publishedTime": "1:02",
+          "publishedStop": "Early Woodlands Apartments",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "364274"
+          ]
+        },
+        {
+          "publishedTime": "1:03",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "1:04",
+          "publishedStop": "Wohl's Plaza",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "STOP_db22aeda-bf24-47eb-aac7-450bada21940"
+          ]
+        },
+        {
+          "publishedTime": "1:06",
+          "publishedStop": "Granite Drive",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "STOP_c67a6ebe-5f9e-4516-a733-ea7990d93443"
+          ]
+        },
+        {
+          "publishedTime": "1:08",
+          "publishedStop": "Campus Drive",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "364296"
+          ]
+        },
+        {
+          "publishedTime": "1:09",
+          "publishedStop": "Grandview Apartments",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "STOP_2ff9d679-6674-49c6-b1df-850d14aa0033"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Jay Ridge Apartments",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "STOP_9d8538ad-b16e-407d-b54f-c15a4e55889b"
+          ]
+        },
+        {
+          "publishedTime": "1:15",
+          "publishedStop": "H/Stone Mohawk Drive",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364289"
+          ]
+        },
+        {
+          "publishedTime": "1:18",
+          "publishedStop": "H/Stone Iroquois Drive",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364290"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Meadow Lanes",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "364293"
+          ]
+        },
+        {
+          "publishedTime": "1:23",
+          "publishedStop": "Hospital & Clinic",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "STOP_ec5c3758-95e2-4af9-8500-b130b2fac975"
+          ]
+        },
+        {
+          "publishedTime": "1:28",
+          "publishedStop": "Main/Union Streets",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "1:29",
+          "publishedStop": "N. Grand/Chapel Streets",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "STOP_c2c019dd-9278-4453-b3d4-062c43b66c30"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Teen Town (Mealsite)",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "STOP_d52dc432-8a57-42a0-8d86-59a81117bb6e"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Park Pl./Veterans Dr.",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "STOP_b6b5f844-9350-4860-9144-1be574052f5e"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Greenbridge Apartments",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "STOP_79ba74e9-f6ec-4fe4-94cc-a8e5e3580194"
+          ]
+        },
+        {
+          "publishedTime": "1:35",
+          "publishedStop": "SUNY Campus/ Knapp Circle",
+          "callIndices": [
+            18
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "1:40",
+          "publishedStop": "MacArthur/S. Grand",
+          "callIndices": [
+            19
+          ],
+          "stopIds": [
+            "STOP_348161ef-01d4-4f60-b7f7-a8da7f1837b5"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Park Pl./Veterans Dr.",
+          "callIndices": [
+            20
+          ],
+          "stopIds": [
+            "STOP_b6b5f844-9350-4860-9144-1be574052f5e"
+          ]
+        },
+        {
+          "publishedTime": "1:42",
+          "publishedStop": "Main/Center Streets",
+          "callIndices": [
+            21
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "1:45",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            22
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "1:50",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            23
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        }
+      ],
+      "oldCallCount": 23,
+      "reviewedCallCount": 24
+    },
+    {
+      "route": "2",
+      "trip": "Route 2-Loop 6",
+      "run": 6,
+      "rows": [
+        {
+          "publishedTime": "2:00",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "2:01",
+          "publishedStop": "Stoneview Apartments",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364295"
+          ]
+        },
+        {
+          "publishedTime": "2:02",
+          "publishedStop": "Early Woodlands Apartments",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "364274"
+          ]
+        },
+        {
+          "publishedTime": "2:03",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "2:04",
+          "publishedStop": "Wohl's Plaza",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "STOP_db22aeda-bf24-47eb-aac7-450bada21940"
+          ]
+        },
+        {
+          "publishedTime": "2:06",
+          "publishedStop": "Granite Drive",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "STOP_c67a6ebe-5f9e-4516-a733-ea7990d93443"
+          ]
+        },
+        {
+          "publishedTime": "2:08",
+          "publishedStop": "Campus Drive",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "364296"
+          ]
+        },
+        {
+          "publishedTime": "2:09",
+          "publishedStop": "Grandview Apartments",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "STOP_2ff9d679-6674-49c6-b1df-850d14aa0033"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Jay Ridge Apartments",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "STOP_9d8538ad-b16e-407d-b54f-c15a4e55889b"
+          ]
+        },
+        {
+          "publishedTime": "2:15",
+          "publishedStop": "H/Stone Mohawk Drive",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364289"
+          ]
+        },
+        {
+          "publishedTime": "2:18",
+          "publishedStop": "H/Stone Iroquois Drive",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364290"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Meadow Lanes",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "364293"
+          ]
+        },
+        {
+          "publishedTime": "2:23",
+          "publishedStop": "Hospital & Clinic",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "STOP_ec5c3758-95e2-4af9-8500-b130b2fac975"
+          ]
+        },
+        {
+          "publishedTime": "2:28",
+          "publishedStop": "Main/Union Streets",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "2:29",
+          "publishedStop": "N. Grand/Chapel Streets",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "STOP_c2c019dd-9278-4453-b3d4-062c43b66c30"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Teen Town (Mealsite)",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "STOP_d52dc432-8a57-42a0-8d86-59a81117bb6e"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Park Pl./Veterans Dr.",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "STOP_b6b5f844-9350-4860-9144-1be574052f5e"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Greenbridge Apartments",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "STOP_79ba74e9-f6ec-4fe4-94cc-a8e5e3580194"
+          ]
+        },
+        {
+          "publishedTime": "2:35",
+          "publishedStop": "SUNY Campus/ Knapp Circle",
+          "callIndices": [
+            18
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "2:40",
+          "publishedStop": "MacArthur/S. Grand",
+          "callIndices": [
+            19
+          ],
+          "stopIds": [
+            "STOP_348161ef-01d4-4f60-b7f7-a8da7f1837b5"
+          ]
+        },
+        {
+          "publishedTime": "on call",
+          "publishedStop": "Park Pl./Veterans Dr.",
+          "callIndices": [
+            20
+          ],
+          "stopIds": [
+            "STOP_b6b5f844-9350-4860-9144-1be574052f5e"
+          ]
+        },
+        {
+          "publishedTime": "2:42",
+          "publishedStop": "Main/Center Streets",
+          "callIndices": [
+            21
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "2:45",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            22
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "2:50",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            23
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        }
+      ],
+      "oldCallCount": 23,
+      "reviewedCallCount": 24
+    },
+    {
+      "route": "2A",
+      "trip": "SC_R2A_WDSa_01_T01",
+      "run": 1,
+      "rows": [
+        {
+          "publishedTime": "3:00",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "3:05",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "3:06",
+          "publishedStop": "Wohl's Plaza",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "STOP_db22aeda-bf24-47eb-aac7-450bada21940"
+          ]
+        },
+        {
+          "publishedTime": "3:08",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "3:13",
+          "publishedStop": "SUNY Alumni Commons",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "hzl2"
+          ]
+        },
+        {
+          "publishedTime": "3:18",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "3:20",
+          "publishedStop": "Green Apartments",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "STOP_79ba74e9-f6ec-4fe4-94cc-a8e5e3580194"
+          ]
+        },
+        {
+          "publishedTime": "3:21",
+          "publishedStop": "MacArthur / S. Grand St.",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "STOP_348161ef-01d4-4f60-b7f7-a8da7f1837b5"
+          ]
+        },
+        {
+          "publishedTime": "3:23",
+          "publishedStop": "Main & Center",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "3:26",
+          "publishedStop": "Hammerstone - Mohawk",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364289"
+          ]
+        },
+        {
+          "publishedTime": "3:29",
+          "publishedStop": "Hammerstone - Iroquois",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364290"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Meadow Lane",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "364293"
+          ]
+        },
+        {
+          "publishedTime": "3:33",
+          "publishedStop": "Hospital / Basset Clinic",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "ukak"
+          ]
+        },
+        {
+          "publishedTime": "3:36",
+          "publishedStop": "Campus Apartments",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "364296"
+          ]
+        },
+        {
+          "publishedTime": "3:38",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Early Woodlands",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "364274"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Stoneview",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "364295"
+          ]
+        },
+        {
+          "publishedTime": "3:42",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        }
+      ],
+      "oldCallCount": 18,
+      "reviewedCallCount": 18
+    },
+    {
+      "route": "2A",
+      "trip": "SC_R2A_WDSa_01_T02",
+      "run": 2,
+      "rows": [
+        {
+          "publishedTime": "3:45",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "3:50",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "3:51",
+          "publishedStop": "Wohl's Plaza",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "STOP_db22aeda-bf24-47eb-aac7-450bada21940"
+          ]
+        },
+        {
+          "publishedTime": "3:53",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "3:58",
+          "publishedStop": "SUNY Alumni Commons",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "hzl2"
+          ]
+        },
+        {
+          "publishedTime": "4:03",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "4:05",
+          "publishedStop": "Green Apartments",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "STOP_79ba74e9-f6ec-4fe4-94cc-a8e5e3580194"
+          ]
+        },
+        {
+          "publishedTime": "4:06",
+          "publishedStop": "MacArthur / S. Grand St.",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "STOP_348161ef-01d4-4f60-b7f7-a8da7f1837b5"
+          ]
+        },
+        {
+          "publishedTime": "4:08",
+          "publishedStop": "Main & Center",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "4:11",
+          "publishedStop": "Hammerstone - Mohawk",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364289"
+          ]
+        },
+        {
+          "publishedTime": "4:14",
+          "publishedStop": "Hammerstone - Iroquois",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364290"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Meadow Lane",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "364293"
+          ]
+        },
+        {
+          "publishedTime": "4:18",
+          "publishedStop": "Hospital / Basset Clinic",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "ukak"
+          ]
+        },
+        {
+          "publishedTime": "4:21",
+          "publishedStop": "Campus Apartments",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "364296"
+          ]
+        },
+        {
+          "publishedTime": "4:23",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Early Woodlands",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "364274"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Stoneview",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "364295"
+          ]
+        },
+        {
+          "publishedTime": "4:27",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        }
+      ],
+      "oldCallCount": 18,
+      "reviewedCallCount": 18
+    },
+    {
+      "route": "2A",
+      "trip": "SC_R2A_WDSa_01_T03",
+      "run": 3,
+      "rows": [
+        {
+          "publishedTime": "4:40",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "4:45",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "4:46",
+          "publishedStop": "Wohl's Plaza",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "STOP_db22aeda-bf24-47eb-aac7-450bada21940"
+          ]
+        },
+        {
+          "publishedTime": "4:48",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "4:53",
+          "publishedStop": "SUNY Alumni Commons",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "hzl2"
+          ]
+        },
+        {
+          "publishedTime": "4:58",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "5:00",
+          "publishedStop": "Green Apartments",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "STOP_79ba74e9-f6ec-4fe4-94cc-a8e5e3580194"
+          ]
+        },
+        {
+          "publishedTime": "5:01",
+          "publishedStop": "MacArthur / S. Grand St.",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "STOP_348161ef-01d4-4f60-b7f7-a8da7f1837b5"
+          ]
+        },
+        {
+          "publishedTime": "5:03",
+          "publishedStop": "Main & Center",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "5:06",
+          "publishedStop": "Hammerstone - Mohawk",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364289"
+          ]
+        },
+        {
+          "publishedTime": "5:09",
+          "publishedStop": "Hammerstone - Iroquois",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364290"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Meadow Lane",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "364293"
+          ]
+        },
+        {
+          "publishedTime": "5:13",
+          "publishedStop": "Hospital / Basset Clinic",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "ukak"
+          ]
+        },
+        {
+          "publishedTime": "5:16",
+          "publishedStop": "Campus Apartments",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "364296"
+          ]
+        },
+        {
+          "publishedTime": "5:18",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Early Woodlands",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "364274"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Stoneview",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "364295"
+          ]
+        },
+        {
+          "publishedTime": "5:22",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        }
+      ],
+      "oldCallCount": 18,
+      "reviewedCallCount": 18
+    },
+    {
+      "route": "2A",
+      "trip": "SC_R2A_WDSa_01_T04",
+      "run": 4,
+      "rows": [
+        {
+          "publishedTime": "5:22",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [],
+          "decision": "Ambiguous duplicate 5:22 Walmart entry; 5:25 departure retained because GTFS agrees. Confirm with dispatch.",
+          "stopIds": []
+        },
+        {
+          "publishedTime": "5:25",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "5:30",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "5:31",
+          "publishedStop": "Wohl's Plaza",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "STOP_db22aeda-bf24-47eb-aac7-450bada21940"
+          ]
+        },
+        {
+          "publishedTime": "5:33",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "5:38",
+          "publishedStop": "SUNY Alumni Commons",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "hzl2"
+          ]
+        },
+        {
+          "publishedTime": "5:43",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "5:45",
+          "publishedStop": "Green Apartments",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "STOP_79ba74e9-f6ec-4fe4-94cc-a8e5e3580194"
+          ]
+        },
+        {
+          "publishedTime": "5:46",
+          "publishedStop": "MacArthur / S. Grand St.",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "STOP_348161ef-01d4-4f60-b7f7-a8da7f1837b5"
+          ]
+        },
+        {
+          "publishedTime": "5:48",
+          "publishedStop": "Main & Center",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "5:51",
+          "publishedStop": "Hammerstone - Mohawk",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364289"
+          ]
+        },
+        {
+          "publishedTime": "5:54",
+          "publishedStop": "Hammerstone - Iroquois",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364290"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Meadow Lane",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "364293"
+          ]
+        },
+        {
+          "publishedTime": "5:58",
+          "publishedStop": "Hospital / Basset Clinic",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "ukak"
+          ]
+        },
+        {
+          "publishedTime": "6:01",
+          "publishedStop": "Campus Apartments",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "364296"
+          ]
+        },
+        {
+          "publishedTime": "6:03",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Early Woodlands",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "364274"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Stoneview",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "364295"
+          ]
+        },
+        {
+          "publishedTime": "6:07",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        }
+      ],
+      "oldCallCount": 18,
+      "reviewedCallCount": 18
+    },
+    {
+      "route": "2A",
+      "trip": "SC_R2A_WDSa_01_T05",
+      "run": 5,
+      "rows": [
+        {
+          "publishedTime": "6:20",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "6:25",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "6:26",
+          "publishedStop": "Wohl's Plaza",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "STOP_db22aeda-bf24-47eb-aac7-450bada21940"
+          ]
+        },
+        {
+          "publishedTime": "6:28",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "6:33",
+          "publishedStop": "SUNY Alumni Commons",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "hzl2"
+          ]
+        },
+        {
+          "publishedTime": "6:38",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "6:40",
+          "publishedStop": "Green Apartments",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "STOP_79ba74e9-f6ec-4fe4-94cc-a8e5e3580194"
+          ]
+        },
+        {
+          "publishedTime": "6:41",
+          "publishedStop": "MacArthur / S. Grand St.",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "STOP_348161ef-01d4-4f60-b7f7-a8da7f1837b5"
+          ]
+        },
+        {
+          "publishedTime": "6:43",
+          "publishedStop": "Main & Center",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "6:46",
+          "publishedStop": "Hammerstone - Mohawk",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364289"
+          ]
+        },
+        {
+          "publishedTime": "6:49",
+          "publishedStop": "Hammerstone - Iroquois",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364290"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Meadow Lane",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "364293"
+          ]
+        },
+        {
+          "publishedTime": "6:53",
+          "publishedStop": "Hospital / Basset Clinic",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "ukak"
+          ]
+        },
+        {
+          "publishedTime": "6:56",
+          "publishedStop": "Campus Apartments",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "364296"
+          ]
+        },
+        {
+          "publishedTime": "6:58",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Early Woodlands",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "364274"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Stoneview",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "364295"
+          ]
+        },
+        {
+          "publishedTime": "7:02",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        }
+      ],
+      "oldCallCount": 18,
+      "reviewedCallCount": 18
+    },
+    {
+      "route": "2A",
+      "trip": "SC_R2A_WDSa_01_T06",
+      "run": 6,
+      "rows": [
+        {
+          "publishedTime": "7:05",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "7:10",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "7:11",
+          "publishedStop": "Wohl's Plaza",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "STOP_db22aeda-bf24-47eb-aac7-450bada21940"
+          ]
+        },
+        {
+          "publishedTime": "7:13",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "7:18",
+          "publishedStop": "SUNY Alumni Commons",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "hzl2"
+          ]
+        },
+        {
+          "publishedTime": "7:23",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "7:25",
+          "publishedStop": "Green Apartments",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "STOP_79ba74e9-f6ec-4fe4-94cc-a8e5e3580194"
+          ]
+        },
+        {
+          "publishedTime": "7:26",
+          "publishedStop": "MacArthur / S. Grand St.",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "STOP_348161ef-01d4-4f60-b7f7-a8da7f1837b5"
+          ]
+        },
+        {
+          "publishedTime": "7:28",
+          "publishedStop": "Main & Center",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "7:31",
+          "publishedStop": "Hammerstone - Mohawk",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364289"
+          ]
+        },
+        {
+          "publishedTime": "7:34",
+          "publishedStop": "Hammerstone - Iroquois",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364290"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Meadow Lane",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "364293"
+          ]
+        },
+        {
+          "publishedTime": "7:38",
+          "publishedStop": "Hospital / Basset Clinic",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "ukak"
+          ]
+        },
+        {
+          "publishedTime": "7:41",
+          "publishedStop": "Campus Apartments",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "364296"
+          ]
+        },
+        {
+          "publishedTime": "7:43",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Early Woodlands",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "364274"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Stoneview",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "364295"
+          ]
+        },
+        {
+          "publishedTime": "*7:47",
+          "publishedStop": "Wal-Mart (Drop-Off Only)",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        }
+      ],
+      "oldCallCount": 18,
+      "reviewedCallCount": 18
+    },
+    {
+      "route": "2A",
+      "trip": "SC_R2A_WDSa_07",
+      "run": 7,
+      "rows": [
+        {
+          "publishedTime": "8:20",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "8:25",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "8:26",
+          "publishedStop": "Wohl's Plaza",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "STOP_db22aeda-bf24-47eb-aac7-450bada21940"
+          ]
+        },
+        {
+          "publishedTime": "8:28",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "8:33",
+          "publishedStop": "SUNY Alumni Commons",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "hzl2"
+          ]
+        },
+        {
+          "publishedTime": "8:38",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "8:40",
+          "publishedStop": "Green Apartments",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "STOP_79ba74e9-f6ec-4fe4-94cc-a8e5e3580194"
+          ]
+        },
+        {
+          "publishedTime": "8:41",
+          "publishedStop": "MacArthur / S. Grand St.",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "STOP_348161ef-01d4-4f60-b7f7-a8da7f1837b5"
+          ]
+        },
+        {
+          "publishedTime": "8:43",
+          "publishedStop": "Main & Center",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "8:46",
+          "publishedStop": "Hammerstone - Mohawk",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364289"
+          ]
+        },
+        {
+          "publishedTime": "8:49",
+          "publishedStop": "Hammerstone - Iroquois",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364290"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Meadow Lane",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "364293"
+          ]
+        },
+        {
+          "publishedTime": "8:53",
+          "publishedStop": "Hospital / Basset Clinic",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "ukak"
+          ]
+        },
+        {
+          "publishedTime": "8:56",
+          "publishedStop": "Campus Apartments",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "364296"
+          ]
+        },
+        {
+          "publishedTime": "*8:58",
+          "publishedStop": "Price Chopper (Drop-Off Only)",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        }
+      ],
+      "oldCallCount": 15,
+      "reviewedCallCount": 15
+    },
+    {
+      "route": "3",
+      "trip": "SC-03-WD-01",
+      "run": 1,
+      "rows": [
+        {
+          "publishedTime": "8:00",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "8:05",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "8:15",
+          "publishedStop": "Main & Center",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "8:20",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "8:40",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "8:45",
+          "publishedStop": "County Annex Building",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "8:55",
+          "publishedStop": "County Office Building",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "9:00",
+          "publishedStop": "ARC",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "60f0676e"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Meadow MHP",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "fr9y"
+          ]
+        },
+        {
+          "publishedTime": "9:15",
+          "publishedStop": "Middleburgh Library",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364276"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Indian Springs/Cliffside",
+          "callIndices": [
+            11,
+            12
+          ],
+          "stopIds": [
+            "364277",
+            "364302"
+          ]
+        },
+        {
+          "publishedTime": "9:20",
+          "publishedStop": "ARC",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "60f0676e"
+          ]
+        },
+        {
+          "publishedTime": "9:25",
+          "publishedStop": "Birchez",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "rnfc"
+          ]
+        },
+        {
+          "publishedTime": "9:30",
+          "publishedStop": "County Office Building",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "9:35",
+          "publishedStop": "Driftwood Apts.",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "364301"
+          ]
+        },
+        {
+          "publishedTime": "9:40",
+          "publishedStop": "County Annex Building",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "9:45",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            18
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "10:05",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            19
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "10:10*",
+          "publishedStop": "Price Chopper (Drop-Off Only)",
+          "callIndices": [
+            20
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        }
+      ],
+      "oldCallCount": 23,
+      "reviewedCallCount": 21
+    },
+    {
+      "route": "3",
+      "trip": "SC-03-WD-02",
+      "run": 2,
+      "rows": [
+        {
+          "publishedTime": "10:35",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "10:40",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "10:50",
+          "publishedStop": "Main & Center",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "10:55",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "11:15",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "11:20",
+          "publishedStop": "County Annex Building",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "11:30",
+          "publishedStop": "County Office Building",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "ARC",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "60f0676e"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Meadow MHP",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "fr9y"
+          ]
+        },
+        {
+          "publishedTime": "11:50",
+          "publishedStop": "Middleburgh Library",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364276"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Indian Springs/Cliffside",
+          "callIndices": [
+            11,
+            12
+          ],
+          "stopIds": [
+            "364277",
+            "364302"
+          ]
+        },
+        {
+          "publishedTime": "12:00",
+          "publishedStop": "Birchez",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "rnfc"
+          ]
+        },
+        {
+          "publishedTime": "12:05",
+          "publishedStop": "County Office Building",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "12:10",
+          "publishedStop": "Driftwood Apts.",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "364301"
+          ]
+        },
+        {
+          "publishedTime": "12:15",
+          "publishedStop": "County Annex Building",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "12:20",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "12:40",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            18
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "12:45*",
+          "publishedStop": "Price Chopper (Drop-Off Only)",
+          "callIndices": [
+            19
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        }
+      ],
+      "oldCallCount": 23,
+      "reviewedCallCount": 20
+    },
+    {
+      "route": "3",
+      "trip": "SC-03-WD-03",
+      "run": 3,
+      "rows": [
+        {
+          "publishedTime": "1:25",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "1:30",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "1:40",
+          "publishedStop": "Main & Center",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "1:45",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "2:05",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "2:10",
+          "publishedStop": "County Annex Building",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "2:20",
+          "publishedStop": "County Office Building",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "ARC",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "60f0676e"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Meadow MHP",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "fr9y"
+          ]
+        },
+        {
+          "publishedTime": "2:40",
+          "publishedStop": "Middleburgh Library",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364276"
+          ]
+        },
+        {
+          "publishedTime": "On call",
+          "publishedStop": "Indian Springs/Cliffside",
+          "callIndices": [
+            11,
+            12
+          ],
+          "stopIds": [
+            "364277",
+            "364302"
+          ]
+        },
+        {
+          "publishedTime": "2:45",
+          "publishedStop": "ARC",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "60f0676e"
+          ]
+        },
+        {
+          "publishedTime": "2:50",
+          "publishedStop": "Birchez",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "rnfc"
+          ]
+        },
+        {
+          "publishedTime": "2:55",
+          "publishedStop": "County Office Building",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "3:00",
+          "publishedStop": "Driftwood Apts.",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "364301"
+          ]
+        },
+        {
+          "publishedTime": "3:05",
+          "publishedStop": "County Annex Building",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "3:10",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            18
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "3:30",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            19
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "3:35*",
+          "publishedStop": "Price Chopper (Drop-Off Only)",
+          "callIndices": [
+            20
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        }
+      ],
+      "oldCallCount": 23,
+      "reviewedCallCount": 21
+    },
+    {
+      "route": "3",
+      "trip": "SC-03-WD-04",
+      "run": 4,
+      "rows": [
+        {
+          "publishedTime": "4:00",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "4:05",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "SUNY Knapp Circle",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "364286"
+          ]
+        },
+        {
+          "publishedTime": "4:15",
+          "publishedStop": "Main & Center",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "4:20",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "4:40",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "4:45",
+          "publishedStop": "County Annex Building",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "4:55",
+          "publishedStop": "County Office Building",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "ARC",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "60f0676e"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Meadow MHP",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "fr9y"
+          ]
+        },
+        {
+          "publishedTime": "5:15",
+          "publishedStop": "Middleburgh Library",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364276"
+          ]
+        },
+        {
+          "publishedTime": "On Call",
+          "publishedStop": "Indian Springs/Cliffside",
+          "callIndices": [
+            11,
+            12
+          ],
+          "stopIds": [
+            "364277",
+            "364302"
+          ]
+        },
+        {
+          "publishedTime": "5:25",
+          "publishedStop": "Birchez",
+          "callIndices": [
+            13
+          ],
+          "stopIds": [
+            "rnfc"
+          ]
+        },
+        {
+          "publishedTime": "5:30",
+          "publishedStop": "County Office Building",
+          "callIndices": [
+            14
+          ],
+          "stopIds": [
+            "364281"
+          ]
+        },
+        {
+          "publishedTime": "5:35",
+          "publishedStop": "Driftwood Apts.",
+          "callIndices": [
+            15
+          ],
+          "stopIds": [
+            "364301"
+          ]
+        },
+        {
+          "publishedTime": "5:40",
+          "publishedStop": "County Annex Building",
+          "callIndices": [
+            16
+          ],
+          "stopIds": [
+            "364291"
+          ]
+        },
+        {
+          "publishedTime": "5:45",
+          "publishedStop": "Central Bridge Post Office",
+          "callIndices": [
+            17
+          ],
+          "stopIds": [
+            "364288"
+          ]
+        },
+        {
+          "publishedTime": "6:05",
+          "publishedStop": "Wal-Mart",
+          "callIndices": [
+            18
+          ],
+          "stopIds": [
+            "364278"
+          ]
+        },
+        {
+          "publishedTime": "6:10*",
+          "publishedStop": "Price Chopper (Drop-Off Only)",
+          "callIndices": [
+            19
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        }
+      ],
+      "oldCallCount": 23,
+      "reviewedCallCount": 20
+    },
+    {
+      "route": "22",
+      "trip": "SC_R22_WD_AM_T01",
+      "run": 1,
+      "rows": [
+        {
+          "publishedTime": "5:45",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        },
+        {
+          "publishedTime": "5:55",
+          "publishedStop": "Reinhardt's",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "364287"
+          ]
+        },
+        {
+          "publishedTime": "6:00",
+          "publishedStop": "Main St. Fire Dept.",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "364283"
+          ]
+        },
+        {
+          "publishedTime": "6:10",
+          "publishedStop": "Main & Center",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "364300"
+          ]
+        },
+        {
+          "publishedTime": "6:15",
+          "publishedStop": "Park & Ride Rt.7 &145",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "gtcb"
+          ]
+        },
+        {
+          "publishedTime": "6:25",
+          "publishedStop": "Park & Ride Rt. 30A and I-88",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "6v1r"
+          ]
+        },
+        {
+          "publishedTime": "6:40",
+          "publishedStop": "Park & Ride Rt. 20, Duanesburg",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "zpu7"
+          ]
+        },
+        {
+          "publishedTime": "7:08",
+          "publishedStop": "Madison/Empire State Plaza",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "bhxx"
+          ]
+        },
+        {
+          "publishedTime": "7:11",
+          "publishedStop": "Swan/ Washington",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "g2vn"
+          ]
+        },
+        {
+          "publishedTime": "7:15",
+          "publishedStop": "State/Broadway/Green",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "rttm"
+          ]
+        },
+        {
+          "publishedTime": "7:20",
+          "publishedStop": "Encon Building-Front",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "h7sy"
+          ]
+        },
+        {
+          "publishedTime": "7:40",
+          "publishedStop": "State Office Campus",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "fa26"
+          ]
+        },
+        {
+          "publishedTime": "7:55",
+          "publishedStop": "Wolf Road",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "pplg"
+          ]
+        }
+      ],
+      "oldCallCount": 13,
+      "reviewedCallCount": 13
+    },
+    {
+      "route": "22",
+      "trip": "SC_R22_WD_PM_T01",
+      "run": 2,
+      "rows": [
+        {
+          "publishedTime": "3:45",
+          "publishedStop": "Wolf Road",
+          "callIndices": [
+            0
+          ],
+          "stopIds": [
+            "pplg"
+          ]
+        },
+        {
+          "publishedTime": "4:05",
+          "publishedStop": "Madison Empire State Plaza",
+          "callIndices": [
+            1
+          ],
+          "stopIds": [
+            "bhxx"
+          ]
+        },
+        {
+          "publishedTime": "4:10",
+          "publishedStop": "Swan & Washington",
+          "callIndices": [
+            2
+          ],
+          "stopIds": [
+            "g2vn"
+          ]
+        },
+        {
+          "publishedTime": "4:15",
+          "publishedStop": "State/Broadway/Green",
+          "callIndices": [
+            3
+          ],
+          "stopIds": [
+            "rttm"
+          ]
+        },
+        {
+          "publishedTime": "4:20",
+          "publishedStop": "Encon Building-Front",
+          "callIndices": [
+            4
+          ],
+          "stopIds": [
+            "h7sy"
+          ]
+        },
+        {
+          "publishedTime": "4:40",
+          "publishedStop": "State Office Campus",
+          "callIndices": [
+            5
+          ],
+          "stopIds": [
+            "fa26"
+          ]
+        },
+        {
+          "publishedTime": "5:05",
+          "publishedStop": "Park & Ride Rt. 20, Duanesburg",
+          "callIndices": [
+            6
+          ],
+          "stopIds": [
+            "zpu7"
+          ]
+        },
+        {
+          "publishedTime": "5:20",
+          "publishedStop": "Park & Ride Rt. 30A and I-88",
+          "callIndices": [
+            7
+          ],
+          "stopIds": [
+            "6v1r"
+          ]
+        },
+        {
+          "publishedTime": "5:30",
+          "publishedStop": "Park & Ride Rt.7 &145",
+          "callIndices": [
+            8
+          ],
+          "stopIds": [
+            "gtcb"
+          ]
+        },
+        {
+          "publishedTime": "5:40",
+          "publishedStop": "Main & Union",
+          "callIndices": [
+            9
+          ],
+          "stopIds": [
+            "364298"
+          ]
+        },
+        {
+          "publishedTime": "5:50",
+          "publishedStop": "Main St. Fire Dept.",
+          "callIndices": [
+            10
+          ],
+          "stopIds": [
+            "364283"
+          ]
+        },
+        {
+          "publishedTime": "5:55",
+          "publishedStop": "Reinhardt's",
+          "callIndices": [
+            11
+          ],
+          "stopIds": [
+            "364287"
+          ]
+        },
+        {
+          "publishedTime": "6:05",
+          "publishedStop": "Price Chopper",
+          "callIndices": [
+            12
+          ],
+          "stopIds": [
+            "364271"
+          ]
+        }
+      ],
+      "oldCallCount": 13,
+      "reviewedCallCount": 13
+    }
+  ],
+  "mapComparisons": [
+    {
+      "route": "1",
+      "mapName": "1 - Price Chopper",
+      "stop": "364271",
+      "mapLat": 42.68223,
+      "mapLon": -74.470782,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 86
+    },
+    {
+      "route": "1",
+      "mapName": "2 - Candlewood Apartments",
+      "stop": "23dw",
+      "mapLat": 42.6352871,
+      "mapLon": -74.5574251,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 88
+    },
+    {
+      "route": "1",
+      "mapName": "3 - Reinhardt Mini Mart",
+      "stop": "364287",
+      "mapLat": 42.636589,
+      "mapLon": -74.56958,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 16
+    },
+    {
+      "route": "1",
+      "mapName": "4 - Richmondville Fire House",
+      "stop": "364283",
+      "mapLat": 42.634075,
+      "mapLon": -74.563278,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 7
+    },
+    {
+      "route": "1",
+      "mapName": "5 - Richmond-View Senior Housing",
+      "stop": "364279",
+      "mapLat": 42.634888,
+      "mapLon": -74.555504,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 16
+    },
+    {
+      "route": "1",
+      "mapName": "6 - SUNY Cobleskill",
+      "stop": "364286",
+      "mapLat": 42.672672,
+      "mapLon": -74.498032,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 113
+    },
+    {
+      "route": "1",
+      "mapName": "7 - Main St & Center St",
+      "stop": "364300",
+      "mapLat": 42.6782,
+      "mapLon": -74.483101,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 34
+    },
+    {
+      "route": "1",
+      "mapName": "8 - Wal-Mart Super Center",
+      "stop": "364278",
+      "mapLat": 42.68182,
+      "mapLon": -74.455704,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 35
+    },
+    {
+      "route": "1",
+      "mapName": "9 - Central Bridge Post Office",
+      "stop": "364288",
+      "mapLat": 42.712414,
+      "mapLon": -74.336288,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 126
+    },
+    {
+      "route": "1",
+      "mapName": "10 - County Annex Building",
+      "stop": "364291",
+      "mapLat": 42.702797,
+      "mapLon": -74.310783,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 28
+    },
+    {
+      "route": "1",
+      "mapName": "11 - Bassett Healthcare Schoharie",
+      "stop": "STOP_8d264a57-daf4-4ac8-a0c3-0b936f74fc99",
+      "mapLat": 42.685436,
+      "mapLon": -74.295578,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 24
+    },
+    {
+      "route": "1",
+      "mapName": "12- County Office Building, side lobby",
+      "stop": "364281",
+      "mapLat": 42.663274,
+      "mapLon": -74.312673,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 83
+    },
+    {
+      "route": "1",
+      "mapName": "13 - ARC",
+      "stop": "60f0676e",
+      "mapLat": 42.640705,
+      "mapLon": -74.324326,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 125
+    },
+    {
+      "route": "1",
+      "mapName": "14 - Parsonage Pines Apartments",
+      "stop": "364284",
+      "mapLat": 42.6622025,
+      "mapLon": -74.310542,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 39
+    },
+    {
+      "route": "1",
+      "mapName": "15 - Main St. & Union St.",
+      "stop": "364298",
+      "mapLat": 42.6782545,
+      "mapLon": -74.4834675,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 29
+    },
+    {
+      "route": "1",
+      "mapName": "16 - Driftwood Apts.",
+      "stop": "364301",
+      "mapLat": 42.6640498,
+      "mapLon": -74.3068975,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 53
+    },
+    {
+      "route": "1",
+      "mapName": "17 - The Birches",
+      "stop": "rnfc",
+      "mapLat": 42.6586734,
+      "mapLon": -74.3160634,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 12
+    },
+    {
+      "route": "1",
+      "mapName": "18 - Middleburgh Library",
+      "stop": "364276",
+      "mapLat": 42.5985966,
+      "mapLon": -74.3352443,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 24
+    },
+    {
+      "route": "1",
+      "mapName": "19 - Indian Acres",
+      "stop": "364302",
+      "mapLat": 42.5904494,
+      "mapLon": -74.3344299,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 23
+    },
+    {
+      "route": "1",
+      "mapName": "20 - Middleburgh School Bus Garage",
+      "stop": "STOP_b88547de-2ac8-40d9-94c5-f87f9f98719c",
+      "mapLat": 42.5918989,
+      "mapLon": -74.3234082,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 123
+    },
+    {
+      "route": "1",
+      "mapName": "21 - Cliffside Apartments",
+      "stop": "364277",
+      "mapLat": 42.5981521,
+      "mapLon": -74.327239,
+      "kmlSha256": "55e911614adbd3214251cad965e07a47d0ddafc8160edecb5bc419abaa920f81",
+      "separationMeters": 106
+    },
+    {
+      "route": "2",
+      "mapName": "1 - Stoneview apartments",
+      "stop": "364295",
+      "mapLat": 42.684535,
+      "mapLon": -74.466182,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 62
+    },
+    {
+      "route": "2",
+      "mapName": "2 - Early Woodlands Apartments",
+      "stop": "364274",
+      "mapLat": 42.683226,
+      "mapLon": -74.466542,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 13
+    },
+    {
+      "route": "2",
+      "mapName": "3 - Price Chopper",
+      "stop": "364271",
+      "mapLat": 42.682355,
+      "mapLon": -74.470495,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 112
+    },
+    {
+      "route": "2",
+      "mapName": "4 - Wohl's Plaza",
+      "stop": "STOP_db22aeda-bf24-47eb-aac7-450bada21940",
+      "mapLat": 42.680819,
+      "mapLon": -74.472831,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 50
+    },
+    {
+      "route": "2",
+      "mapName": "5 - Granite Drive",
+      "stop": "STOP_c67a6ebe-5f9e-4516-a733-ea7990d93443",
+      "mapLat": 42.681406,
+      "mapLon": -74.473368,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 79
+    },
+    {
+      "route": "2",
+      "mapName": "6 - Campus Drive area",
+      "stop": "364296",
+      "mapLat": 42.682585,
+      "mapLon": -74.476739,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 38
+    },
+    {
+      "route": "2",
+      "mapName": "7 - Grandview Apartments",
+      "stop": "STOP_2ff9d679-6674-49c6-b1df-850d14aa0033",
+      "mapLat": 42.68279,
+      "mapLon": -74.478722,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 124
+    },
+    {
+      "route": "2",
+      "mapName": "8 - Jay Ridge Complex",
+      "stop": "STOP_9d8538ad-b16e-407d-b54f-c15a4e55889b",
+      "mapLat": 42.680148,
+      "mapLon": -74.481117,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 187
+    },
+    {
+      "route": "2",
+      "mapName": "9 - Hammerstone Mohawk Dr",
+      "stop": "364289",
+      "mapLat": 42.683011,
+      "mapLon": -74.48609,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 171
+    },
+    {
+      "route": "2",
+      "mapName": "10 - Hammerstone Iroquois Dr",
+      "stop": "364290",
+      "mapLat": 42.6852,
+      "mapLon": -74.486066,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 111
+    },
+    {
+      "route": "2",
+      "mapName": "11 - Meadow Ln",
+      "stop": "364293",
+      "mapLat": 42.686669,
+      "mapLon": -74.485921,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 23
+    },
+    {
+      "route": "2",
+      "mapName": "12 - Cobleskill Regional Hospital",
+      "stop": "STOP_ec5c3758-95e2-4af9-8500-b130b2fac975",
+      "mapLat": 42.686711,
+      "mapLon": -74.481459,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 43
+    },
+    {
+      "route": "2",
+      "mapName": "13 - Main St & Union St",
+      "stop": "364298",
+      "mapLat": 42.678192,
+      "mapLon": -74.483721,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 15
+    },
+    {
+      "route": "2",
+      "mapName": "14 - North Grand & Chapel Street",
+      "stop": "STOP_c2c019dd-9278-4453-b3d4-062c43b66c30",
+      "mapLat": 42.679099,
+      "mapLon": -74.486886,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 9
+    },
+    {
+      "route": "2",
+      "mapName": "15 - Mealsite (Teen Town)",
+      "stop": "STOP_d52dc432-8a57-42a0-8d86-59a81117bb6e",
+      "mapLat": 42.681268,
+      "mapLon": -74.489064,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 5
+    },
+    {
+      "route": "2",
+      "mapName": "16 - Park Pl. & Veterans Drive.",
+      "stop": "STOP_b6b5f844-9350-4860-9144-1be574052f5e",
+      "mapLat": 42.677147,
+      "mapLon": -74.487342,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 22
+    },
+    {
+      "route": "2",
+      "mapName": "17 - GreenBridge Apts",
+      "stop": "STOP_79ba74e9-f6ec-4fe4-94cc-a8e5e3580194",
+      "mapLat": 42.675173,
+      "mapLon": -74.493189,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 19
+    },
+    {
+      "route": "2",
+      "mapName": "18 - SUNY campus/ Knapp circle",
+      "stop": "364286",
+      "mapLat": 42.674795,
+      "mapLon": -74.496621,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 376
+    },
+    {
+      "route": "2",
+      "mapName": "19 - MacArthur Ave",
+      "stop": "STOP_348161ef-01d4-4f60-b7f7-a8da7f1837b5",
+      "mapLat": 42.675195,
+      "mapLon": -74.49474,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 861
+    },
+    {
+      "route": "2",
+      "mapName": "20 - Main St & Center St",
+      "stop": "364300",
+      "mapLat": 42.678107,
+      "mapLon": -74.483169,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 22
+    },
+    {
+      "route": "2",
+      "mapName": "21 - Walmart",
+      "stop": "364278",
+      "mapLat": 42.681848,
+      "mapLon": -74.455478,
+      "kmlSha256": "b960cb204e8bc7aa0cb1632c88d6f70180119fd9f38fb1096a742fdbf30e0ecb",
+      "separationMeters": 24
+    },
+    {
+      "route": "3",
+      "mapName": "1 - Price Chopper",
+      "stop": "364271",
+      "mapLat": 42.682262,
+      "mapLon": -74.470568,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 104
+    },
+    {
+      "route": "3",
+      "mapName": "2 - Reinhardt Mini Mart",
+      "stop": "364287",
+      "mapLat": 42.63659,
+      "mapLon": -74.569581,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 16
+    },
+    {
+      "route": "3",
+      "mapName": "3 - Richmondville Fire House",
+      "stop": "364283",
+      "mapLat": 42.634302,
+      "mapLon": -74.563321,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 29
+    },
+    {
+      "route": "3",
+      "mapName": "4 - Richmond-View Senior Housing",
+      "stop": "364279",
+      "mapLat": 42.63507,
+      "mapLon": -74.555194,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 43
+    },
+    {
+      "route": "3",
+      "mapName": "6 - Main St & Center St",
+      "stop": "364300",
+      "mapLat": 42.678106,
+      "mapLon": -74.48321,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 20
+    },
+    {
+      "route": "3",
+      "mapName": "7 - Wal-Mart Supercenter",
+      "stop": "364278",
+      "mapLat": 42.681855,
+      "mapLon": -74.45546,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 23
+    },
+    {
+      "route": "3",
+      "mapName": "8 - The Meadows\u00a0",
+      "stop": "fr9y",
+      "mapLat": 42.634527,
+      "mapLon": -74.345368,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 46
+    },
+    {
+      "route": "3",
+      "mapName": "9 - Middleburgh Library",
+      "stop": "364276",
+      "mapLat": 42.598509,
+      "mapLon": -74.335175,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 23
+    },
+    {
+      "route": "3",
+      "mapName": "10 - Indian Acres",
+      "stop": "364302",
+      "mapLat": 42.590713,
+      "mapLon": -74.33444,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 10
+    },
+    {
+      "route": "3",
+      "mapName": "11 - Middleburgh School Bus Garage",
+      "stop": "STOP_b88547de-2ac8-40d9-94c5-f87f9f98719c",
+      "mapLat": 42.591902,
+      "mapLon": -74.323471,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 126
+    },
+    {
+      "route": "3",
+      "mapName": "12 - Cliffside Apartments",
+      "stop": "364277",
+      "mapLat": 42.597142,
+      "mapLon": -74.32826,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 40
+    },
+    {
+      "route": "3",
+      "mapName": "13 - Main St, across theater",
+      "stop": null,
+      "mapLat": 42.594681,
+      "mapLon": -74.328045,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71"
+    },
+    {
+      "route": "3",
+      "mapName": "14 - ARC",
+      "stop": "60f0676e",
+      "mapLat": 42.640368,
+      "mapLon": -74.323009,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 197
+    },
+    {
+      "route": "3",
+      "mapName": "16- County Office Building, side lobby",
+      "stop": "364281",
+      "mapLat": 42.663267,
+      "mapLon": -74.312669,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 82
+    },
+    {
+      "route": "3",
+      "mapName": "18 - Driftwood Apartments",
+      "stop": "364301",
+      "mapLat": 42.664517,
+      "mapLon": -74.308164,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 64
+    },
+    {
+      "route": "3",
+      "mapName": "19 - Bassett Healthcare Schoharie",
+      "stop": "STOP_8d264a57-daf4-4ac8-a0c3-0b936f74fc99",
+      "mapLat": 42.685438,
+      "mapLon": -74.295578,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 24
+    },
+    {
+      "route": "3",
+      "mapName": "20 - County Annex Building",
+      "stop": "364291",
+      "mapLat": 42.702796,
+      "mapLon": -74.310783,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 28
+    },
+    {
+      "route": "3",
+      "mapName": "5 - SUNY Cobleskill/Knapp Circle",
+      "stop": "364286",
+      "mapLat": 42.67469,
+      "mapLon": -74.496574,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 367
+    },
+    {
+      "route": "3",
+      "mapName": "15 - The Birches",
+      "stop": "rnfc",
+      "mapLat": 42.65873,
+      "mapLon": -74.316072,
+      "kmlSha256": "38c3ceaf2f2ce7fcfa10bb2a634e75fd46811656ba7db7f66e9d10d499036d71",
+      "separationMeters": 19
+    },
+    {
+      "route": "22",
+      "mapName": "1 - Price Chopper",
+      "stop": "364271",
+      "mapLat": 42.6823759,
+      "mapLon": -74.4718551,
+      "kmlSha256": "b0535c49391c832e4842809401f8bada30231a80b2b957cc8561cbba9ff0e94f",
+      "separationMeters": 38
+    },
+    {
+      "route": "22",
+      "mapName": "2 - Reinhardt Mini Mart",
+      "stop": "364287",
+      "mapLat": 42.636589,
+      "mapLon": -74.56958,
+      "kmlSha256": "b0535c49391c832e4842809401f8bada30231a80b2b957cc8561cbba9ff0e94f",
+      "separationMeters": 16
+    },
+    {
+      "route": "22",
+      "mapName": "3 - Richmondville Fire House",
+      "stop": "364283",
+      "mapLat": 42.634075,
+      "mapLon": -74.563278,
+      "kmlSha256": "b0535c49391c832e4842809401f8bada30231a80b2b957cc8561cbba9ff0e94f",
+      "separationMeters": 7
+    },
+    {
+      "route": "22",
+      "mapName": "4 - Main St & Center St",
+      "stop": "364300",
+      "mapLat": 42.6782,
+      "mapLon": -74.483101,
+      "kmlSha256": "b0535c49391c832e4842809401f8bada30231a80b2b957cc8561cbba9ff0e94f",
+      "separationMeters": 34
+    },
+    {
+      "route": "22",
+      "mapName": "5 - Route 7 & Route 145",
+      "stop": "gtcb",
+      "mapLat": 42.680046,
+      "mapLon": -74.420395,
+      "kmlSha256": "b0535c49391c832e4842809401f8bada30231a80b2b957cc8561cbba9ff0e94f",
+      "separationMeters": 34
+    },
+    {
+      "route": "22",
+      "mapName": "6 - Rt I-88/Rt 30A",
+      "stop": "6v1r",
+      "mapLat": 42.705434,
+      "mapLon": -74.313728,
+      "kmlSha256": "b0535c49391c832e4842809401f8bada30231a80b2b957cc8561cbba9ff0e94f",
+      "separationMeters": 15
+    },
+    {
+      "route": "22",
+      "mapName": "7 - Park & Ride Route 20, Duanesburg",
+      "stop": "zpu7",
+      "mapLat": 42.762004,
+      "mapLon": -74.13453,
+      "kmlSha256": "b0535c49391c832e4842809401f8bada30231a80b2b957cc8561cbba9ff0e94f",
+      "separationMeters": 2269
+    },
+    {
+      "route": "22",
+      "mapName": "8 -Empire State Plaza",
+      "stop": "bhxx",
+      "mapLat": 42.648348,
+      "mapLon": -73.760595,
+      "kmlSha256": "b0535c49391c832e4842809401f8bada30231a80b2b957cc8561cbba9ff0e94f",
+      "separationMeters": 47
+    },
+    {
+      "route": "22",
+      "mapName": "9 - Washington Ave & S Swan St",
+      "stop": "g2vn",
+      "mapLat": 42.654264,
+      "mapLon": -73.758994,
+      "kmlSha256": "b0535c49391c832e4842809401f8bada30231a80b2b957cc8561cbba9ff0e94f",
+      "separationMeters": 23
+    },
+    {
+      "route": "22",
+      "mapName": "10 - Broadway/State/Green Street",
+      "stop": "rttm",
+      "mapLat": 42.649223,
+      "mapLon": -73.751341,
+      "kmlSha256": "b0535c49391c832e4842809401f8bada30231a80b2b957cc8561cbba9ff0e94f",
+      "separationMeters": 30
+    },
+    {
+      "route": "22",
+      "mapName": "11 - Encon Building\u00a0",
+      "stop": "h7sy",
+      "mapLat": 42.652565,
+      "mapLon": -73.7492354,
+      "kmlSha256": "b0535c49391c832e4842809401f8bada30231a80b2b957cc8561cbba9ff0e94f",
+      "separationMeters": 89
+    },
+    {
+      "route": "22",
+      "mapName": "12 - Bryant & Stratton College",
+      "stop": "b4jo",
+      "mapLat": 42.698008,
+      "mapLon": -73.810202,
+      "kmlSha256": "b0535c49391c832e4842809401f8bada30231a80b2b957cc8561cbba9ff0e94f",
+      "separationMeters": 0
+    },
+    {
+      "route": "22",
+      "mapName": "12 -\u00a0State Office Campus",
+      "stop": "fa26",
+      "mapLat": 42.68164,
+      "mapLon": -73.80807,
+      "kmlSha256": "b0535c49391c832e4842809401f8bada30231a80b2b957cc8561cbba9ff0e94f",
+      "separationMeters": 644
+    },
+    {
+      "route": "22",
+      "mapName": "13 - Wolf Road",
+      "stop": "pplg",
+      "mapLat": 42.72554,
+      "mapLon": -73.79782,
+      "kmlSha256": "b0535c49391c832e4842809401f8bada30231a80b2b957cc8561cbba9ff0e94f",
+      "separationMeters": 1968
+    }
+  ],
+  "mapGeometryRechecked": "2026-11-16",
+  "mapHashNote": "Route 20/22 KML image URLs rotate; November 16 re-downloads have unchanged point names and coordinates.",
+  "campusSource": {
+    "url": "https://cobleskill.edu/students/campus-shuttle-schedule.aspx",
+    "sha256": "6d1765a2fd6acdee60e19daa475e8d8d8ffdac30af49c5b5280a716b09c77074",
+    "reviewed": "2026-11-16",
+    "publishedSequences": 8,
+    "locationsPerSequence": 5
+  },
+  "checkedAt": "2026-11-16T06:43:54Z"
+}
