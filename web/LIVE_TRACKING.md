@@ -35,7 +35,7 @@ The normalized bus contract is:
 
 This is a schema example, not a real bus report. `timestamp` must be the vehicle's actual GPS measurement time in Unix **seconds**, refreshed by the provider. Never use the time the feed was downloaded. Supported route IDs are `1`, `2`, `2A`, `3`, `5`, `20`, `20W`, `22`, `23`. Unknown route IDs require an explicit mapping; a matching snapshot trip ID can resolve an omitted route ID.
 
-GTFS-Realtime JSON accepts `entity[].vehicle`, `vehicle.position.latitude/longitude`, vehicle timestamps, and camelCase or snake_case trip/route fields. Binary protobuf feeds and differential feeds need a provider-side JSON adapter before use. This release does not infer live arrival predictions, ingest TripUpdates, interpolate bus movement, or track drivers' phones.
+GTFS-Realtime JSON accepts `entity[].vehicle`, `vehicle.position.latitude/longitude`, vehicle timestamps, and camelCase or snake_case trip/route fields. Binary protobuf feeds and differential feeds need a provider-side JSON adapter before use. This release does not infer live arrival predictions, ingest TripUpdates, interpolate bus movement, or track passengers' phones. A separate opt-in device test and authenticated upload API are documented in [Device tracking](docs/LIVE_TRACKING.md).
 
 `GET /api/vehicles` returns `configured`, `connected`, `status`, `message`, `checkedAt`, and `vehicles`. Status distinguishes unconfigured, live, empty, stale, invalid and unavailable feeds. A connected empty feed does not prove buses are out of service. Responses are not cached offline. The browser polls every 30 seconds while visible and rechecks GPS age every five seconds; readings older than 90 seconds or more than 15 seconds ahead are hidden. An outage clears displayed positions. Only positions in the documented SCPT service region are accepted. Popup times are Eastern Time.
 
@@ -54,3 +54,7 @@ The basemap contacts OpenStreetMap by default (IP address, referrer origin and r
 ## Hardware pilot
 
 See [GPS_SETUP.md](GPS_SETUP.md) for researched Walmart/Target hardware options and an operator-approved Android/Traccar pilot. The service validation bounds include Cooperstown for Route 23. No hardware has been purchased or connected.
+
+## Combined device backend
+
+The preserved `/api/gps`, `/api/operations` and `/api/assignments` endpoints support approved devices and replacement-bus assignments. Configure `GPS_DEVICES_JSON`, `DISPATCH_TOKEN` and persistent storage as described in [docs/LIVE_TRACKING.md](docs/LIVE_TRACKING.md). Use either this device backend or `SCPT_VEHICLES_URL`; a configured device backend takes precedence. The passenger map only shows measurements within 90 seconds. Dispatch may retain a stale report for up to 15 minutes. No device or provider is configured automatically.

@@ -1,6 +1,6 @@
 {
   "name": "cobytransit",
-  "version": "1.4.0",
+  "version": "2.3.0",
   "private": true,
   "type": "module",
   "license": "MIT",
@@ -9,9 +9,10 @@
     "test": "node --test tests/*.test.mjs",
     "build": "node scripts/package.mjs && node scripts/build.mjs && node scripts/validate-artifact.mjs",
     "check:data": "node scripts/check-data.mjs",
-    "check:sources": "python3 scripts/check-sources.py"
+    "check:sources": "python3 scripts/check-sources.py",
+    "start": "node --env-file-if-exists=.env server/node.js"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.9"
   }
 }

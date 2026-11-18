@@ -1,0 +1,9 @@
+{
+  "name": "cobytransit",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-11-17",
+  "workers_dev": true,
+  "no_bundle": true,
+  "build": { "command": "npm run build" },
+  "observability": { "enabled": true }
+}

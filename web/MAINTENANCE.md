@@ -18,3 +18,7 @@ The static source snapshot stays available as a fallback and in source downloads
 Run `npm run check:sources` to compare 13 official pages, seven map files and the GTFS archive with the monitoring baseline. Inspect `.qa/source-report.json` or the GitHub Actions summary. The checker also fails within 14 days of calendar expiry. It never imports or approves changes. After reviewing changed sources and correcting any affected data, deliberately run `python3 scripts/check-sources.py --record` and review the baseline diff. Recording hashes does not update the timetable audit timestamp. KML comparison ignores rotating image URLs and checks placemark names and geometry.
 
 The rider site warns when service notices cannot be checked. The optional staff dashboard and notice storage are documented in [STAFF_SETUP.md](STAFF_SETUP.md). A full-day cancellation suppresses every affected scheduled run for those dates; partial-day changes need an informational notice and dispatch confirmation. The dashboard cannot edit the audited schedule.
+
+## Deploying over an older stored schedule
+
+The bundled snapshot records `auditRevision`, a digest of the reviewed corrections. If storage contains the same raw GTFS archive without that audit revision, the server serves the bundled audited copy instead. A newer download timestamp alone does not mean the route corrections were applied. The stored object is preserved; no production records are deleted during deployment. Re-import the current reviewed corrections before accepting another stored copy of that archive.

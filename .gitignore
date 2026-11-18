@@ -17,3 +17,7 @@ dist/
 .dev.vars*
 __pycache__/
 *.pyc
+
+.local-data/
+
+!.env.example

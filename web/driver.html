@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>GPS device test · CobyTransit</title>
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script type="module" src="/assets/driver.js"></script>
+  </head>
+  <body>
+    <main class="staff-page">
+      <a href="/operations.html">← Dispatch</a>
+      <h1>GPS device test</h1>
+      <p>
+        Use only an authorized test device while parked. Starting shares this
+        device’s location with the server; an assigned vehicle’s position is
+        visible to visitors of this site. Never enter personal devices into a
+        public fleet without consent.
+      </p>
+      <p>
+        This browser test needs HTTPS and location permission. Keep this page
+        open in the foreground. A production bus should use dedicated GPS
+        hardware or an approved agency adapter.
+      </p>
+      <form id="device" class="staff-form">
+        <label for="device-id">Vehicle ID</label
+        ><input
+          id="device-id"
+          required
+          maxlength="40"
+          pattern="[A-Za-z0-9_-]+"
+          autocomplete="off"
+        /><label for="device-token">Device token</label
+        ><input
+          id="device-token"
+          type="password"
+          required
+          maxlength="256"
+          autocomplete="off"
+        /><button id="start-sharing" type="submit" class="primary">
+          Start sharing this device’s GPS</button
+        ><button id="stop-sharing" type="button" class="secondary" disabled>
+          Stop sharing
+        </button>
+      </form>
+      <p id="device-status" class="staff-status" role="status">
+        Location sharing is off.
+      </p>
+      <p>
+        Stopping ends new uploads. The passenger map hides the last report after 90 seconds. Dispatch retains a stale report for up to 15 minutes. Dispatch can remove the route
+        assignment immediately.
+      </p>
+    </main>
+  </body>
+</html>

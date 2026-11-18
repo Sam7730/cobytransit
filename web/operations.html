@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Dispatch · CobyTransit</title>
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script type="module" src="/assets/operations.js"></script>
+  </head>
+  <body>
+    <main class="staff-page">
+      <a href="/">← Passenger map</a>
+      <h1>Transit operations</h1>
+      <p>
+        Monitor GPS reports and assign an authorized vehicle to a route.
+        Replacing a vehicle updates the passenger map on its next refresh. This
+        project is independent of SCPT.
+      </p>
+      <form id="unlock" class="staff-form">
+        <label for="dispatch-token">Dispatcher token</label
+        ><input
+          id="dispatch-token"
+          type="password"
+          autocomplete="off"
+          required
+          maxlength="256"
+        /><button class="primary" type="submit">Open dispatch</button
+        ><small
+          >Tokens stay in memory for this tab and are never saved in browser
+          storage.</small
+        >
+      </form>
+      <p id="staff-status" class="staff-status" role="status">
+        Dispatch must be configured by the deployment owner.
+      </p>
+      <section id="dispatch" hidden>
+        <div class="staff-actions">
+          <button id="refresh" class="secondary">Refresh fleet</button
+          ><button id="lock" class="secondary">Lock dispatch</button
+          ><a class="secondary" href="/driver.html">GPS device test</a>
+        </div>
+        <h2>Vehicle reports</h2>
+        <div class="table-wrap">
+          <table class="staff-table">
+            <thead>
+              <tr>
+                <th>Vehicle</th>
+                <th>GPS status</th>
+                <th>Last measurement</th>
+              </tr>
+            </thead>
+            <tbody id="fleet"></tbody>
+          </table>
+        </div>
+        <form id="assignment" class="staff-form">
+          <h2>Assign or replace a bus</h2>
+          <label for="route">Route</label
+          ><select id="route"></select
+          ><label for="vehicle">Vehicle</label
+          ><select id="vehicle"></select>
+          <p id="current-assignment"></p>
+          <button class="primary" type="submit">Save assignment</button
+          ><small
+            >A vehicle can serve one route at a time. Choose “No vehicle” to
+            stop publishing a route’s bus position.</small
+          >
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
