@@ -6,7 +6,7 @@ The rider website works without this feature. Staff writes are disabled until bo
 
 ## Hosting requirements
 
-Use the generated Cloudflare Worker (`worker/index.js`) over HTTPS, with a Cloudflare R2 bucket bound as `BUCKET` and a secret called `ADMIN_TOKEN`. GitHub Pages cannot run the staff API. `npm run dev` previews the dashboard but intentionally has no persistent staff storage. Use Wrangler for local storage testing.
+Use the generated Cloudflare Worker (`worker/index.js`) over HTTPS, with a Cloudflare R2 bucket bound as `BUCKET` and a secret called `ADMIN_TOKEN`. GitHub Pages cannot run the staff API. `npm run dev` previews the dashboard but intentionally has no persistent staff storage. Use `npm start` with `ADMIN_TOKEN` in your local `.env` file for persistent single-server testing, or use Wrangler for the Worker storage path.
 
 1. Run `npm run build` in the project folder.
 2. Create an R2 bucket in your Cloudflare account. Check the provider's pricing before enabling services.

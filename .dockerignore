@@ -1,0 +1,8 @@
+.git
+.openai
+.env*
+node_modules
+dist
+.local-data
+.qa
+worker

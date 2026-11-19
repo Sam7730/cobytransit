@@ -22,16 +22,22 @@ npm run check:sources
 
 This command requires Python 3.9+ and internet access. It saves a report to `.qa/source-report.json` and returns a failing status if sources changed, cannot be reached, or the schedule expires within 14 days. The GitHub workflow runs daily once this workflow is on the default branch and scheduled Actions are enabled. A matching source hash is not proof that buses are running or that map pins are correct.
 
+## One maintained release
+
+Version 2.3 combines the audited GitHub interface with the earlier hosted transfer planner, Node/Docker server and authenticated device/dispatch tools. The hosted Site and GitHub previously had different source histories. Deployments must use the same reviewed release; changing GitHub alone does not publish the connected Site.
+
+Use `/staff` for service notices, `/operations.html` for device assignments, and `/driver.html` only for an authorized foreground GPS test. The passenger page never requests your location. Actual SCPT devices remain unconnected.
+
 ## What the website does
 
 - Shows county geography, published bus routes, stops and reservation areas on a real street map.
 - Lets riders search by route, town or stop and view each run's stop order and timetable.
-- Finds direct trips and same-day return options using the published service calendar.
+- Finds direct trips, one-transfer options and next-service-day suggestions using the published service calendar.
 - Shows upcoming **scheduled** departures, saved stops and shareable route/stop links.
 - Provides reservation details, fares, source notices and optional offline schedules.
 - Can display live GPS positions and traffic when the required providers are connected.
 
-The trip planner does not calculate transfers, walking directions or live arrival predictions. Reservation areas do not guarantee pickup at every address. Some route lines are incomplete and are marked accordingly.
+Transfers use one exact shared stop with a 10–90 minute wait. They do not guarantee a connection. Walking directions and live arrival predictions are not calculated. Reservation areas do not guarantee pickup at every address. Some route lines are incomplete and are marked accordingly.
 
 The current reviewed schedule covers dates through **December 31, 2026**. See the [route audit](ROUTE_AUDIT.md) for the November 16 review of all 23 fixed-route runs and 469 published timetable entries.
 
@@ -41,7 +47,7 @@ For normal local use, install these tools:
 
 | Tool | Why you need it |
 | --- | --- |
-| [Node.js](https://nodejs.org/en/download) | Runs the development server, tests and build. Use a current LTS release; the app requires Node 20 or newer. |
+| [Node.js](https://nodejs.org/en/download) | Runs the development server, tests and build. Use a current LTS release; the app requires Node 22.9 or newer. |
 | npm | Runs the commands below. It comes with the standard Node.js installation. |
 | [Git](https://git-scm.com/downloads) | Downloads the repository and gets updates. Optional if you use GitHub's Download ZIP instead. |
 | A modern web browser | Opens the website. |
@@ -136,7 +142,7 @@ GitHub Actions also runs validation on pushes and pull requests. Its separate sc
 
 ## Publish a website with its server features
 
-The existing build targets **Cloudflare Workers**. It includes the pages and API in one generated file. GitHub Pages only serves static files: it cannot run this project's live GPS, traffic or maintenance endpoints. This repository is not a ready-made GitHub Pages deployment; project subpaths and offline behavior would also need adaptation.
+The included `wrangler.jsonc` builds and deploys the scheduled-service website to **Cloudflare Workers**. `npm start` also runs the restored Node server with local persistent storage; Docker and server setup are explained in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). It includes the pages and API in one generated file. GitHub Pages only serves static files: it cannot run this project's live GPS, traffic or maintenance endpoints. This repository is not a ready-made GitHub Pages deployment; project subpaths and offline behavior would also need adaptation.
 
 For your own Cloudflare deployment, create a Cloudflare account and install its optional CLI in the project:
 
@@ -144,17 +150,7 @@ For your own Cloudflare deployment, create a Cloudflare account and install its 
 npm install --save-dev wrangler
 ```
 
-Create a file named **`wrangler.jsonc`** beside `package.json` with the following example. Choose a Worker name for your own account:
-
-```json
-{
-  "name": "cobytransit",
-  "main": "worker/index.js",
-  "compatibility_date": "2026-11-16",
-  "workers_dev": true,
-  "no_bundle": true
-}
-```
+The repository already includes **`wrangler.jsonc`**. Change its Worker name if needed. It intentionally leaves staff/GPS storage unconfigured; add the R2 binding from [STAFF_SETUP.md](STAFF_SETUP.md) when enabling those features.
 
 Build and check the deployment package without publishing:
 
@@ -178,7 +174,7 @@ Reference: [Wrangler configuration](https://developers.cloudflare.com/workers/wr
 
 Start by asking SCPT for permission and an existing vehicle-location feed. If new equipment is needed, the [GPS setup guide](GPS_SETUP.md) describes a one-bus phone/Traccar pilot and Walmart/Target tracker considerations.
 
-The connection is: **bus GPS → tracking service → server adapter → CobyTransit map**. Buying a tracker alone does not connect it to this website; its data must be available through an API. A Traccar adapter is not included and still needs to be implemented for that option.
+The connection is: **bus GPS → tracking service → server adapter → CobyTransit map**. Buying a tracker alone does not connect it to this website; its data must be available through an API. A Traccar/Verizon adapter is not included and still needs to be implemented for that option. The combined release preserves a separate authenticated GPS upload API, dispatcher page and foreground phone test from the hosted source; see [Device tracking](docs/LIVE_TRACKING.md).
 
 Configure these on your hosting server only when you have the corresponding services:
 
@@ -237,7 +233,7 @@ The GTFS importer downloads the agency timetable feed. The service-map importer 
 | `web/assets/style.css` | Design, spacing, colors and responsive layout |
 | `web/assets/app.js` | Search, route details, timetable dialogs and rider controls |
 | `web/assets/map.js` | Map layers, stops and live markers |
-| `web/assets/engine.js` | Schedule calculations and direct-trip planning |
+| `web/assets/engine.js` | Schedule calculations, transfers and next-service suggestions |
 | `web/assets/catalog.js` | Route descriptions, fares and notices |
 | `web/assets/transit.json` | Included schedule; generated through the reviewed import process |
 | `web/assets/vendor/` | Bundled Leaflet files and license |
@@ -278,3 +274,7 @@ To use another port on macOS/Linux: `PORT=4174 npm run dev`. In Windows PowerShe
 - [CONTRIBUTING.md](CONTRIBUTING.md): contribution instructions.
 
 Application code is licensed under [MIT](LICENSE). Leaflet keeps its BSD-2-Clause license. Transit data and OpenStreetMap tiles retain their own source terms and attribution requirements. No county or SUNY endorsement is claimed.
+
+The public footer contains rider links only. Source downloads and staff entry points are not promoted on the passenger page. Maintainers can open `/staff` and `/operations.html` directly; hiding a link does not replace server authentication. A plain-language privacy page is available at `/privacy.html`, and website feedback is in the Rider guide.
+
+For demonstrations, open `/?demo=1` and select **Start demo**. Simulated buses are labeled on the map and kept separate from the live GPS feed. The regular passenger URL hides the demo controls.

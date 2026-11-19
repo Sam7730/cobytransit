@@ -1,3 +1,4 @@
+import {streetTile} from './street-tiles.js';
 import './vendor/leaflet.js';
 import {installBusDemo} from './bus-demo.js';
 import {freshVehicle, SERVICE_BOUNDS} from './live-data.js';
@@ -9,7 +10,9 @@ export class TransitMap {
   this.data=data;this.routes=routes;this.onStop=onStop;this.onCounty=onCounty;this.selected='2';this.activeTrip=null;this.activeStop=null;this.mode='all';this.vehicles=[];this.vehicleMarkers=new Map();this.incidents=[];this.showStops=true;
   this.map=L.map('map-container',{zoomControl:false,attributionControl:false,zoomSnap:.25,minZoom:8,maxZoom:18,zoomAnimation:!matchMedia('(prefers-reduced-motion: reduce)').matches}).setView([42.59,-74.44],10);
   this.map.setMaxBounds([[41.9,-75.3],[43.3,-73.2]]);
-  this.streets=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,referrerPolicy:'strict-origin-when-cross-origin'}).addTo(this.map);
+  const CheckedTiles=L.TileLayer.extend({createTile(coords,done){const tile=document.createElement('img');tile.alt='';tile._request=new AbortController();streetTile(this.getTileUrl(coords),tile._request.signal).then(blob=>{if(tile._request.signal.aborted)return;tile._blobURL=URL.createObjectURL(blob);tile.onload=()=>{URL.revokeObjectURL(tile._blobURL);done(null,tile);};tile.onerror=()=>{URL.revokeObjectURL(tile._blobURL);done(Error('Street tile unavailable'),tile);};tile.src=tile._blobURL;}).catch(error=>{if(!tile._request.signal.aborted)done(error,tile);});return tile;}});
+  this.streets=new CheckedTiles('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(this.map);
+  this.streets.on('tileunload',event=>{event.tile._request?.abort();if(event.tile._blobURL)URL.revokeObjectURL(event.tile._blobURL);});
   this.streets.on('tileerror',()=>{$('geometry-note').textContent='Street tiles unavailable · routes and stops remain available';});
   this.streets.on('load',()=>{if(this.streets.getContainer()?.querySelector('.leaflet-tile-loaded'))$('geometry-note').textContent='GTFS route reference · confirm boarding locations';});
   this.map.createPane('serviceAreas');this.map.getPane('serviceAreas').style.zIndex='360';this.serviceLayers=L.layerGroup().addTo(this.map);this.overlays=[];this.loadServiceMaps();
@@ -32,7 +35,7 @@ export class TransitMap {
   document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimeout(this.pollTimer);this.vehicles=[];this.incidents=[];this.drawVehicles();this.drawIncidents();this.toggleFlow(false);$('live-status').textContent='Paused while this tab is hidden';}else this.refresh();});
   window.addEventListener('offline',()=>{this.vehicles=[];this.incidents=[];this.drawVehicles();this.drawIncidents();this.toggleFlow(false);$('traffic-flow').checked=false;$('live-status').textContent='Offline · live locations unavailable';$('traffic-status').textContent='Offline · check conditions when reconnected';});
   window.addEventListener('online',()=>this.refresh());
-  this.busDemo=installBusDemo(this);
+  if(new URLSearchParams(location.search).get('demo')==='1')this.busDemo=installBusDemo(this);
   this.refresh();
  }
  async loadServiceMaps(){

@@ -1,18 +1,29 @@
+import {trackingApi} from './tracking.js';
 import {alertsEndpoint} from './alerts.js';
 import {vehicleData,trafficData,trafficTile} from './live.js';
 import {validateSnapshot,FEED_URL} from '../web/assets/validation.js';
 export const SECURITY_HEADERS={
- 'Content-Security-Policy':"default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' https://chatgpt.com; worker-src 'self'; manifest-src 'self'",
+ 'Content-Security-Policy':"default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob: https://tile.openstreetmap.org; connect-src 'self' https://tile.openstreetmap.org; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' https://chatgpt.com; worker-src 'self'; manifest-src 'self'",
  'X-CobyTransit-App':'1','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','Permissions-Policy':'camera=(), microphone=(), geolocation=(), payment=(), usb=()','Strict-Transport-Security':'max-age=31536000','Cross-Origin-Opener-Policy':'same-origin','Cross-Origin-Resource-Policy':'same-origin','Cache-Control':'no-store','X-XSS-Protection':'0'
 };
 const MAX_BODY=1500000,STATE_KEY='cobytransit/v1/snapshot.json';
 function response(body,status=200,type='application/json; charset=utf-8',extra={}){return new Response(body,{status,headers:{...SECURITY_HEADERS,'Content-Type':type,...extra}});}
 function json(value,status=200){return response(JSON.stringify(value),status);}
 async function boundedBody(body,max){if(!body)throw Error('Missing body');const reader=body.getReader(),parts=[];let len=0;try{for(;;){const {done,value}=await reader.read();if(done)break;len+=value.byteLength;if(len>max)throw Error('Body too large');parts.push(value);}}finally{await reader.cancel().catch(()=>{});}const all=new Uint8Array(len);let offset=0;for(const p of parts){all.set(p,offset);offset+=p.length;}return all;}
-async function snapshot(env,assets){const persisted=env.BUCKET?await env.BUCKET.get(STATE_KEY):null;if(persisted){const d=await persisted.json();validateSnapshot(d);return d;}return JSON.parse(assets['/assets/transit.json'].body);}
+async function snapshot(env,assets){
+ const bundled=JSON.parse(assets['/assets/transit.json'].body),persisted=env.BUCKET?await env.BUCKET.get(STATE_KEY):null;
+ if(persisted){const d=await persisted.json();
+  // A later download of the same GTFS archive does not include a newer route audit.
+  // Preserve the stored object, but serve the shipped corrections until it is reviewed.
+  if(bundled.meta.auditRevision&&d?.meta?.sha256===bundled.meta.sha256&&d.meta.auditRevision!==bundled.meta.auditRevision)return bundled;
+  validateSnapshot(d);return d;
+ }
+ return bundled;
+}
 export default {async fetch(request,env={}){
  const url=new URL(request.url),assets=env.LOCAL_ASSET_CONTENTS||ASSETS;let stage='route';
  try{
+  if(['/api/gps','/api/operations','/api/assignments'].includes(url.pathname)||(url.pathname==='/api/vehicles'&&env.GPS_DEVICES_JSON)){const tracked=await trackingApi(request,env,json,boundedBody);if(tracked)return request.method==='HEAD'?response(null,tracked.status):tracked;}
   if(request.method==='OPTIONS')return response(null,405,'text/plain; charset=utf-8',{'Allow':'GET, HEAD, POST'});
   if(['/api/alerts','/api/admin/alerts'].includes(url.pathname))return await alertsEndpoint(request,env,(value,status=200)=>response(request.method==='HEAD'?null:JSON.stringify(value),status),boundedBody);
   if(url.pathname==='/api/snapshot'){
@@ -48,18 +59,19 @@ export default {async fetch(request,env={}){
     if(!match)return json({error:'Invalid tile'},400);
     try{const tile=await trafficTile(env,...match.slice(1).map(Number));return tile?response(request.method==='HEAD'?null:tile,200,'image/png',{'Cache-Control':'private, max-age=60'}):json({error:'Traffic tile unavailable'},404);}catch{return json({error:'Traffic provider unavailable'},502);}
    }
-   const payload=url.pathname==='/api/vehicles'?await vehicleData(env,await snapshot(env,assets)):await trafficData(env);
+   const payload=url.pathname==='/api/vehicles'?await vehicleData(env,env.SCPT_VEHICLES_URL?await snapshot(env,assets):undefined):await trafficData(env);
    return response(request.method==='HEAD'?null:JSON.stringify(payload));
   }
   if(url.pathname==='/api/status'){
    if(!['GET','HEAD'].includes(request.method))return json({error:'Method not allowed'},405);
-   const d=await snapshot(env,assets);return json({release:'1.4.0',snapshot:d.meta,liveTracking:await vehicleData(env,d),traffic:{configured:!!env.TOMTOM_API_KEY},persistentUpdates:!!env.BUCKET&&env.UPDATES_ENABLED==='owner-private'});
+   const d=await snapshot(env,assets);return json({release:'2.3.0',snapshot:d.meta,liveTracking:env.GPS_DEVICES_JSON?await (await trackingApi(new Request(url.origin+'/api/vehicles'),env,json,boundedBody)).json():await vehicleData(env,d),traffic:{configured:!!env.TOMTOM_API_KEY},persistentUpdates:!!env.BUCKET&&env.UPDATES_ENABLED==='owner-private'});
   }
   if(!['GET','HEAD'].includes(request.method))return response('Method not allowed',405,'text/plain; charset=utf-8',{'Allow':'GET, HEAD'});
   const pathname=url.pathname==='/'?'/index.html':url.pathname==='/staff'?'/staff.html':url.pathname;
   if(!Object.hasOwn(assets,pathname))return response('Not found',404,'text/plain; charset=utf-8');
   const asset=assets[pathname],body=asset.base64?Uint8Array.from(atob(asset.body),c=>c.charCodeAt(0)):asset.body;
   const extra=pathname==='/service-worker.js'?{'Service-Worker-Allowed':'/','Cache-Control':'no-cache'}:{};
+  if(pathname==='/driver.html')extra['Permissions-Policy']=SECURITY_HEADERS['Permissions-Policy'].replace('geolocation=()','geolocation=(self)');
   if(pathname.endsWith('.zip'))extra['Content-Disposition']='attachment; filename="cobytransit-source.zip"';
   return response(request.method==='HEAD'?null:body,200,asset.type,extra);
  }catch(error){console.error('CobyTransit request failure',stage,error?.name,String(error?.message||'').slice(0,200));return json({error:'Service unavailable; consult ridescpt.com or call 518-234-0952'},503);}

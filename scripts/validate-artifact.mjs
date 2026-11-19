@@ -32,6 +32,10 @@ for (const [asset, type] of [
   ['/assets/alerts.js', 'text/javascript'],
   ['/assets/staff.js', 'text/javascript'],
   ['/staff', 'text/html'],
+  ['/privacy.html', 'text/html'],
+  ['/driver.html', 'text/html'],
+  ['/operations.html', 'text/html'],
+  ['/assets/street-tiles.js', 'text/javascript'],
 ]) {
   const response = await workerModule.default.fetch(new Request('https://app.example' + asset));
   assert.equal(response.status, 200, asset);

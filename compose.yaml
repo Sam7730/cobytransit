@@ -1,0 +1,15 @@
+services:
+  web:
+    build: .
+    ports:
+      - "127.0.0.1:4173:4173"
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - transit-data:/data
+    restart: unless-stopped
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+volumes:
+  transit-data:
