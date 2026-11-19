@@ -1,5 +1,6 @@
 import {streetTile} from './street-tiles.js';
 import './vendor/leaflet.js';
+import {installBusDemo} from './bus-demo.js';
 import {freshVehicle, SERVICE_BOUNDS} from './live-data.js';
 const L=window.L, $=id=>document.getElementById(id);
 function textNode(tag,text){const node=document.createElement(tag);node.textContent=text;return node;}
@@ -34,6 +35,7 @@ export class TransitMap {
   document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimeout(this.pollTimer);this.vehicles=[];this.incidents=[];this.drawVehicles();this.drawIncidents();this.toggleFlow(false);$('live-status').textContent='Paused while this tab is hidden';}else this.refresh();});
   window.addEventListener('offline',()=>{this.vehicles=[];this.incidents=[];this.drawVehicles();this.drawIncidents();this.toggleFlow(false);$('traffic-flow').checked=false;$('live-status').textContent='Offline · live locations unavailable';$('traffic-status').textContent='Offline · check conditions when reconnected';});
   window.addEventListener('online',()=>this.refresh());
+  this.busDemo=installBusDemo(this);
   this.refresh();
  }
  async loadServiceMaps(){
@@ -82,6 +84,7 @@ export class TransitMap {
  }
  draw(){
   this.map.invalidateSize({pan:false});this.drawServiceMaps();this.routeLayers.clearLayers();this.stopLayers.clearLayers();
+  this.busDemo?.sync();
   for(const mode of ['selected','all','none'])$(`routes-${mode}`).setAttribute('aria-pressed',String(this.mode===mode));
   const trips=this.data.trips.filter(t=>this.mode==='all'||(this.mode==='selected'&&t.route===this.selected&&(!this.activeTrip||t.id===this.activeTrip)));
   const shapes=new Set();
