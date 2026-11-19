@@ -115,7 +115,7 @@ export class TransitMap {
    marker.bindPopup(popup(`Bus ${v.label} · Route ${v.routeId}`,[`GPS measured ${new Date(v.timestamp*1000).toLocaleTimeString('en-US',{timeZone:'America/New_York'})} ET · ${Math.max(0,Math.floor(Date.now()/1000-v.timestamp))} seconds ago`,'Location only. Use the timetable for scheduled departures; no live arrival prediction is provided.']));
   }
   if(this.vehicles.length&&!fresh.length)$('live-status').textContent='GPS positions expired · waiting for fresh data';
-  $('gps-badge').textContent=fresh.length?`${fresh.length} live buses`:'Scheduled times';
+  $('gps-badge').textContent=fresh.length?`${fresh.length} live ${fresh.length===1?'bus':'buses'}`:'Scheduled times';
   $('gps-badge').dataset.live=String(fresh.length>0);
   $('live-summary').textContent=fresh.length?`${visible.length} buses shown for your route filter. GPS expires after 90 seconds.${this.activeTrip?' Vehicles are matched to the route, not this specific run.':''}`:'No current bus positions to display.';
  }
@@ -147,6 +147,6 @@ export class TransitMap {
    for(const id of ['traffic-flow','traffic-incidents']){$(id).disabled=!state.connected;if(!state.connected)$(id).checked=false;}
    $('traffic-options').hidden=!state.connected;$('traffic-credit').hidden=!state.connected;this.toggleFlow(state.connected&&$('traffic-flow').checked);
   }else{this.incidents=[];this.toggleFlow(false);for(const id of ['traffic-flow','traffic-incidents']){$(id).disabled=true;$(id).checked=false;}$('traffic-status').textContent='Traffic service unavailable · check 511NY';$('traffic-updated').textContent='';$('traffic-credit').hidden=true;$('traffic-options').hidden=true;}
-  this.drawIncidents();this.refreshing=false;$('live-refresh').disabled=false;if(!document.hidden)this.pollTimer=setTimeout(()=>this.refresh(),30000);
+  this.drawIncidents();this.refreshing=false;$('live-refresh').disabled=false;if(!document.hidden)this.pollTimer=setTimeout(()=>this.refresh(),buses.status==='fulfilled'&&buses.value.configured?15000:30000);
  }
 }

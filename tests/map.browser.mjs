@@ -14,7 +14,7 @@ await page.route('**/api/vehicles',async r=>{
 await page.route('**/api/traffic',r=>r.fulfill({json:{configured:true,connected:true,status:'available',message:'Test fixture only',checkedAt:new Date().toISOString(),incidents:[{id:'fixture',description:'Roadworks test',category:9,points:[[42.679,-74.48],[42.681,-74.482]],from:'A',to:'B',delay:120}]}}));
 await page.route('**/api/traffic/tiles/**',r=>r.fulfill({status:502,body:'fixture failure'}));
 await page.goto(process.env.BASE_URL||'http://localhost:4173');await page.waitForSelector('.live-bus-marker');
-assert.equal(await page.locator('#gps-badge').textContent(),'1 live buses');
+assert.equal(await page.locator('#gps-badge').textContent(),'1 live bus');
 await page.locator('.live-bus-marker').click();assert.ok((await page.locator('.leaflet-popup-content').textContent()).includes('<img src=x onerror=alert(1)>'));assert.equal(await page.locator('.leaflet-popup-content img').count(),0);
 await page.locator('.leaflet-popup-close-button').click();
 assert.equal(await page.locator('[aria-label^="View stop:"]').count(),47);
