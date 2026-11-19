@@ -35,7 +35,7 @@ export class TransitMap {
   document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimeout(this.pollTimer);this.vehicles=[];this.incidents=[];this.drawVehicles();this.drawIncidents();this.toggleFlow(false);$('live-status').textContent='Paused while this tab is hidden';}else this.refresh();});
   window.addEventListener('offline',()=>{this.vehicles=[];this.incidents=[];this.drawVehicles();this.drawIncidents();this.toggleFlow(false);$('traffic-flow').checked=false;$('live-status').textContent='Offline · live locations unavailable';$('traffic-status').textContent='Offline · check conditions when reconnected';});
   window.addEventListener('online',()=>this.refresh());
-  this.busDemo=installBusDemo(this);
+  if(new URLSearchParams(location.search).get('demo')==='1')this.busDemo=installBusDemo(this);
   this.refresh();
  }
  async loadServiceMaps(){

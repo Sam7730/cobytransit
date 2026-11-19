@@ -276,3 +276,5 @@ To use another port on macOS/Linux: `PORT=4174 npm run dev`. In Windows PowerShe
 Application code is licensed under [MIT](LICENSE). Leaflet keeps its BSD-2-Clause license. Transit data and OpenStreetMap tiles retain their own source terms and attribution requirements. No county or SUNY endorsement is claimed.
 
 The public footer contains rider links only. Source downloads and staff entry points are not promoted on the passenger page. Maintainers can open `/staff` and `/operations.html` directly; hiding a link does not replace server authentication. A plain-language privacy page is available at `/privacy.html`, and website feedback is in the Rider guide.
+
+For demonstrations, open `/?demo=1` and select **Start demo**. Simulated buses are labeled on the map and kept separate from the live GPS feed. The regular passenger URL hides the demo controls.
