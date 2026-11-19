@@ -62,7 +62,11 @@ $("device").onsubmit = (event) => {
         const result = await response.json();
         if (session !== generation) return;
         if (!response.ok) {
-          if (response.status === 401) stop();
+          if (response.status === 401) {
+            stop();
+            status("Device authorization failed. Check the vehicle ID and device token before trying again.");
+            return;
+          }
           throw Error(result.error || "Upload failed");
         }
         status(

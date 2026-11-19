@@ -52,12 +52,27 @@ Validation rejects coordinates outside the broad service region (41–44° N, 76
 ## 4. Verify the entire path
 
 - Open `/api/vehicles`: the assigned vehicle should appear with `state: "live"`, the original measurement time and accuracy.
-- Select its route on the passenger map; refresh occurs every 15 seconds. Click its vehicle row to center the map.
+- Select its route on the passenger map. While a GPS source is configured and the page is visible, the map requests fresh data every 15 seconds. Tap the bus marker to see its route and measurement time.
 - Stop uploads. The passenger map hides the report after 90 seconds. The dispatcher can still see it marked **stale** until it expires after 15 minutes.
 - Remove or replace the assignment in dispatch. The old bus must no longer appear on that route.
 - Restart the server. Stored assignments should remain. Offline or failed GPS requests clear passenger markers.
 
 Only assigned vehicles with recent reports are public. The service stores the latest sample per configured device, not a travel history. Configure a host-level rate limit for unauthenticated traffic in production; application validation and per-device throttling are not a network DDoS service.
+
+## One-bus field test
+
+Pick a vehicle, a route and a time with SCPT. Use an agency-approved device, mount and charger. On restricted hosting, the pilot phone needs its own authorized site access as well as its device token. If the agency offers an existing feed, confirm its format, route identifiers and measurement timestamps first.
+
+1. Start the device test while parked. Verify that the driver page accepts an actual fix and the dispatch page shows the correct vehicle and measurement time.
+2. Assign one route and open the passenger map on a second device. Have someone other than the driver verify that the marker is on the right route and follows the bus after it moves.
+3. Check reception along the route and observe a loss of connection. The last fix may remain visible until it reaches 90 seconds of age. After reconnecting, verify that the marker reappears with a new measurement time.
+4. End the pilot by stopping GPS sharing and removing the dispatch assignment. Confirm the marker disappears at the next refresh. Revoke the pilot token when it is no longer needed.
+
+The foreground phone page is suitable for a supervised pilot. A fleet rollout needs an approved provider feed, dedicated equipment or an app that keeps reporting reliably when the screen locks and the device changes networks.
+
+## Automated check
+
+With Playwright and Chromium installed, run `node tests/gps.browser.mjs` from the project folder. It uses isolated browser contexts and a temporary loopback server to check authorization, accepted measurements, route assignment, map movement and expiration. GitHub runs the same check in CI.
 
 ## API reference
 

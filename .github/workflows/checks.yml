@@ -36,6 +36,8 @@ jobs:
       - run: npm install --no-save --package-lock=false --ignore-scripts playwright@1.65.0
       - run: npx playwright install --with-deps chromium
       - run: npm run build
+      - name: Check GPS uploads, dispatch assignments and the passenger map
+        run: node tests/gps.browser.mjs
       - name: Check rider journeys and staff publication
         run: node tests/journey.browser.mjs
       - name: Check timetables and live-data failures
