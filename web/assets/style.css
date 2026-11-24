@@ -306,3 +306,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .bus-demo-controls {position:absolute;z-index:800;inset:auto auto 48px 12px;max-width:230px;padding:12px;background:#fff;border:1px solid var(--line);border-radius:12px;font-size:13px;box-shadow:var(--shadow)}
 .bus-demo-controls p,.bus-demo-controls [role=status] {margin:8px 0}
 .simulated-bus-marker {display:grid;place-items:center;background:#fff;color:#70458d;border:2px dashed #70458d;border-radius:14px;font-weight:700}
+
+
+/* 3D-style synthetic GPS bus markers, distinct from live vehicle markers. */
+.simulated-bus-marker.demo-bus-3d {display:block;background:transparent;border:0;border-radius:0;overflow:visible;color:#fff}
+.demo-bus-root {position:relative;width:40px;height:52px;overflow:visible}
+.demo-bus-heading {position:absolute;inset:0;transform-origin:50% 50%;will-change:transform;filter:drop-shadow(2px 4px 2px #122d3a55)}
+.demo-bus-heading svg {width:100%;height:100%;display:block}
+.demo-bus-route {position:absolute;left:50%;top:100%;transform:translate(-50%,-5px);background:#5d337d;color:#fff;box-shadow:0 2px 4px #0003;border:1px solid white;border-radius:9px;padding:2px 5px;white-space:nowrap;font:700 10px/1.15 system-ui}
+.demo-controls-3d {max-width:245px;border-left:4px solid #70458d}
+.demo-controls-3d label {display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12px}
+.demo-controls-3d select {max-width:100%;padding:5px;background:#fff;color:#183f33;border:1px solid #bbc9c3;border-radius:5px;font:inherit}
+.demo-controls-3d [role=status] {font-variant-numeric:tabular-nums;font-size:12px}
+.demo-popup p {margin:6px 0}
+@media (max-width:600px){.demo-controls-3d {max-width:205px;padding:8px;font-size:12px}}
