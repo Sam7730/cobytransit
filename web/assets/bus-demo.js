@@ -76,7 +76,7 @@ export function installBusDemo(view){
  }
  function render(m,dt){
   const p=position(m,m.distance),ahead=position(m,Math.max(0,Math.min(m.total,m.distance+m.direction*12)));
-  if(view.map.distance(p,ahead)>.1){const target=bearing(p,ahead);m.heading+=angle(m.heading,target)*Math.min(1,dt*5||1);}
+  if(view.map.distance(p,ahead)>.1){const target=bearing(p,ahead);m.heading=(m.heading+angle(m.heading,target)*Math.min(1,dt*5||1)+360)%360;}
   m.marker.setLatLng(p);const el=m.marker.getElement()?.querySelector('.demo-bus-heading');if(el)el.style.transform='rotate('+m.heading+'deg)';
   m.readout.textContent=Math.round(m.speed/MPH)+' mph · '+(m.dwell>0?'Stopped / boarding':m.speed<.5?'Starting':'Moving');
  }
